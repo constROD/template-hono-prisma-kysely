@@ -1,0 +1,17 @@
+node_modules/
+build/
+
+coverage/
+databases/
+
+*-lock.json
+*.lock
+
+.env
+.env.*
+.env-*
+
+!**.example
+
+.DS_Store
+*.tsbuildinfo

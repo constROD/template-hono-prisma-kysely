@@ -1,0 +1,23 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": [],
+  "rules": {
+    /* TypeScript */
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "error",
+      {
+        "fixToUnknown": true
+      }
+    ],
+
+    /* Others */
+    "no-console": "error"
+  }
+}

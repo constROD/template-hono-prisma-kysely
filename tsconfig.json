@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    /* Defaults */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* Paths: */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* Bundling: */
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "noEmit": true,
+
+    /* If you're code is not running in DOM: */
+    // "lib": ["es2022", "dom", "dom.iterable"],
+
+    /* If you're code is not running in DOM: */
+    "lib": ["es2022"]
+
+    /* If you're building for a library: */
+    // "declaration": true,
+
+    /* If you're building for a library in a monorepo: */
+    // "composite": true,
+    // "declarationMap": true
+  },
+  "include": ["**/*.ts", ".eslintrc.cjs"],
+  "exclude": ["node_modules"]
+}
