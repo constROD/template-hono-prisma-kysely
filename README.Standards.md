@@ -11,6 +11,8 @@
 
 - `/.husky` - for husky configuration.
 - `/databases` - for database container volume.
+- `/cli` - for cli scripts.
+- `/prisma` - for prisma schema and migrations.
 
 ## Folder Structure
 

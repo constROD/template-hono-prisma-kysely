@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a template for backend development using **node**, **Hono**, and **DrizzleORM**. It includes **ESLint**, **Prettier**, and **Husky** for code quality and linting.
+This is a template for backend development using **node**, **Hono**, **Prisma** and **Kysely**. It includes **ESLint**, **Prettier**, and **Husky** for code quality and linting.
 
 ## Prerequisites
 
