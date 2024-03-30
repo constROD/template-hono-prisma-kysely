@@ -1,5 +1,4 @@
 import { getProducts } from '@/data/product/get-products';
-import { createDbClient } from '@/db/create-db-client';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { productSchema } from './schema';
@@ -22,10 +21,8 @@ export const getProductsRoute = createRoute({
 });
 
 export const getProductsHandler: Handler = async c => {
-  const dbClient = createDbClient();
+  const dbClient = c.get('dbClient');
   const products = await getProducts({ dbClient });
-
-  await dbClient.destroy();
 
   return c.json(products, { status: 200 });
 };

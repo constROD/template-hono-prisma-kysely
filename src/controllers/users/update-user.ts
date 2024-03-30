@@ -1,5 +1,4 @@
 import { updateUser } from '@/data/user/update-user';
-import { createDbClient } from '@/db/create-db-client';
 import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { createRoute, z } from '@hono/zod-openapi';
@@ -43,12 +42,10 @@ export const updateUserRoute = createRoute({
 });
 
 export const updateUserHandler: Handler = async c => {
-  const dbClient = createDbClient();
+  const dbClient = c.get('dbClient');
   const userId = c.req.param('userId');
   const body = (await c.req.json()) as UpdateUser;
   const updatedUser = await updateUser({ dbClient, id: userId, values: body });
-
-  await dbClient.destroy();
 
   if (!updatedUser) throw new NotFoundError('User not found');
 

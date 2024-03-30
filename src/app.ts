@@ -8,10 +8,17 @@ import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-u
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
 import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
+import { createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { makeError } from './utils/errors';
 
 const app = new OpenAPIHono();
+
+declare module 'hono' {
+  interface ContextVariableMap {
+    dbClient: ReturnType<typeof createDbClient>;
+  }
+}
 
 /* Swagger Docs */
 app.doc('/swagger.json', {
@@ -24,9 +31,17 @@ app.doc('/swagger.json', {
 app.get('/', swaggerUI({ url: '/swagger.json' }));
 
 /* Error Handler */
-app.onError((err, c) => {
+app.onError(async (err, c) => {
   const { error, statusCode } = makeError(err);
   return c.json(error, { status: statusCode });
+});
+
+/* Middlewares */
+app.use(async (c, next) => {
+  const dbClient = createDbClient();
+  c.set('dbClient', dbClient); // Pass dbClient to context
+  await next(); // Continue to next middleware or handler
+  await dbClient.destroy(); // Destroy dbClient after request or after error
 });
 
 /* Routes */
