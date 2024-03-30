@@ -2,6 +2,7 @@ import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { version } from '../package.json';
+import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
 import { createUserHandler, createUserRoute } from './controllers/users/create-user';
 import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
@@ -34,6 +35,8 @@ app.openapi(createUserRoute, createUserHandler);
 app.openapi(getUserRoute, getUserHandler);
 app.openapi(updateUserRoute, updateUserHandler);
 app.openapi(deleteUserRoute, deleteUserHandler);
+
+app.openapi(getProductsRoute, getProductsHandler);
 
 /* Serve */
 serve({

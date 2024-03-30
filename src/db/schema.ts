@@ -1,8 +1,9 @@
-import { type users } from '@prisma/client';
+import { type products, type users } from '@prisma/client';
 import { type ColumnType, type Generated } from 'kysely';
 
 export interface Tables {
   users: users;
+  products: products;
 }
 
 type OverrideKyselyCommonField<T> = Omit<T, 'id' | 'created_at' | 'updated_at' | 'deleted_at'> & {
@@ -22,4 +23,5 @@ type OverrideKyselyCommonField<T> = Omit<T, 'id' | 'created_at' | 'updated_at' |
 
 export interface KyselyTables {
   users: OverrideKyselyCommonField<users>;
+  products: OverrideKyselyCommonField<products>;
 }
