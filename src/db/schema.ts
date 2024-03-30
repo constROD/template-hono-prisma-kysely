@@ -6,6 +6,11 @@ export interface Tables {
   products: products;
 }
 
+export interface KyselyTables {
+  users: OverrideKyselyCommonField<users>;
+  products: OverrideKyselyCommonField<products>;
+}
+
 type OverrideKyselyCommonField<T> = Omit<T, 'id' | 'created_at' | 'updated_at' | 'deleted_at'> & {
   id: Generated<string>;
   created_at: ColumnType<Date, Date | string | undefined, never>;
@@ -20,8 +25,3 @@ type OverrideKyselyCommonField<T> = Omit<T, 'id' | 'created_at' | 'updated_at' |
     Date | string | undefined | null
   >;
 };
-
-export interface KyselyTables {
-  users: OverrideKyselyCommonField<users>;
-  products: OverrideKyselyCommonField<products>;
-}
