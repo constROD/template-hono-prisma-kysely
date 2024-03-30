@@ -11,7 +11,7 @@
       "url": "https://github.com/constROD"
     }
   ],
-  "description": "Template Hono Drizzle API",
+  "description": "Template Hono Prisma Kysely API",
   "author": "Rodrick Alcantara <rialcantara21@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "db:stop": "docker compose -f ./docker-compose.yaml down",
     "db:dev": "tsx ./cli/db-dev-migrate.ts",
     "db:create": "prisma migrate dev --create-only",
-    "db:generate": "prisma migrate generate",
+    "db:generate": "prisma generate",
     "db:deploy": "prisma migrate deploy",
     "db:status": "prisma migrate status",
     "test": "vitest",
@@ -32,7 +32,8 @@
     "check:spell": "git diff --name-only | cspell --no-summary --no-progress --no-must-find-files --file-list stdin",
     "check:all": "concurrently \"pnpm lint\" \"pnpm check:types\" \"pnpm check:spell\"",
     "pre-commit": "concurrently \"lint-staged --allow-empty\" \"pnpm check:types\" \"pnpm check:spell\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "pnpm db:generate"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [

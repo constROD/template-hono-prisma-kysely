@@ -1,4 +1,4 @@
-# Template Hono Drizzle API by bossROD
+# Template Hono Prisma Kysely API by bossROD
 
 ## Description
 
