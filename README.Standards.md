@@ -17,7 +17,7 @@
 ## Folder Structure
 
 - `/src` - main source code.
-- `/src/api` - for api routes and controllers.
+- `/src/controllers` - for api routes and controllers.
 - `/src/data` - for data access layer. (e.g. database, cache, etc.)
 - `/src/db` - for database connection and schemas.
 - `/src/libs` - for 3rd party integrations libraries.

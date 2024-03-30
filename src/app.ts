@@ -2,11 +2,11 @@ import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { version } from '../package.json';
-import { createUserHandler, createUserRoute } from './api/users/create-user';
-import { deleteUserHandler, deleteUserRoute } from './api/users/delete-user';
-import { getUserHandler, getUserRoute } from './api/users/get-user';
-import { getUsersHandler, getUsersRoute } from './api/users/get-users';
-import { updateUserHandler, updateUserRoute } from './api/users/update-user';
+import { createUserHandler, createUserRoute } from './controllers/users/create-user';
+import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
+import { getUserHandler, getUserRoute } from './controllers/users/get-user';
+import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
+import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
 import { envConfig } from './env';
 import { makeError } from './utils/errors';
 
@@ -25,8 +25,7 @@ app.get('/', swaggerUI({ url: '/swagger.json' }));
 /* Error Handler */
 app.onError((err, c) => {
   const { error, statusCode } = makeError(err);
-  if (error.name === 'ZodError') return c.json(error, { status: statusCode });
-  return c.text(error.message, { status: statusCode });
+  return c.json(error, { status: statusCode });
 });
 
 /* Routes */

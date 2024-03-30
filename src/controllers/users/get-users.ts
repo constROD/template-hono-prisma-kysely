@@ -1,5 +1,6 @@
 import { getUsers } from '@/data/user/get-users';
 import { createDbClient } from '@/db/create-db-client';
+import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { userSchema } from './schema';
@@ -22,6 +23,8 @@ export const getUsersRoute = createRoute({
 });
 
 export const getUsersHandler: Handler = async c => {
+  throw new NotFoundError('User not found');
+
   const dbClient = createDbClient();
   const users = await getUsers({ dbClient });
 
