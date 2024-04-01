@@ -12,7 +12,7 @@ export const productSchema = (
       example: faker.commerce.productDescription(),
     }),
     price: z.number().openapi({
-      example: 0,
+      example: parseFloat(faker.commerce.price()),
     }),
     created_at: z.date().openapi({
       example: new Date().toISOString(),
