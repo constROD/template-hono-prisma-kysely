@@ -1,3 +1,18 @@
 {
+  /* Editor */
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  /* ESLint */
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }] /* For Monorepo */,
+
+  /* Others */
   "cSpell.language": "en,en-US,en-GB"
 }
