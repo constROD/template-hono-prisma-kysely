@@ -9,6 +9,10 @@
     {
       "name": "Rodrick Alcantara",
       "url": "https://github.com/constROD"
+    },
+    {
+      "name": "Mark Gabrielle Recoco Cay",
+      "url": "https://github.com/MarkCay"
     }
   ],
   "description": "Template Hono Prisma Kysely API",
