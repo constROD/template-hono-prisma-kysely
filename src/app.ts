@@ -36,12 +36,12 @@ app.onError(async (err, c) => {
   return c.json(error, { status: statusCode });
 });
 
+const dbClient = createDbClient();
+
 /* Middlewares */
 app.use(async (c, next) => {
-  const dbClient = createDbClient();
   c.set('dbClient', dbClient); // Pass dbClient to context
   await next(); // Continue to next middleware or handler
-  await dbClient.destroy(); // Destroy dbClient after request or after error
 });
 
 /* Routes */

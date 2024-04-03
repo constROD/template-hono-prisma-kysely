@@ -1,7 +1,13 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["datetime", "Hono", "Kysely", "openapi"],
+  "words": [
+    "datetime",
+    "Hono",
+    "Kysely",
+    "Millis",
+    "openapi"
+  ],
   "ignorePaths": [
     "./node_modules",
     "./dist",
