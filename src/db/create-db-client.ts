@@ -10,7 +10,7 @@ export function createDbClient(dbUrl: string = DEFAULT_DB_URL) {
     dialect: new PostgresDialect({
       pool: new Pool({
         connectionString: dbUrl,
-        max: 80, // Set maximum <number> of client(s) in the pool
+        max: 20, // Set maximum <number> of client(s) in the pool
         connectionTimeoutMillis: 1000, // return an error after <number> second(s) if connection could not be established
         idleTimeoutMillis: 1000, // close idle clients after <number> second(s)
       }),
