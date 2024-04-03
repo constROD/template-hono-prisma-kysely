@@ -8,11 +8,12 @@ import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-u
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
 import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
-import { createDbClient } from './db/create-db-client';
+import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
-import { makeError } from './utils/errors';
 
 import { logger } from 'hono/logger';
+import { errorHandlerMiddleware } from './middlewares/error-handler';
+import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 
 const app = new OpenAPIHono();
 
@@ -32,20 +33,10 @@ app.doc('/swagger.json', {
 });
 app.get('/', swaggerUI({ url: '/swagger.json' }));
 
-/* Error Handler */
-app.onError(async (err, c) => {
-  const { error, statusCode } = makeError(err);
-  return c.json(error, { status: statusCode });
-});
-
-const dbClient = createDbClient();
-
 /* Middlewares */
+app.onError(errorHandlerMiddleware);
 app.use(logger());
-app.use(async (c, next) => {
-  c.set('dbClient', dbClient); // Pass dbClient to context
-  await next(); // Continue to next middleware or handler
-});
+app.use(setUpDbClientMiddleware);
 
 /* Routes */
 app.openapi(getUsersRoute, getUsersHandler);
