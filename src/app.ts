@@ -12,6 +12,8 @@ import { createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { makeError } from './utils/errors';
 
+import { logger } from 'hono/logger';
+
 const app = new OpenAPIHono();
 
 declare module 'hono' {
@@ -39,6 +41,7 @@ app.onError(async (err, c) => {
 const dbClient = createDbClient();
 
 /* Middlewares */
+app.use(logger());
 app.use(async (c, next) => {
   c.set('dbClient', dbClient); // Pass dbClient to context
   await next(); // Continue to next middleware or handler
