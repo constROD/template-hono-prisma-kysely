@@ -1,6 +1,6 @@
+import { deleteAllRecords } from '@/data/delete-all-records';
 import { makeFakeUser } from '@/data/user/__test-utils__/make-fake-user';
 import { createDbClient } from '@/db/create-db-client';
-import { deleteAllRecords } from '@/db/delete-all-records';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { createUser } from './create-user';
 
