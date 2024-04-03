@@ -2,14 +2,14 @@ import { envConfig, isTest } from '@/env';
 import { ForbiddenError } from '@/utils/errors';
 import { sql } from 'kysely';
 import { type DbClient } from './create-db-client';
-import { type KyselyTables } from './schema';
+import { type KyselySchema } from './schema';
 
 export async function deleteAllRecords({
   dbClient,
   tableName,
 }: {
   dbClient: DbClient;
-  tableName: keyof KyselyTables;
+  tableName: keyof KyselySchema;
 }) {
   if (!isTest()) throw new ForbiddenError('deleteAllRecords can only be used in test environment');
   if (!envConfig.DB_URL.includes('localhost'))

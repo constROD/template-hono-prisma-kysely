@@ -1,10 +1,10 @@
 import { type DbClient } from '@/db/create-db-client';
-import { type KyselyTables } from '@/db/schema';
+import { type KyselySchema } from '@/db/schema';
 import { type InsertObject } from 'kysely';
 
 type CreateUserArgs = {
   dbClient: DbClient;
-  values: InsertObject<KyselyTables, 'users'>;
+  values: InsertObject<KyselySchema, 'users'>;
 };
 
 export async function createUser({ dbClient, values }: CreateUserArgs) {

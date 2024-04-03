@@ -1,12 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": [
-    "datetime",
-    "Hono",
-    "Kysely",
-    "openapi"
-  ],
+  "words": ["datetime", "Hono", "Kysely", "openapi"],
   "ignorePaths": [
     "./node_modules",
     "./dist",
@@ -16,6 +11,7 @@
     "*.config.cjs",
     "./package.json",
     "./pnpm-lock.yaml",
-    "./docker-compose.yaml"
+    "./docker-compose.yaml",
+    "./prisma/schema.prisma"
   ]
 }

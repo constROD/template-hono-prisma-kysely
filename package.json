@@ -53,6 +53,7 @@
     "hono": "^4.1.5",
     "kysely": "^0.27.3",
     "pg": "^8.11.3",
+    "prisma-kysely": "^1.8.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
