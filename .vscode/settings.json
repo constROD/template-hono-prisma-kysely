@@ -14,5 +14,8 @@
   "eslint.workingDirectories": [{ "mode": "auto" }] /* For Monorepo */,
 
   /* Others */
-  "cSpell.language": "en,en-US,en-GB"
+  "cSpell.language": "en,en-US,en-GB",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  }
 }

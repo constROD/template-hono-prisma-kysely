@@ -3,7 +3,7 @@
     /* Defaults */
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "es2022",
+    "target": "ESNext",
     "allowJs": true,
     "checkJs": true,
     "resolveJsonModule": true,
@@ -19,23 +19,18 @@
     },
 
     /* Bundling: */
-    "moduleResolution": "Bundler",
-    "module": "ESNext",
-    "noEmit": true,
-
-    /* If you're code is not running in DOM: */
-    // "lib": ["es2022", "dom", "dom.iterable"],
-
-    /* If you're code is not running in DOM: */
-    "lib": ["es2022"]
-
-    /* If you're building for a library: */
-    // "declaration": true,
-
-    /* If you're building for a library in a monorepo: */
-    // "composite": true,
-    // "declarationMap": true
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "outDir": "./build",
+    "rootDir": "./src"
   },
   "include": ["**/*.ts", ".eslintrc.cjs"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "./node_modules",
+    "./cli",
+    "./build",
+    "**/__test-utils",
+    "vitest.config.ts",
+    "**/*.test.ts"
+  ]
 }

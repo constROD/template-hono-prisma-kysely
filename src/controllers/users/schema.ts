@@ -1,18 +1,17 @@
 import { type Tables } from '@/db/schema';
-import { faker } from '@faker-js/faker';
 import { z } from '@hono/zod-openapi';
 
 export const userSchema = (
   z.object({
     id: z.string().uuid(),
     email: z.string().email().openapi({
-      example: faker.internet.email(),
+      example: 'bossROD@gmail.com',
     }),
     first_name: z.string().nullable().openapi({
-      example: faker.person.firstName(),
+      example: 'boss',
     }),
     last_name: z.string().nullable().openapi({
-      example: faker.person.lastName(),
+      example: 'ROD',
     }),
     created_at: z.date().openapi({
       example: new Date().toISOString(),
@@ -29,13 +28,13 @@ export const userSchema = (
 export const createUserSchema = userSchema
   .extend({
     email: z.string().email().openapi({
-      example: faker.internet.email(),
+      example: 'bossROD@gmail.com',
     }),
     first_name: z.string().optional().openapi({
-      example: faker.person.firstName(),
+      example: 'boss',
     }),
     last_name: z.string().optional().openapi({
-      example: faker.person.lastName(),
+      example: 'ROD',
     }),
   })
   .omit({

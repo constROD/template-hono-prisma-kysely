@@ -1,18 +1,17 @@
 import { type Tables } from '@/db/schema';
-import { faker } from '@faker-js/faker';
 import { z } from '@hono/zod-openapi';
 
 export const productSchema = (
   z.object({
     id: z.string().uuid(),
     name: z.string().openapi({
-      example: faker.commerce.productName(),
+      example: 'Product 1',
     }),
     description: z.string().nullable().openapi({
-      example: faker.commerce.productDescription(),
+      example: 'Some description',
     }),
     price: z.number().openapi({
-      example: parseFloat(faker.commerce.price()),
+      example: 100.0,
     }),
     created_at: z.date().openapi({
       example: new Date().toISOString(),

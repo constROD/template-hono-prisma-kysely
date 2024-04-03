@@ -1,6 +1,5 @@
 import { deleteUser } from '@/data/user/delete-user';
 import { NotFoundError } from '@/utils/errors';
-import { faker } from '@faker-js/faker';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { userSchema } from './schema';
@@ -10,7 +9,7 @@ const schema = {
     userId: z
       .string()
       .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: faker.string.uuid() }),
+      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
   }),
 };
 

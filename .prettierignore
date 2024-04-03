@@ -1,8 +1,7 @@
 node_modules/
-dist/
-dist-ssr/
-
+build/
 coverage/
+databases/
 
 *-lock.json
 *-lock.yaml

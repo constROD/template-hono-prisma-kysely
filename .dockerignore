@@ -2,13 +2,15 @@ node_modules/
 build/
 coverage/
 databases/
+cli/
 
 *-lock.json
 *.lock
 
-.env
-.env.*
-.env-*
+# TODO: Enable when Docker is ENV is added
+# .env
+# .env.*
+# .env-*
 
 !**.example
 

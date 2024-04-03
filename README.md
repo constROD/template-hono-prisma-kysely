@@ -36,6 +36,18 @@ pnpm db:stop
 pnpm dev
 ```
 
+**Production Mode:**
+
+- Build the project.
+```bash
+pnpm build
+```
+
+- Start the build for production.
+```bash
+pnpm start
+```
+
 ## Rules
 
 Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
