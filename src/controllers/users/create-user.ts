@@ -1,4 +1,4 @@
-import { createUser } from '@/data/user/create-user';
+import { createUserData } from '@/data/user/create-user';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
@@ -36,7 +36,7 @@ export const createUserRoute = createRoute({
 export const createUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const body = (await c.req.json()) as CreateUser;
-  const createdUser = await createUser({ dbClient, values: body });
+  const createdUser = await createUserData({ dbClient, values: body });
 
   if (!createdUser) throw new NotFoundError('User not found');
 

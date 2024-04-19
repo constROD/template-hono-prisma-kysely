@@ -24,13 +24,6 @@
     "outDir": "./build",
     "rootDir": "./src"
   },
-  "include": ["**/*.ts", ".eslintrc.cjs"],
-  "exclude": [
-    "./node_modules",
-    "./cli",
-    "./build",
-    "**/__test-utils",
-    "vitest.config.ts",
-    "**/*.test.ts"
-  ]
+  "include": ["**/*.ts", ".eslintrc.json"],
+  "exclude": ["./node_modules", "./cli", "./build", "vitest.config.ts"]
 }

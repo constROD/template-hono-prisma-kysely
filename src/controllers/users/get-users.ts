@@ -1,4 +1,4 @@
-import { getUsers } from '@/data/user/get-users';
+import { getUsersData } from '@/data/user/get-users';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { userSchema } from './schema';
@@ -22,7 +22,7 @@ export const getUsersRoute = createRoute({
 
 export const getUsersHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const users = await getUsers({ dbClient });
+  const users = await getUsersData({ dbClient });
 
   return c.json(users, { status: 200 });
 };

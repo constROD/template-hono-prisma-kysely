@@ -1,10 +1,10 @@
 import { type DbClient } from '@/db/create-db-client';
 
-type GetProductsArgs = {
+type GetProductsDataArgs = {
   dbClient: DbClient;
 };
 
-export async function getProducts({ dbClient }: GetProductsArgs) {
+export async function getProductsData({ dbClient }: GetProductsDataArgs) {
   const products = await dbClient.selectFrom('products').selectAll().execute();
   return products;
 }

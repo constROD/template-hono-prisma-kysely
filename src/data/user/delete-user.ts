@@ -1,11 +1,11 @@
 import { type DbClient } from '@/db/create-db-client';
 
-type DeleteUserArgs = {
+type DeleteUserDataArgs = {
   dbClient: DbClient;
   id: string;
 };
 
-export async function deleteUser({ dbClient, id }: DeleteUserArgs) {
+export async function deleteUserData({ dbClient, id }: DeleteUserDataArgs) {
   const [deletedUser] = await dbClient
     .deleteFrom('users')
     .where('id', '=', id)

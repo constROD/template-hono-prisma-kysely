@@ -2,7 +2,7 @@ import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { makeFakeUser } from '@/data/user/__test-utils__/make-fake-user';
 import { createDbClient } from '@/db/create-db-client';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { createUser } from './create-user';
+import { createUserData } from './create-user';
 
 const dbClient = createDbClient();
 
@@ -19,7 +19,7 @@ describe('Create User', () => {
     await deleteAllRecords({ dbClient, tableName: 'users' });
     const fakeUser = makeFakeUser();
 
-    const createdUser = await createUser({ dbClient, values: fakeUser });
+    const createdUser = await createUserData({ dbClient, values: fakeUser });
 
     expect(createdUser).toBeDefined();
     expect(createdUser?.id).toBeDefined();

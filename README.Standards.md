@@ -23,6 +23,7 @@
 - `/src/libs` - for 3rd party integrations libraries.
 - `/src/middlewares` - for express middlewares.
 - `/src/utils` - for helpers and utilities.
+- `/src/types` - for shared types and interfaces.
 
 ## File(s)
 

@@ -1,4 +1,4 @@
-import { deleteUser } from '@/data/user/delete-user';
+import { deleteUserData } from '@/data/user/delete-user';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
@@ -35,7 +35,7 @@ export const deleteUserRoute = createRoute({
 export const deleteUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const userId = c.req.param('userId');
-  const deletedUser = await deleteUser({ dbClient, id: userId });
+  const deletedUser = await deleteUserData({ dbClient, id: userId });
 
   if (!deletedUser) throw new NotFoundError('User not found');
 
