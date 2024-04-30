@@ -6,3 +6,7 @@ databases/
 *-lock.json
 *-lock.yaml
 *.lock
+
+.env
+.env.*
+.env-*
