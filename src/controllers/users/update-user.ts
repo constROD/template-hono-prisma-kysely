@@ -18,6 +18,7 @@ export const updateUserRoute = createRoute({
   method: 'put',
   path: '/users/{userId}',
   tags: ['Users'],
+  description: 'Update a user',
   request: {
     params: schema.params,
     body: {

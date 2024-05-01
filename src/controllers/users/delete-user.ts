@@ -17,6 +17,7 @@ export const deleteUserRoute = createRoute({
   method: 'delete',
   path: '/users/{userId}',
   tags: ['Users'],
+  description: 'Delete a user',
   request: {
     params: schema.params,
   },
