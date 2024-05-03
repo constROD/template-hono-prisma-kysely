@@ -9,7 +9,7 @@ RUN apk add --no-cache libc6-compat && \
   npm install -g pnpm@8.14.1
 
 # Set the working directory for subsequent instructions
-WORKDIR /app
+WORKDIR /builder
 
 # Copy package.json and pnpm-lock.yaml to leverage Docker cache
 COPY package.json pnpm-lock.yaml ./
@@ -28,7 +28,7 @@ RUN pnpm run build && \
 FROM base AS runner
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /runner
 
 # Create a non-root group and user for running the application securely
 RUN addgroup --system --gid 1001 nodejs
@@ -36,8 +36,9 @@ RUN adduser --system --uid 1001 hono
 
 # Copy installed node_modules and built artifacts from the builder stage
 # Change ownership to the non-root user and group created above
-COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/build /app/build
+COPY --from=builder --chown=hono:nodejs /builder/node_modules /runner/node_modules
+COPY --from=builder --chown=hono:nodejs /builder/build /runner/build
+COPY --from=builder --chown=hono:nodejs /builder/package.json /runner/package.json
 
 # Switch to non-root user for security
 USER hono
@@ -46,4 +47,4 @@ USER hono
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["node", "/app/build/index.js"]
+CMD ["node", "/runner/build/app.js"]

@@ -1,6 +1,6 @@
 version: '3'
 
-name: template-hono-prisma-kysely
+name: template-hono-prisma-kysely-db
 
 services:
   # Postgres

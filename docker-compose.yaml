@@ -1,0 +1,14 @@
+version: '3'
+
+name: template-hono-prisma-kysely
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '${APP_PORT}:3000'
+    environment:
+      - DB_URL=${DB_URL}
+      - TEST_DB_URL=${TEST_DB_URL}
