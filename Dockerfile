@@ -1,5 +1,8 @@
-# Stage 1: Builder stage starts from the base image
-FROM node:20-alpine AS builder
+# Stage 1: Base stage with Node.js Alpine image
+FROM node:20-alpine AS base
+
+# Stage 2: Builder stage starts from the base image
+FROM base AS builder
 
 # Install libc6-compat for compatibility and globally install specific pnpm version
 RUN apk add --no-cache libc6-compat && \
