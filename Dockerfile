@@ -6,7 +6,7 @@ FROM base AS builder
 
 # Install libc6-compat for compatibility and globally install specific pnpm version
 RUN apk add --no-cache libc6-compat && \
-  npm install -g pnpm@8.14.1
+  npm install -g pnpm@9.1.1
 
 # Set the working directory for subsequent instructions
 WORKDIR /builder
