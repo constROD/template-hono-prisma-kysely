@@ -1,6 +1,8 @@
 import { serve } from '@hono/node-server';
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
+import { apiReference } from '@scalar/hono-api-reference';
+import { logger } from 'hono/logger';
 import { version } from '../package.json';
 import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
 import { createUserHandler, createUserRoute } from './controllers/users/create-user';
@@ -10,8 +12,6 @@ import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
 import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
-
-import { logger } from 'hono/logger';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 
@@ -23,15 +23,23 @@ declare module 'hono' {
   }
 }
 
-/* Swagger Docs */
-app.doc('/swagger.json', {
+/* API Docs */
+app.doc('/openapi.json', {
   openapi: '3.0.0',
   info: {
     version,
     title: `${envConfig.STAGE.toUpperCase()} API`,
   },
 });
-app.get('/', swaggerUI({ url: '/swagger.json' }));
+app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
+app.get(
+  '/reference',
+  apiReference({
+    spec: {
+      url: '/openapi.json',
+    },
+  })
+);
 
 /* Middlewares */
 app.onError(errorHandlerMiddleware);
