@@ -20,7 +20,7 @@
 - `/src/controllers` - for api routes and controllers.
 - `/src/data` - for data access layer. (e.g. database, cache, etc.)
 - `/src/db` - for database connection and schemas.
-- `/src/libs` - for 3rd party integrations libraries.
+- `/src/lib` - for 3rd party integrations libraries.
 - `/src/middlewares` - for express middlewares.
 - `/src/utils` - for helpers and utilities.
 - `/src/types` - for shared types and interfaces.
