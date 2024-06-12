@@ -32,16 +32,16 @@ WORKDIR /runner
 
 # Create a non-root group and user for running the application securely
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
+RUN adduser --system --uid 1001 bossrod
 
 # Copy installed node_modules and built artifacts from the builder stage
 # Change ownership to the non-root user and group created above
-COPY --from=builder --chown=hono:nodejs /builder/node_modules /runner/node_modules
-COPY --from=builder --chown=hono:nodejs /builder/build /runner/build
-COPY --from=builder --chown=hono:nodejs /builder/package.json /runner/package.json
+COPY --from=builder --chown=bossrod:nodejs /builder/node_modules /runner/node_modules
+COPY --from=builder --chown=bossrod:nodejs /builder/build /runner/build
+COPY --from=builder --chown=bossrod:nodejs /builder/package.json /runner/package.json
 
 # Switch to non-root user for security
-USER hono
+USER bossrod
 
 # Inform Docker that the container is listening on port 3000 at runtime
 EXPOSE 3000
