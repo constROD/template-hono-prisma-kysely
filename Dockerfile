@@ -37,7 +37,7 @@ RUN adduser --system --uid 1001 bossrod
 # Copy installed node_modules and built artifacts from the builder stage
 # Change ownership to the non-root user and group created above
 COPY --from=builder --chown=bossrod:nodejs /builder/node_modules /runner/node_modules
-COPY --from=builder --chown=bossrod:nodejs /builder/build /runner/build
+COPY --from=builder --chown=bossrod:nodejs /builder/dist /runner/dist
 COPY --from=builder --chown=bossrod:nodejs /builder/package.json /runner/package.json
 
 # Switch to non-root user for security
@@ -47,4 +47,4 @@ USER bossrod
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["node", "/runner/build/app.js"]
+CMD ["node", "/runner/dist/app.js"]

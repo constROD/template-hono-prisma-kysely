@@ -20,9 +20,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch ./src/app.ts",
-    "clean": "rm -rf ./build",
+    "clean": "rm -rf ./dist",
     "build": "pnpm clean && tsc && tsc-alias",
-    "start": "node ./build/app.js",
+    "start": "node ./dist/app.js",
     "db:start": "docker compose -f ./docker-compose-db.yaml up -d",
     "db:stop": "docker compose -f ./docker-compose-db.yaml down",
     "db:dev": "tsx ./cli/db-dev-migrate.ts",
