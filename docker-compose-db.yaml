@@ -1,5 +1,3 @@
-version: '3'
-
 name: template-hono-prisma-kysely-db
 
 services:
@@ -26,7 +24,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   # PgAdmin
-  pgadmin:
+  pg-admin:
     image: dpage/pgadmin4:6
     ports:
       - '${PGADMIN_PORT}:5050'
