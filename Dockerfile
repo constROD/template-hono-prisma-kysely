@@ -21,8 +21,8 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Build the application and prune development dependencies
-RUN pnpm run build && \
-  pnpm prune --prod
+RUN pnpm run build
+RUN pnpm prune --prod
 
 # Stage 3: Runner stage starts from the base image again
 FROM base AS runner
