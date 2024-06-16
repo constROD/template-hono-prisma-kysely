@@ -4,22 +4,18 @@ import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { userSchema } from './schema';
 
-const schema = {
-  params: z.object({
-    userId: z
-      .string()
-      .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
-  }),
-};
-
 export const getUserRoute = createRoute({
   method: 'get',
   path: '/users/{userId}',
   tags: ['Users'],
   description: 'Get one user',
   request: {
-    params: schema.params,
+    params: z.object({
+      userId: z
+        .string()
+        .uuid()
+        .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+    }),
   },
   responses: {
     200: {

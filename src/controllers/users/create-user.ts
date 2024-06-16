@@ -4,10 +4,6 @@ import { createRoute } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { createUserSchema, userSchema, type CreateUser } from './schema';
 
-const schema = {
-  body: createUserSchema,
-};
-
 export const createUserRoute = createRoute({
   method: 'post',
   path: '/users',
@@ -17,7 +13,7 @@ export const createUserRoute = createRoute({
     body: {
       content: {
         'application/json': {
-          schema: schema.body,
+          schema: createUserSchema,
         },
       },
     },

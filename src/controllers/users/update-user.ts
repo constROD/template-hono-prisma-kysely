@@ -4,27 +4,22 @@ import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 import { updateUserSchema, userSchema, type UpdateUser } from './schema';
 
-const schema = {
-  params: z.object({
-    userId: z
-      .string()
-      .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
-  }),
-  body: updateUserSchema,
-};
-
 export const updateUserRoute = createRoute({
   method: 'put',
   path: '/users/{userId}',
   tags: ['Users'],
   description: 'Update a user',
   request: {
-    params: schema.params,
+    params: z.object({
+      userId: z
+        .string()
+        .uuid()
+        .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+    }),
     body: {
       content: {
         'application/json': {
-          schema: schema.body,
+          schema: updateUserSchema,
         },
       },
     },
