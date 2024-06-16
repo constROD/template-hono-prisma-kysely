@@ -1,4 +1,4 @@
-import { envConfig } from '@/env';
+import { envConfig } from '../src/env';
 import { runApplyDbMigration } from './commands/run-apply-db-migration';
 import { customLog } from './utils/logger';
 

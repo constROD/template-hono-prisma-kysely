@@ -1,4 +1,4 @@
-import { customLog } from 'cli/utils/logger';
+import { customLog } from '../utils/logger';
 import { runCommand } from '../utils/run-command';
 
 export function runApplyDbMigration(databaseUrl: string) {
