@@ -1,3 +1,4 @@
+import { STAGES } from '@/constants';
 import { envConfig, isTest } from '@/env';
 import { ForbiddenError } from '@/utils/errors';
 import { sql } from 'kysely';
@@ -12,7 +13,10 @@ export async function deleteAllRecords({
   tableName: keyof KyselySchema;
 }) {
   if (!isTest()) throw new ForbiddenError('deleteAllRecords can only be used in test environment');
-  if (!envConfig.DB_URL.includes('@localhost'))
-    throw new ForbiddenError('deleteAllRecords can only be used with a local database');
+  if (envConfig.STAGE === STAGES.Prod)
+    throw new ForbiddenError('deleteAllRecords can only be used with a non prod database');
+  if (!envConfig.TEST_DB_URL.includes('@localhost'))
+    throw new ForbiddenError('deleteAllRecords cannot be used with a localhost database');
+
   await sql`TRUNCATE TABLE ${sql.raw(tableName)}`.execute(dbClient);
 }

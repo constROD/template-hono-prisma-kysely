@@ -1,11 +1,12 @@
 import { envConfig, isTest } from '@/env';
+import { ForbiddenError } from '@/utils/errors';
 import { Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
 import { type KyselySchema } from './schema';
 
 export function createDbClient() {
   if (isTest())
-    throw new Error(
+    throw new ForbiddenError(
       'createDbClient cannot be used in test environment use createTestDbClient instead.'
     );
 
