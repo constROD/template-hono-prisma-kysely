@@ -1,7 +1,7 @@
 import { getUsersData } from '@/data/user/get-users';
+import { userSchema } from '@/data/user/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
-import { userSchema } from './schema';
 
 export const getUsersRoute = createRoute({
   method: 'get',

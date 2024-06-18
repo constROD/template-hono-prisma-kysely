@@ -1,7 +1,7 @@
 import { getProductsData } from '@/data/product/get-products';
+import { productSchema } from '@/data/product/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
-import { productSchema } from './schema';
 
 export const getProductsRoute = createRoute({
   method: 'get',

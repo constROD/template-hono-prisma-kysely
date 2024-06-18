@@ -25,35 +25,4 @@ export const userSchema = (
   }) satisfies z.ZodType<Tables['users']>
 ).openapi('User');
 
-export const createUserSchema = userSchema
-  .extend({
-    email: z.string().email().openapi({
-      example: 'bossROD@gmail.com',
-    }),
-    first_name: z.string().optional().openapi({
-      example: 'boss',
-    }),
-    last_name: z.string().optional().openapi({
-      example: 'ROD',
-    }),
-  })
-  .omit({
-    id: true,
-    created_at: true,
-    updated_at: true,
-    deleted_at: true,
-  });
-
-export const updateUserSchema = userSchema
-  .omit({
-    id: true,
-    created_at: true,
-    updated_at: true,
-    deleted_at: true,
-    email: true,
-  })
-  .partial();
-
 export type User = z.infer<typeof userSchema>;
-export type CreateUser = z.infer<typeof createUserSchema>;
-export type UpdateUser = z.infer<typeof updateUserSchema>;

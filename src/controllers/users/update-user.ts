@@ -1,8 +1,20 @@
+import { userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
-import { updateUserSchema, userSchema, type UpdateUser } from './schema';
+
+export const updateUserSchema = userSchema
+  .omit({
+    id: true,
+    created_at: true,
+    updated_at: true,
+    deleted_at: true,
+    email: true,
+  })
+  .partial();
+
+export type UpdateUser = z.infer<typeof updateUserSchema>;
 
 export const updateUserRoute = createRoute({
   method: 'put',

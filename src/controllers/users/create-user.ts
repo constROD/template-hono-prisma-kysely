@@ -1,8 +1,29 @@
 import { createUserData } from '@/data/user/create-user';
+import { userSchema } from '@/data/user/schema';
 import { NotFoundError } from '@/utils/errors';
-import { createRoute } from '@hono/zod-openapi';
+import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
-import { createUserSchema, userSchema, type CreateUser } from './schema';
+
+export const createUserSchema = userSchema
+  .extend({
+    email: z.string().email().openapi({
+      example: 'bossROD@gmail.com',
+    }),
+    first_name: z.string().optional().openapi({
+      example: 'boss',
+    }),
+    last_name: z.string().optional().openapi({
+      example: 'ROD',
+    }),
+  })
+  .omit({
+    id: true,
+    created_at: true,
+    updated_at: true,
+    deleted_at: true,
+  });
+
+export type CreateUser = z.infer<typeof createUserSchema>;
 
 export const createUserRoute = createRoute({
   method: 'post',

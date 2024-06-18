@@ -1,10 +1,10 @@
-import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
-import { makeFakeUser } from '@/data/user/__test-utils__/make-fake-user';
-import { createDbClient } from '@/db/create-db-client';
+import { createTestDbClient } from '@/db/create-db-client';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { deleteAllRecords } from '../__test-utils__/delete-all-records';
+import { makeFakeUser } from '../__test-utils__/make-fake-user';
 import { createUserData } from './create-user';
 
-const dbClient = createDbClient();
+const dbClient = createTestDbClient();
 
 describe('Create User', () => {
   beforeEach(async () => {

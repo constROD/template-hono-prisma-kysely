@@ -1,8 +1,8 @@
 import { deleteUserData } from '@/data/user/delete-user';
+import { userSchema } from '@/data/user/schema';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
-import { userSchema } from './schema';
 
 export const deleteUserRoute = createRoute({
   method: 'delete',
