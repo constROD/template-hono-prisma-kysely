@@ -10,6 +10,7 @@ export default defineConfig({
       all: true,
       provider: 'v8',
       reporter: ['lcov', 'text-summary'],
+      exclude: ['**/__test-utils__/**'],
     },
     poolOptions: {
       threads: {
