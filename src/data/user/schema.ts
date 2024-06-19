@@ -13,13 +13,13 @@ export const userSchema = (
     last_name: z.string().nullable().openapi({
       example: 'ROD',
     }),
-    created_at: z.date().openapi({
+    created_at: z.union([z.coerce.date(), z.string()]).openapi({
       example: new Date().toISOString(),
     }),
-    updated_at: z.date().openapi({
+    updated_at: z.union([z.coerce.date(), z.string()]).openapi({
       example: new Date().toISOString(),
     }),
-    deleted_at: z.date().nullable().openapi({
+    deleted_at: z.union([z.coerce.date(), z.string()]).nullable().openapi({
       example: null,
     }),
   }) satisfies z.ZodType<Tables['users']>

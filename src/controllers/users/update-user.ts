@@ -51,7 +51,7 @@ export const updateUserRoute = createRoute({
 export const updateUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const userId = c.req.param('userId');
-  const body = (await c.req.json()) as UpdateUser;
+  const body = await c.req.json<UpdateUser>();
   const updatedUser = await updateUserData({ dbClient, id: userId, values: body });
 
   if (!updatedUser) throw new NotFoundError('User not found');

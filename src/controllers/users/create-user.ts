@@ -53,7 +53,7 @@ export const createUserRoute = createRoute({
 
 export const createUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const body = (await c.req.json()) as CreateUser;
+  const body = await c.req.json<CreateUser>();
   const createdUser = await createUserData({ dbClient, values: body });
 
   if (!createdUser) throw new NotFoundError('User not found');
