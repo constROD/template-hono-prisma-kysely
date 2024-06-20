@@ -12,13 +12,16 @@ import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
 import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
+import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
+import { type AuthenticatedUser } from './types/auth';
 
 const app = new OpenAPIHono();
 
 declare module 'hono' {
   interface ContextVariableMap {
+    authenticatedUser: AuthenticatedUser | null;
     dbClient: ReturnType<typeof createDbClient>;
   }
 }
@@ -41,12 +44,18 @@ app.get(
   })
 );
 
-/* Middlewares */
+/* Global Middlewares */
 app.onError(errorHandlerMiddleware);
 app.use(logger());
 app.use(setUpDbClientMiddleware);
 
-/* Routes */
+/* Public Routes */
+// app.openapi(publicSomeRoute, publicSomeRouteHandler);
+
+/* For Private Routes Middlewares */
+app.use(authenticationMiddleware);
+
+/* Private Routes */
 app.openapi(getUsersRoute, getUsersHandler);
 app.openapi(createUserRoute, createUserHandler);
 app.openapi(getUserRoute, getUserHandler);
