@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 import { z } from 'zod';
-import { STAGES } from './constants';
+import { STAGES } from './constants/env';
 
 config();
 
@@ -21,3 +21,5 @@ export const envConfig = envSchema.parse({
   DB_URL: process.env.DB_URL,
   TEST_DB_URL: process.env.TEST_DB_URL,
 });
+
+export type EnvConfig = z.infer<typeof envSchema>;

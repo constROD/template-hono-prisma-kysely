@@ -1,9 +1,9 @@
-import { STAGES } from '@/constants';
+import { STAGES } from '@/constants/env';
+import { type DbClient } from '@/db/create-db-client';
+import { type KyselySchema } from '@/db/schema';
 import { envConfig, isTest } from '@/env';
 import { ForbiddenError } from '@/utils/errors';
 import { sql } from 'kysely';
-import { type DbClient } from '../../db/create-db-client';
-import { type KyselySchema } from '../../db/schema';
 
 export async function deleteAllRecords({
   dbClient,
