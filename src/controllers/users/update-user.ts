@@ -4,7 +4,7 @@ import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const updateUserSchema = userSchema
+export const updateUserBodySchema = userSchema
   .omit({
     id: true,
     created_at: true,
@@ -14,7 +14,7 @@ export const updateUserSchema = userSchema
   })
   .partial();
 
-export type UpdateUser = z.infer<typeof updateUserSchema>;
+export type UpdateUserBody = z.infer<typeof updateUserBodySchema>;
 
 export const updateUserRoute = createRoute({
   method: 'put',
@@ -31,7 +31,7 @@ export const updateUserRoute = createRoute({
     body: {
       content: {
         'application/json': {
-          schema: updateUserSchema,
+          schema: updateUserBodySchema,
         },
       },
     },
@@ -51,7 +51,7 @@ export const updateUserRoute = createRoute({
 export const updateUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const userId = c.req.param('userId');
-  const body = await c.req.json<UpdateUser>();
+  const body = await c.req.json<UpdateUserBody>();
   const updatedUser = await updateUserData({ dbClient, id: userId, values: body });
 
   if (!updatedUser) throw new NotFoundError('User not found');

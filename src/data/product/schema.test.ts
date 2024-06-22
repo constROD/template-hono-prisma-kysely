@@ -6,12 +6,12 @@ describe('productSchema', () => {
   it('should validate Product schema', () => {
     const input: Product = {
       id: faker.string.uuid(),
-      name: faker.commerce.productName(),
-      description: faker.lorem.sentence(),
-      price: Number(faker.commerce.price()),
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
+      name: faker.commerce.productName(),
+      description: faker.lorem.sentence(),
+      price: Number(faker.commerce.price()),
     };
 
     const result = productSchema.safeParse(input);

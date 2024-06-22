@@ -1,16 +1,16 @@
 import { faker } from '@faker-js/faker';
 import { describe, expect, it } from 'vitest';
-import { createUserSchema, type CreateUser } from './create-user';
+import { createUserBodySchema, type CreateUserBody } from './create-user';
 
-describe('createUser', () => {
-  it('should validate createUser input', () => {
-    const input: CreateUser = {
+describe('createUserBody', () => {
+  it('should validate createUserBody input', () => {
+    const input: CreateUserBody = {
       email: faker.internet.email(),
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
     };
 
-    const result = createUserSchema.safeParse(input);
+    const result = createUserBodySchema.safeParse(input);
 
     expect(result.success).toBe(true);
   });

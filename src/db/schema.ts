@@ -1,4 +1,4 @@
-import { type DB, type products, type users } from './types';
+import { type DB, type UserRoleType, type products, type users } from './types';
 
 type OverrideIdAndDates<TTable> = Omit<
   TTable,
@@ -10,8 +10,12 @@ type OverrideIdAndDates<TTable> = Omit<
   deleted_at: Date | string | null;
 };
 
+type OverrideUsers = Omit<OverrideIdAndDates<users>, 'role'> & {
+  role: UserRoleType;
+};
+
 export type Tables = {
-  users: OverrideIdAndDates<users>;
+  users: OverrideUsers;
   products: OverrideIdAndDates<products>;
 };
 

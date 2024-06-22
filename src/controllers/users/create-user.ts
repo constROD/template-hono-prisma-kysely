@@ -4,7 +4,7 @@ import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const createUserSchema = userSchema
+export const createUserBodySchema = userSchema
   .extend({
     email: z.string().email().openapi({
       example: 'bossROD@gmail.com',
@@ -18,12 +18,13 @@ export const createUserSchema = userSchema
   })
   .omit({
     id: true,
+    role: true,
     created_at: true,
     updated_at: true,
     deleted_at: true,
   });
 
-export type CreateUser = z.infer<typeof createUserSchema>;
+export type CreateUserBody = z.infer<typeof createUserBodySchema>;
 
 export const createUserRoute = createRoute({
   method: 'post',
@@ -34,7 +35,7 @@ export const createUserRoute = createRoute({
     body: {
       content: {
         'application/json': {
-          schema: createUserSchema,
+          schema: createUserBodySchema,
         },
       },
     },
@@ -53,7 +54,7 @@ export const createUserRoute = createRoute({
 
 export const createUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const body = await c.req.json<CreateUser>();
+  const body = await c.req.json<CreateUserBody>();
   const createdUser = await createUserData({ dbClient, values: body });
 
   if (!createdUser) throw new NotFoundError('User not found');

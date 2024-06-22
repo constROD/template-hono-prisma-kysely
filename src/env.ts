@@ -17,7 +17,7 @@ const envSchema = z.object({
 
 export const envConfig = envSchema.parse({
   APP_PORT: process.env.APP_PORT,
-  STAGE: isTest() ? process.env.NODE_ENV : process.env.STAGE,
+  STAGE: process.env.STAGE,
   DB_URL: process.env.DB_URL,
   TEST_DB_URL: process.env.TEST_DB_URL,
 });

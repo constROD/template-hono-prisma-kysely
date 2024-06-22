@@ -10,21 +10,28 @@ datasource db {
 }
 
 model users {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at DateTime  @default(now()) @db.Timestamptz(6)
-  deleted_at DateTime?
+  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at DateTime     @default(now()) @db.Timestamptz(6)
+  deleted_at DateTime?    @db.Timestamptz(6)
   first_name String?
   last_name  String?
-  email      String    @unique
+  email      String       @unique
+  role       UserRoleType @default(USER)
 }
 
 model products {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at  DateTime  @default(now()) @db.Timestamptz(6)
   updated_at  DateTime  @default(now()) @db.Timestamptz(6)
-  deleted_at  DateTime?
+  deleted_at  DateTime? @db.Timestamptz(6)
   name        String
   description String?
   price       Float
+}
+
+enum UserRoleType {
+  SUPER_ADMIN
+  ADMIN
+  USER
 }

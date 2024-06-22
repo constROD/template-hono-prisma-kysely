@@ -1,4 +1,5 @@
 import { type Tables } from '@/db/schema';
+import { UserRoleType } from '@/db/types';
 import { z } from '@hono/zod-openapi';
 
 export const userSchema = (
@@ -15,6 +16,9 @@ export const userSchema = (
     }),
     created_at: z.union([z.coerce.date(), z.string()]).openapi({
       example: new Date().toISOString(),
+    }),
+    role: z.nativeEnum(UserRoleType).openapi({
+      example: UserRoleType.USER,
     }),
     updated_at: z.union([z.coerce.date(), z.string()]).openapi({
       example: new Date().toISOString(),

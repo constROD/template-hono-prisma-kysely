@@ -21,11 +21,16 @@ describe('Create User', () => {
 
     const createdUser = await createUserData({ dbClient, values: fakeUser });
 
-    expect(createdUser).toBeDefined();
-    expect(createdUser?.id).toBeDefined();
-    expect(createdUser?.email).toEqual(fakeUser.email);
-    expect(createdUser?.created_at).toBeDefined();
-    expect(createdUser?.updated_at).toBeDefined();
+    expect(createdUser).toMatchObject({
+      id: expect.any(String),
+      created_at: expect.any(Date),
+      updated_at: expect.any(Date),
+      deleted_at: null,
+      first_name: fakeUser.first_name,
+      last_name: fakeUser.last_name,
+      email: fakeUser.email,
+      role: fakeUser.role,
+    });
 
     const currentUsers = await dbClient.selectFrom('users').selectAll().execute();
 
