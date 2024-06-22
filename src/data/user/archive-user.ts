@@ -7,12 +7,12 @@ type ArchiveUserDataArgs = {
 };
 
 export async function archiveUserData({ dbClient, id }: ArchiveUserDataArgs) {
-  const [archivedUser] = await dbClient
+  const [archivedRecord] = await dbClient
     .updateTable('users')
     .set({ deleted_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
     .execute();
 
-  return archivedUser;
+  return archivedRecord;
 }

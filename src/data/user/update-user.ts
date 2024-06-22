@@ -12,12 +12,12 @@ type UpdateUserDataArgs = {
 export async function updateUserData({ dbClient, id, values }: UpdateUserDataArgs) {
   if (values.email) throw new ValidationError('Cannot update email');
 
-  const [updatedUser] = await dbClient
+  const [updatedRecord] = await dbClient
     .updateTable('users')
     .set({ ...values, updated_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
     .execute();
 
-  return updatedUser;
+  return updatedRecord;
 }

@@ -5,6 +5,6 @@ type GetProductsDataArgs = {
 };
 
 export async function getProductsData({ dbClient }: GetProductsDataArgs) {
-  const products = await dbClient.selectFrom('products').selectAll().execute();
-  return products;
+  const records = await dbClient.selectFrom('products').selectAll().execute();
+  return records;
 }

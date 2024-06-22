@@ -6,11 +6,11 @@ type DeleteUserDataArgs = {
 };
 
 export async function deleteUserData({ dbClient, id }: DeleteUserDataArgs) {
-  const [deletedUser] = await dbClient
+  const [deletedRecord] = await dbClient
     .deleteFrom('users')
     .where('id', '=', id)
     .returningAll()
     .execute();
 
-  return deletedUser;
+  return deletedRecord;
 }

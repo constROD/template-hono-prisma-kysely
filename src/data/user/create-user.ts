@@ -8,7 +8,11 @@ type CreateUserDataArgs = {
 };
 
 export async function createUserData({ dbClient, values }: CreateUserDataArgs) {
-  const [createdUser] = await dbClient.insertInto('users').values(values).returningAll().execute();
+  const [createdRecord] = await dbClient
+    .insertInto('users')
+    .values(values)
+    .returningAll()
+    .execute();
 
-  return createdUser;
+  return createdRecord;
 }
