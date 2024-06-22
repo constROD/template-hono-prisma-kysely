@@ -32,17 +32,20 @@ app.doc('/openapi.json', {
   info: {
     version,
     title: `${envConfig.STAGE.toUpperCase()} API`,
+    description: 'API Documentation',
+  },
+  externalDocs: {
+    description: 'API Reference',
+    url: '/reference',
   },
 });
+// app.openAPIRegistry.registerComponent('securitySchemes', 'Bearer', {
+//   type: 'http',
+//   scheme: 'bearer',
+//   bearerFormat: 'JWT',
+// });
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
-app.get(
-  '/reference',
-  apiReference({
-    spec: {
-      url: '/openapi.json',
-    },
-  })
-);
+app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 
 /* Global Middlewares */
 app.onError(errorHandlerMiddleware);
