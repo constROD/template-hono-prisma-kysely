@@ -41,11 +41,11 @@ app.doc('/openapi.json', {
     url: '/reference',
   },
 });
-// app.openAPIRegistry.registerComponent('securitySchemes', 'Bearer', {
-//   type: 'http',
-//   scheme: 'bearer',
-//   bearerFormat: 'JWT',
-// });
+app.openAPIRegistry.registerComponent('securitySchemes', 'Bearer', {
+  type: 'http',
+  scheme: 'bearer',
+  bearerFormat: 'JWT',
+});
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
 app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 
@@ -55,17 +55,6 @@ app.use(logger());
 app.use(setUpDbClientMiddleware);
 
 /* ===== Public Routes ===== */
-// app.openapi(publicSomeRoute, publicSomeRouteHandler);
-/* ===== Public Routes ===== */
-
-/* For Private Routes Middlewares */
-app.use(authenticationMiddleware);
-
-/* ===== Private Routes ===== */
-/* Me */
-app.openapi(getProfileRoute, getProfileHandler);
-app.openapi(updateProfileRoute, updateProfileHandler);
-
 /* Users */
 app.openapi(getUsersRoute, getUsersHandler);
 app.openapi(createUserRoute, createUserHandler);
@@ -75,6 +64,15 @@ app.openapi(deleteUserRoute, deleteUserHandler);
 
 /* Products */
 app.openapi(getProductsRoute, getProductsHandler);
+/* ===== Public Routes ===== */
+
+/* This needs to be declared before the private routes */
+app.use(authenticationMiddleware);
+
+/* ===== Private Routes ===== */
+/* Me */
+app.openapi(getProfileRoute, getProfileHandler);
+app.openapi(updateProfileRoute, updateProfileHandler);
 /* ===== Private Routes ===== */
 
 /* Serve */

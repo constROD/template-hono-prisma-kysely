@@ -6,7 +6,7 @@ import { createRoute } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
 export const getProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }],
+  security: [{ bearerAuth: [] }] /* You need to add this to all of your private routes */,
   method: 'get',
   path: '/me',
   tags: ['Me'],
@@ -26,6 +26,8 @@ export const getProfileRoute = createRoute({
 export const getProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
+
+  /* This will fail since we haven't handle this yet: `src/middlewares/authentication.ts` */
   const currentUser = await getUserData({ dbClient, id: authenticatedUser.id });
 
   if (!currentUser) throw new NotFoundError('User not found');

@@ -19,7 +19,7 @@ export const updateProfileBodySchema = userSchema
 export type UpdateProfileBody = z.infer<typeof updateProfileBodySchema>;
 
 export const updateProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }],
+  security: [{ bearerAuth: [] }] /* You need to add this to all of your private routes */,
   method: 'put',
   path: '/me',
   tags: ['Me'],
@@ -50,6 +50,7 @@ export const updateProfileHandler: Handler = async c => {
   const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
   const body = await c.req.json<UpdateProfileBody>();
 
+  /* This will fail since we haven't handle this yet: `src/middlewares/authentication.ts` */
   const updatedUser = await updateUserData({ dbClient, id: authenticatedUser.id, values: body });
 
   if (!updatedUser) throw new NotFoundError('User not found');
