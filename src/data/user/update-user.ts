@@ -1,7 +1,7 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type KyselySchema } from '@/db/schema';
 import { ValidationError } from '@/utils/errors';
-import { type UpdateObject } from 'kysely';
+import { sql, type UpdateObject } from 'kysely';
 
 type UpdateUserDataArgs = {
   dbClient: DbClient;
@@ -14,7 +14,7 @@ export async function updateUserData({ dbClient, id, values }: UpdateUserDataArg
 
   const [updatedUser] = await dbClient
     .updateTable('users')
-    .set(values)
+    .set({ ...values, updated_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
     .execute();

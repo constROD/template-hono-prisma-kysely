@@ -27,9 +27,10 @@ describe('Update User', () => {
     expect(beforeUsers.length).toBe(1);
     expect(beforeUsers[0]?.id).toBe(testCreatedUser.id);
     expect(beforeUsers[0]?.first_name).toBe(testCreatedUser.first_name);
+    expect(beforeUsers[0]?.updated_at.toISOString()).toBe(testCreatedUser.updated_at.toISOString());
 
     const updatedFirstName = faker.person.firstName();
-    const deletedUser = await updateUserData({
+    const updatedUser = await updateUserData({
       dbClient,
       id: testCreatedUser.id,
       values: { first_name: updatedFirstName },
@@ -37,8 +38,11 @@ describe('Update User', () => {
     const afterUsers = await dbClient.selectFrom('users').selectAll().execute();
 
     expect(afterUsers.length).toBe(1);
-    expect(deletedUser?.id).toBe(testCreatedUser.id);
-    expect(deletedUser?.first_name).toBe(updatedFirstName);
+    expect(updatedUser?.id).toBe(testCreatedUser.id);
+    expect(updatedUser?.first_name).toBe(updatedFirstName);
+    expect(updatedUser?.updated_at.toISOString()).not.equal(
+      beforeUsers[0]?.updated_at.toISOString()
+    );
   });
 
   it('should throw an error when updating email', async () => {
@@ -56,8 +60,8 @@ describe('Update User', () => {
   });
 
   it('should return undefined when no user', async () => {
-    const deletedUser = await deleteUserData({ dbClient, id: faker.string.uuid() });
+    const updatedUser = await deleteUserData({ dbClient, id: faker.string.uuid() });
 
-    expect(deletedUser).toBeUndefined();
+    expect(updatedUser).toBeUndefined();
   });
 });
