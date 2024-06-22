@@ -1,7 +1,8 @@
+import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
 import { describe, expect, it } from 'vitest';
-import { userSchema, type User } from './schema';
+import { userSchema } from './schema';
 
 describe('userSchema', () => {
   it('should validate userSchema', () => {

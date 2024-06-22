@@ -1,4 +1,4 @@
-import { type Tables } from '@/db/schema';
+import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { z } from '@hono/zod-openapi';
 
@@ -26,7 +26,5 @@ export const userSchema = (
     role: z.nativeEnum(UserRoleType).openapi({
       example: UserRoleType.USER,
     }),
-  }) satisfies z.ZodType<Tables['users']>
+  }) satisfies z.ZodType<User>
 ).openapi('User');
-
-export type User = z.infer<typeof userSchema>;

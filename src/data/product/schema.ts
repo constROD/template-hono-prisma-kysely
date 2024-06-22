@@ -1,4 +1,4 @@
-import { type Tables } from '@/db/schema';
+import { type Product } from '@/db/schema';
 import { z } from '@hono/zod-openapi';
 
 export const productSchema = (
@@ -22,7 +22,5 @@ export const productSchema = (
     price: z.number().openapi({
       example: 100.0,
     }),
-  }) satisfies z.ZodType<Tables['products']>
+  }) satisfies z.ZodType<Product>
 ).openapi('Product');
-
-export type Product = z.infer<typeof productSchema>;

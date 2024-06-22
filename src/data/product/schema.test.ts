@@ -1,6 +1,7 @@
+import { type Product } from '@/db/schema';
 import { faker } from '@faker-js/faker';
 import { describe, expect, it } from 'vitest';
-import { productSchema, type Product } from './schema';
+import { productSchema } from './schema';
 
 describe('productSchema', () => {
   it('should validate productSchema', () => {

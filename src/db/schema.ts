@@ -14,9 +14,7 @@ type OverrideUsers = Omit<OverrideIdAndDates<users>, 'role'> & {
   role: UserRoleType;
 };
 
-export type Tables = {
-  users: OverrideUsers;
-  products: OverrideIdAndDates<products>;
-};
+export type User = OverrideUsers;
+export type Product = OverrideIdAndDates<products>;
 
 export type KyselySchema = DB;

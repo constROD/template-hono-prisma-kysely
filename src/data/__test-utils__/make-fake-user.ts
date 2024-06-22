@@ -1,11 +1,10 @@
 import { type DbClient } from '@/db/create-db-client';
-import { type Tables } from '@/db/schema';
+import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
 import { createUserData } from '../user/create-user';
-import { type User } from '../user/schema';
 
-export function makeFakeUser(params: Partial<Tables['users']> = {}) {
+export function makeFakeUser(params: Partial<User> = {}) {
   return {
     id: params?.id ?? faker.string.uuid(),
     created_at: params?.created_at ?? faker.date.recent(),
@@ -20,7 +19,7 @@ export function makeFakeUser(params: Partial<Tables['users']> = {}) {
 
 export type CreateTestUserInDBArgs = {
   dbClient: DbClient;
-  values?: Partial<Tables['users']>;
+  values?: Partial<User>;
 };
 
 export async function createTestUserInDB({ dbClient, values }: CreateTestUserInDBArgs) {
