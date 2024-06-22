@@ -17,15 +17,15 @@ describe('Get Users', () => {
   });
 
   it('should get a users', async () => {
-    const userCount = 10;
-    const fakeUsers = Array.from({ length: userCount }, makeFakeUser);
+    const count = 10;
+    const fakeUsers = Array.from({ length: count }, makeFakeUser);
 
     const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
 
     const users = await getUsersData({ dbClient });
 
     expect(users.length).toBe(createdUsers.length);
-    expect(users.length).toBe(userCount);
+    expect(users.length).toBe(count);
   });
 
   it('should return empty array when no user', async () => {

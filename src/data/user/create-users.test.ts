@@ -16,7 +16,6 @@ describe('Create User', () => {
   });
 
   it('should create a user', async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
     const fakeUser = makeFakeUser();
 
     const [createdUser] = await createUsersData({ dbClient, values: fakeUser });
@@ -36,15 +35,15 @@ describe('Create User', () => {
   it('should create multiple users', async () => {
     await deleteAllRecords({ dbClient, tableName: 'users' });
 
-    const userCount = 5;
-    const fakeUsers = Array.from({ length: userCount }, makeFakeUser);
+    const count = 5;
+    const fakeUsers = Array.from({ length: count }, makeFakeUser);
 
     const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
 
     const currentUsers = await dbClient.selectFrom('users').selectAll().execute();
 
-    expect(fakeUsers.length).toBe(userCount);
-    expect(createdUsers.length).toBe(userCount);
-    expect(currentUsers.length).toBe(userCount);
+    expect(fakeUsers.length).toBe(count);
+    expect(createdUsers.length).toBe(count);
+    expect(currentUsers.length).toBe(count);
   });
 });
