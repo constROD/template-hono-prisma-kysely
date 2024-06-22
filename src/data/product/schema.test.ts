@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { productSchema, type Product } from './schema';
 
 describe('productSchema', () => {
-  it('should validate Product schema', () => {
+  it('should validate productSchema', () => {
     const input: Product = {
       id: faker.string.uuid(),
       created_at: new Date(),
