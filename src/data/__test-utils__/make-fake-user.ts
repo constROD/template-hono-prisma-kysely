@@ -17,12 +17,12 @@ export function makeFakeUser(args?: Partial<User>) {
   } satisfies User;
 }
 
-export type CreateTestUserInDBArgs = {
+export type CreateTestUsersInDBArgs = {
   dbClient: DbClient;
   values?: Partial<User> | Partial<User>[];
 };
 
-export async function createTestUsersInDB({ dbClient, values }: CreateTestUserInDBArgs) {
+export async function createTestUsersInDB({ dbClient, values }: CreateTestUsersInDBArgs) {
   const fakeUsers = values instanceof Array ? values.map(makeFakeUser) : makeFakeUser();
   const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
   return createdUsers;
