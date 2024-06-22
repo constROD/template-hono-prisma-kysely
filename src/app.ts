@@ -54,14 +54,14 @@ app.onError(errorHandlerMiddleware);
 app.use(logger());
 app.use(setUpDbClientMiddleware);
 
-/* Public Routes */
+/* ===== Public Routes ===== */
 // app.openapi(publicSomeRoute, publicSomeRouteHandler);
+/* ===== Public Routes ===== */
 
 /* For Private Routes Middlewares */
 app.use(authenticationMiddleware);
 
 /* ===== Private Routes ===== */
-
 /* Me */
 app.openapi(getProfileRoute, getProfileHandler);
 app.openapi(updateProfileRoute, updateProfileHandler);
@@ -75,7 +75,6 @@ app.openapi(deleteUserRoute, deleteUserHandler);
 
 /* Products */
 app.openapi(getProductsRoute, getProductsHandler);
-
 /* ===== Private Routes ===== */
 
 /* Serve */
