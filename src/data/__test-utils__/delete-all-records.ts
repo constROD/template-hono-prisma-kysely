@@ -18,5 +18,5 @@ export async function deleteAllRecords({
   if (!envConfig.TEST_DB_URL.includes('@localhost'))
     throw new ForbiddenError('deleteAllRecords cannot be used with a localhost database');
 
-  await sql`TRUNCATE TABLE ${sql.raw(tableName)}`.execute(dbClient);
+  await sql`DELETE FROM ${sql.raw(tableName)}`.execute(dbClient);
 }
