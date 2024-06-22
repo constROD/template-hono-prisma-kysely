@@ -10,6 +10,8 @@ import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-u
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
 import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
+import { getProfileHandler, getProfileRoute } from './data/me/get-profile';
+import { updateProfileHandler, updateProfileRoute } from './data/me/update-profile';
 import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { authenticationMiddleware } from './middlewares/authentication';
@@ -58,14 +60,23 @@ app.use(setUpDbClientMiddleware);
 /* For Private Routes Middlewares */
 app.use(authenticationMiddleware);
 
-/* Private Routes */
+/* ===== Private Routes ===== */
+
+/* Me */
+app.openapi(getProfileRoute, getProfileHandler);
+app.openapi(updateProfileRoute, updateProfileHandler);
+
+/* Users */
 app.openapi(getUsersRoute, getUsersHandler);
 app.openapi(createUserRoute, createUserHandler);
 app.openapi(getUserRoute, getUserHandler);
 app.openapi(updateUserRoute, updateUserHandler);
 app.openapi(deleteUserRoute, deleteUserHandler);
 
+/* Products */
 app.openapi(getProductsRoute, getProductsHandler);
+
+/* ===== Private Routes ===== */
 
 /* Serve */
 serve({
