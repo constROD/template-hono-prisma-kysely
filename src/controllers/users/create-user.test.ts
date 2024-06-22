@@ -1,3 +1,4 @@
+import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
 import { describe, expect, it } from 'vitest';
 import { createUserBodySchema, type CreateUserBody } from './create-user';
@@ -8,6 +9,7 @@ describe('createUserBody', () => {
       email: faker.internet.email(),
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
+      role: UserRoleType.USER,
     };
 
     const result = createUserBodySchema.safeParse(input);

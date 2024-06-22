@@ -2,7 +2,7 @@ import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
 import { faker } from '@faker-js/faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { createTestUserInDB } from '../__test-utils__/make-fake-user';
+import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
 import { deleteUserData } from './delete-user';
 import { updateUserData } from './update-user';
 
@@ -18,7 +18,7 @@ describe('Update User', () => {
   });
 
   it('should update a user', async () => {
-    const testCreatedUser = await createTestUserInDB({ dbClient });
+    const [testCreatedUser] = await createTestUsersInDB({ dbClient });
 
     if (!testCreatedUser) throw new Error('testCreatedUser is undefined');
 
@@ -46,7 +46,7 @@ describe('Update User', () => {
   });
 
   it('should throw an error when updating email', async () => {
-    const testCreatedUser = await createTestUserInDB({ dbClient });
+    const [testCreatedUser] = await createTestUsersInDB({ dbClient });
 
     if (!testCreatedUser) throw new Error('testCreatedUser is undefined');
 

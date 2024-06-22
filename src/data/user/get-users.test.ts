@@ -1,7 +1,8 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { createTestUserInDB } from '../__test-utils__/make-fake-user';
+import { makeFakeUser } from '../__test-utils__/make-fake-user';
+import { createUsersData } from './create-users';
 import { getUsersData } from './get-users';
 
 const dbClient = createTestDbClient();
@@ -17,14 +18,13 @@ describe('Get Users', () => {
 
   it('should get a users', async () => {
     const userCount = 10;
-    const promiseArray = Array.from({ length: userCount }).map(() =>
-      createTestUserInDB({ dbClient })
-    );
+    const fakeUsers = Array.from({ length: userCount }, makeFakeUser);
 
-    await Promise.all(promiseArray);
+    const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
 
     const users = await getUsersData({ dbClient });
 
+    expect(users.length).toBe(createdUsers.length);
     expect(users.length).toBe(userCount);
   });
 

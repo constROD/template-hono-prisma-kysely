@@ -2,28 +2,28 @@ import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
-import { createUserData } from '../user/create-user';
+import { createUsersData } from '../user/create-users';
 
-export function makeFakeUser(params: Partial<User> = {}) {
+export function makeFakeUser(args?: Partial<User>) {
   return {
-    id: params?.id ?? faker.string.uuid(),
-    created_at: params?.created_at ?? faker.date.recent(),
-    updated_at: params?.updated_at ?? faker.date.recent(),
-    deleted_at: params?.deleted_at ?? null,
-    first_name: params?.first_name ?? faker.person.firstName(),
-    last_name: params?.last_name ?? faker.person.lastName(),
-    email: params?.email?.toLowerCase() ?? faker.internet.email().toLowerCase(),
-    role: params?.role ?? UserRoleType.USER,
+    id: args?.id ?? faker.string.uuid(),
+    created_at: args?.created_at ?? faker.date.recent(),
+    updated_at: args?.updated_at ?? faker.date.recent(),
+    deleted_at: args?.deleted_at ?? null,
+    first_name: args?.first_name ?? faker.person.firstName(),
+    last_name: args?.last_name ?? faker.person.lastName(),
+    email: args?.email?.toLowerCase() ?? faker.internet.email().toLowerCase(),
+    role: args?.role ?? UserRoleType.USER,
   } satisfies User;
 }
 
 export type CreateTestUserInDBArgs = {
   dbClient: DbClient;
-  values?: Partial<User>;
+  values?: Partial<User> | Partial<User>[];
 };
 
-export async function createTestUserInDB({ dbClient, values }: CreateTestUserInDBArgs) {
-  const fakeUser = makeFakeUser(values);
-  const createdUser = await createUserData({ dbClient, values: fakeUser });
-  return createdUser;
+export async function createTestUsersInDB({ dbClient, values }: CreateTestUserInDBArgs) {
+  const fakeUsers = values instanceof Array ? values.map(makeFakeUser) : makeFakeUser();
+  const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
+  return createdUsers;
 }
