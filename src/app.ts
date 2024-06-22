@@ -66,7 +66,10 @@ app.openapi(deleteUserRoute, deleteUserHandler);
 app.openapi(getProductsRoute, getProductsHandler);
 /* ===== Public Routes ===== */
 
-/* This needs to be declared before the private routes */
+/**
+ * This needs to be declared before the private routes
+ * so that the routes `BELOW` will be protected by this middleware
+ */
 app.use(authenticationMiddleware);
 
 /* ===== Private Routes ===== */
