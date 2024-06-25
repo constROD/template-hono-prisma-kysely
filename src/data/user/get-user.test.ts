@@ -1,5 +1,6 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
+import { ValidationError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
@@ -26,9 +27,12 @@ describe('Get User', () => {
     expect(user?.id).toBe(testCreatedUser.id);
   });
 
-  it('should return undefined when no user', async () => {
-    const user = await getUserData({ dbClient, id: faker.string.uuid() });
-
-    expect(user).toBeUndefined();
+  it('should throw ValidationError if user is not existing.', async () => {
+    expect(() =>
+      getUserData({
+        dbClient,
+        id: faker.string.uuid(),
+      })
+    ).rejects.toThrow(new ValidationError('User not found.'));
   });
 });
