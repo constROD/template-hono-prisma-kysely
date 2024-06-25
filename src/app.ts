@@ -4,8 +4,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
-import { getProfileHandler, getProfileRoute } from './controllers/me/get-profile';
-import { updateProfileHandler, updateProfileRoute } from './controllers/me/update-profile';
+import { getMyProfileHandler, getMyProfileRoute } from './controllers/me/get-my-profile';
+import { updateMyProfileHandler, updateMyProfileRoute } from './controllers/me/update-my-profile';
 import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
 import { createUserHandler, createUserRoute } from './controllers/users/create-user';
 import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
@@ -75,8 +75,8 @@ app.use(authenticationMiddleware);
 
 /* ===== Private Routes ===== */
 /* Me */
-app.openapi(getProfileRoute, getProfileHandler);
-app.openapi(updateProfileRoute, updateProfileHandler);
+app.openapi(getMyProfileRoute, getMyProfileHandler);
+app.openapi(updateMyProfileRoute, updateMyProfileHandler);
 /* ===== Private Routes ===== */
 
 /* Serve */

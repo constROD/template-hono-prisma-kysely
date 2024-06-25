@@ -4,35 +4,35 @@ import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const getProfileSchema = {
+export const getMyProfileSchema = {
   response: userSchema,
 };
 
-export type GetProfileResponse = z.infer<typeof getProfileSchema.response>;
+export type GetMyProfileResponse = z.infer<typeof getMyProfileSchema.response>;
 
-export const getProfileRoute = createRoute({
+export const getMyProfileRoute = createRoute({
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/me',
   tags: ['Me'],
-  description: 'Get user profile',
+  description: 'Get my profile',
   responses: {
     200: {
       content: {
         'application/json': {
-          schema: getProfileSchema.response,
+          schema: getMyProfileSchema.response,
         },
       },
-      description: 'User profile retrieved successfully',
+      description: 'My profile retrieved successfully',
     },
   },
 });
 
-export const getProfileHandler: Handler = async c => {
+export const getMyProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
 
-  const currentProfile = await getUserData({ dbClient, id: session.id });
+  const myProfile = await getUserData({ dbClient, id: session.id });
 
-  return c.json<GetProfileResponse>(currentProfile, { status: 200 });
+  return c.json<GetMyProfileResponse>(myProfile, { status: 200 });
 };

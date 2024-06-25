@@ -4,7 +4,7 @@ import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const updateProfileSchema = {
+export const updateMyProfileSchema = {
   body: userSchema
     .omit({
       id: true,
@@ -18,20 +18,20 @@ export const updateProfileSchema = {
   response: userSchema,
 };
 
-export type UpdateProfileBody = z.infer<typeof updateProfileSchema.body>;
-export type UpdateProfileResponse = z.infer<typeof updateProfileSchema.response>;
+export type UpdateMyProfileBody = z.infer<typeof updateMyProfileSchema.body>;
+export type UpdateMyProfileResponse = z.infer<typeof updateMyProfileSchema.response>;
 
-export const updateProfileRoute = createRoute({
+export const updateMyProfileRoute = createRoute({
   security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/me',
   tags: ['Me'],
-  description: 'Update user profile',
+  description: 'Update my profile',
   request: {
     body: {
       content: {
         'application/json': {
-          schema: updateProfileSchema.body,
+          schema: updateMyProfileSchema.body,
         },
       },
     },
@@ -40,20 +40,20 @@ export const updateProfileRoute = createRoute({
     200: {
       content: {
         'application/json': {
-          schema: updateProfileSchema.response,
+          schema: updateMyProfileSchema.response,
         },
       },
-      description: 'User profile updated successfully',
+      description: 'My profile updated successfully',
     },
   },
 });
 
-export const updateProfileHandler: Handler = async c => {
+export const updateMyProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
-  const body = await c.req.json<UpdateProfileBody>();
+  const body = await c.req.json<UpdateMyProfileBody>();
 
-  const updatedProfile = await updateUserData({ dbClient, id: session.id, values: body });
+  const updatedMyProfile = await updateUserData({ dbClient, id: session.id, values: body });
 
-  return c.json<UpdateProfileResponse>(updatedProfile, { status: 200 });
+  return c.json<UpdateMyProfileResponse>(updatedMyProfile, { status: 200 });
 };
