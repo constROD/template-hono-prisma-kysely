@@ -5,8 +5,8 @@ import { type Handler } from 'hono';
 
 export const getUsersSchema = {
   query: z.object({
-    limit: z.number().optional(),
-    page: z.number().optional(),
+    limit: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
     sort_by: z.string().optional(),
     order_by: z.enum(['asc', 'desc']).optional(),
   }),
@@ -42,8 +42,9 @@ export const getUsersRoute = createRoute({
 
 export const getUsersHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
+  const query = c.req.query() as GetUsersQuery;
 
-  const data = await getUsersData({ dbClient });
+  const data = await getUsersData({ dbClient, ...query });
 
   return c.json<GetUsersResponse>(
     {
