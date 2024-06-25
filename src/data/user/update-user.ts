@@ -3,7 +3,7 @@ import { type KyselySchema } from '@/db/schema';
 import { ValidationError } from '@/utils/errors';
 import { sql, type UpdateObject } from 'kysely';
 
-type UpdateUserDataArgs = {
+export type UpdateUserDataArgs = {
   dbClient: DbClient;
   id: string;
   values: UpdateObject<KyselySchema, 'users'>;

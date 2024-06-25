@@ -1,6 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
 
-type DeleteUserDataArgs = {
+export type DeleteUserDataArgs = {
   dbClient: DbClient;
   id: string;
 };

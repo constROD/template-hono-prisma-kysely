@@ -9,6 +9,12 @@ datasource db {
   url      = env("DB_URL")
 }
 
+enum UserRoleType {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
 model users {
   id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at DateTime     @default(now()) @db.Timestamptz(6)
@@ -28,10 +34,4 @@ model products {
   name        String
   description String?
   price       Float
-}
-
-enum UserRoleType {
-  SUPER_ADMIN
-  ADMIN
-  USER
 }

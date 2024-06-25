@@ -1,7 +1,7 @@
 import { type DbClient } from '@/db/create-db-client';
 import { sql } from 'kysely';
 
-type ArchiveUserDataArgs = {
+export type ArchiveUserDataArgs = {
   dbClient: DbClient;
   id: string;
 };

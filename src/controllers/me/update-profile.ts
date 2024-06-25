@@ -5,21 +5,25 @@ import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const updateProfileBodySchema = userSchema
-  .omit({
-    id: true,
-    created_at: true,
-    updated_at: true,
-    deleted_at: true,
-    email: true,
-    role: true,
-  })
-  .partial();
+export const updateProfileSchema = {
+  body: userSchema
+    .omit({
+      id: true,
+      created_at: true,
+      updated_at: true,
+      deleted_at: true,
+      email: true,
+      role: true,
+    })
+    .partial(),
+  response: userSchema,
+};
 
-export type UpdateProfileBody = z.infer<typeof updateProfileBodySchema>;
+export type UpdateProfileBody = z.infer<typeof updateProfileSchema.body>;
+export type UpdateProfileResponse = z.infer<typeof updateProfileSchema.response>;
 
 export const updateProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }] /* You need to add this to all of your private routes */,
+  security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/me',
   tags: ['Me'],
@@ -28,7 +32,7 @@ export const updateProfileRoute = createRoute({
     body: {
       content: {
         'application/json': {
-          schema: updateProfileBodySchema,
+          schema: updateProfileSchema.body,
         },
       },
     },
@@ -37,7 +41,7 @@ export const updateProfileRoute = createRoute({
     200: {
       content: {
         'application/json': {
-          schema: userSchema,
+          schema: updateProfileSchema.response,
         },
       },
       description: 'User profile updated successfully',
@@ -50,10 +54,9 @@ export const updateProfileHandler: Handler = async c => {
   const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
   const body = await c.req.json<UpdateProfileBody>();
 
-  /* This will fail since we haven't handle this yet: `src/middlewares/authentication.ts` */
-  const updatedUser = await updateUserData({ dbClient, id: authenticatedUser.id, values: body });
+  const updatedProfile = await updateUserData({ dbClient, id: authenticatedUser.id, values: body });
 
-  if (!updatedUser) throw new NotFoundError('User not found');
+  if (!updatedProfile) throw new NotFoundError('User not found');
 
-  return c.json(updatedUser, { status: 200 });
+  return c.json<UpdateProfileResponse>(updatedProfile, { status: 200 });
 };

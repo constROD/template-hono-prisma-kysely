@@ -1,8 +1,7 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { makeFakeUser } from '../__test-utils__/make-fake-user';
-import { createUsersData } from './create-users';
+import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
 import { getUsersData } from './get-users';
 
 const dbClient = createTestDbClient();
@@ -18,19 +17,20 @@ describe('Get Users', () => {
 
   it('should get a users', async () => {
     const count = 10;
-    const fakeUsers = Array.from({ length: count }, makeFakeUser);
+    const promiseArray = Array.from({ length: count }).map(() => createTestUsersInDB({ dbClient }));
 
-    const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
+    await Promise.all(promiseArray);
 
-    const users = await getUsersData({ dbClient });
+    const { records, totalRecords } = await getUsersData({ dbClient });
 
-    expect(users.length).toBe(createdUsers.length);
-    expect(users.length).toBe(count);
+    expect(records.length).toBe(count);
+    expect(totalRecords).toBe(count);
   });
 
   it('should return empty array when no user', async () => {
-    const users = await getUsersData({ dbClient });
+    const { records, totalRecords } = await getUsersData({ dbClient });
 
-    expect(users.length).toBe(0);
+    expect(records.length).toBe(0);
+    expect(totalRecords).toBe(0);
   });
 });

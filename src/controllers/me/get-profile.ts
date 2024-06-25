@@ -2,11 +2,17 @@ import { getUserData } from '@/data/user/get-user';
 import { userSchema } from '@/data/user/schema';
 import { type AuthenticatedUser } from '@/types/auth';
 import { NotFoundError } from '@/utils/errors';
-import { createRoute } from '@hono/zod-openapi';
+import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
+export const getProfileSchema = {
+  response: userSchema,
+};
+
+export type GetProfileResponse = z.infer<typeof getProfileSchema.response>;
+
 export const getProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }] /* You need to add this to all of your private routes */,
+  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/me',
   tags: ['Me'],
@@ -15,7 +21,7 @@ export const getProfileRoute = createRoute({
     200: {
       content: {
         'application/json': {
-          schema: userSchema,
+          schema: getProfileSchema.response,
         },
       },
       description: 'User profile retrieved successfully',
@@ -27,10 +33,9 @@ export const getProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
 
-  /* This will fail since we haven't handle this yet: `src/middlewares/authentication.ts` */
-  const currentUser = await getUserData({ dbClient, id: authenticatedUser.id });
+  const currentProfile = await getUserData({ dbClient, id: authenticatedUser.id });
 
-  if (!currentUser) throw new NotFoundError('User not found');
+  if (!currentProfile) throw new NotFoundError('User not found');
 
-  return c.json(currentUser, { status: 200 });
+  return c.json<GetProfileResponse>(currentProfile, { status: 200 });
 };

@@ -1,6 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
 
-type GetUserDataArgs = {
+export type GetUserDataArgs = {
   dbClient: DbClient;
   id: string;
 };

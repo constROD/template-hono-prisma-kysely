@@ -4,34 +4,41 @@ import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
-export const updateUserBodySchema = userSchema
-  .omit({
-    id: true,
-    created_at: true,
-    updated_at: true,
-    deleted_at: true,
-    email: true,
-  })
-  .partial();
+export const updateUserSchema = {
+  params: z.object({
+    userId: z
+      .string()
+      .uuid()
+      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+  }),
+  body: userSchema
+    .omit({
+      id: true,
+      created_at: true,
+      updated_at: true,
+      deleted_at: true,
+      email: true,
+    })
+    .partial(),
+  response: userSchema,
+};
 
-export type UpdateUserBody = z.infer<typeof updateUserBodySchema>;
+export type UpdateUserParams = z.infer<typeof updateUserSchema.params>;
+export type UpdateUserBody = z.infer<typeof updateUserSchema.body>;
+export type UpdateUserResponse = z.infer<typeof updateUserSchema.response>;
 
 export const updateUserRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{userId}',
   tags: ['Users'],
   description: 'Update a user',
   request: {
-    params: z.object({
-      userId: z
-        .string()
-        .uuid()
-        .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
-    }),
+    params: updateUserSchema.params,
     body: {
       content: {
         'application/json': {
-          schema: updateUserBodySchema,
+          schema: updateUserSchema.body,
         },
       },
     },
@@ -40,7 +47,7 @@ export const updateUserRoute = createRoute({
     200: {
       content: {
         'application/json': {
-          schema: userSchema,
+          schema: updateUserSchema.response,
         },
       },
       description: 'User updated successfully',
@@ -52,9 +59,10 @@ export const updateUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
   const userId = c.req.param('userId');
   const body = await c.req.json<UpdateUserBody>();
+
   const updatedUser = await updateUserData({ dbClient, id: userId, values: body });
 
   if (!updatedUser) throw new NotFoundError('User not found');
 
-  return c.json(updatedUser, { status: 200 });
+  return c.json<UpdateUserResponse>(updatedUser, { status: 200 });
 };
