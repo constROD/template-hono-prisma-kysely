@@ -42,7 +42,7 @@ export const getUsersRoute = createRoute({
 
 export const getUsersHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const query = c.req.query() as GetUsersQuery;
+  const query = c.req.query() as GetUsersQuery | undefined;
 
   const data = await getUsersData({ dbClient, ...query });
 

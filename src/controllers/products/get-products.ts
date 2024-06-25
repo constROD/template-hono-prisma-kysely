@@ -38,7 +38,7 @@ export const getProductsRoute = createRoute({
 
 export const getProductsHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const query = c.req.query() as GetProductsQuery;
+  const query = c.req.query() as GetProductsQuery | undefined;
 
   const data = await getProductsData({ dbClient, ...query });
 
