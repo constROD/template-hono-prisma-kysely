@@ -1,6 +1,6 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
-import { ValidationError } from '@/utils/errors';
+import { NotFoundError, ValidationError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
@@ -59,13 +59,13 @@ describe('Update User', () => {
     ).rejects.toThrow(new ValidationError('Cannot update email.'));
   });
 
-  it('should throw ValidationError if user is not existing.', async () => {
+  it('should throw NotFoundError if user is not existing.', async () => {
     expect(() =>
       updateUserData({
         dbClient,
         id: faker.string.uuid(),
         values: { first_name: faker.person.firstName() },
       })
-    ).rejects.toThrow(new ValidationError('User not found.'));
+    ).rejects.toThrow(new NotFoundError('User not found.'));
   });
 });

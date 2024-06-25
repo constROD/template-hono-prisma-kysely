@@ -20,7 +20,7 @@ export async function updateUserData({ dbClient, id, values }: UpdateUserDataArg
     .set({ ...values, updated_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 
   return updatedRecord;
 }

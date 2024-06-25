@@ -10,11 +10,8 @@ export async function authenticationMiddleware(c: Context, next: Next) {
 
   // if (!user) throw new UnauthorizedError('Invalid access token');
 
-  /* TODO: Send the authenticated user to the context */
-  // c.set('authenticatedUser', {
-  //   id: user.id,
-  //   email: user.email,
-  // });
+  /* TODO: Send the session user to the context */
+  // c.set('session', { id: user.id, email: user.email });
 
   await next();
 }

@@ -1,7 +1,6 @@
 import { getUserData } from '@/data/user/get-user';
 import { userSchema } from '@/data/user/schema';
 import { type AuthenticatedUser } from '@/types/auth';
-import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -34,8 +33,6 @@ export const getProfileHandler: Handler = async c => {
   const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
 
   const currentProfile = await getUserData({ dbClient, id: authenticatedUser.id });
-
-  if (!currentProfile) throw new NotFoundError('User not found');
 
   return c.json<GetProfileResponse>(currentProfile, { status: 200 });
 };

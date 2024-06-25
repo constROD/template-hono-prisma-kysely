@@ -1,6 +1,5 @@
 import { deleteUserData } from '@/data/user/delete-user';
 import { userSchema } from '@/data/user/schema';
-import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -43,8 +42,6 @@ export const deleteUserHandler: Handler = async c => {
   const userId = c.req.param('userId');
 
   const deletedUser = await deleteUserData({ dbClient, id: userId });
-
-  if (!deletedUser) throw new NotFoundError('User not found');
 
   return c.json<DeleteUserResponse>(deletedUser, { status: 200 });
 };

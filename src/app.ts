@@ -17,12 +17,13 @@ import { envConfig } from './env';
 import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
-import { type AuthenticatedUser } from './types/auth';
+import { type AuthenticatedUser, type Session } from './types/auth';
 
 const app = new OpenAPIHono();
 
 declare module 'hono' {
   interface ContextVariableMap {
+    session: Session | null;
     authenticatedUser: AuthenticatedUser | null;
     dbClient: ReturnType<typeof createDbClient>;
   }

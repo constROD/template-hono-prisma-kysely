@@ -49,7 +49,7 @@ export const createUserHandler: Handler = async c => {
 
   const [createdUser] = await createUsersData({ dbClient, values: body });
 
-  if (!createdUser) throw new NotFoundError('User not found');
+  if (!createdUser) throw new NotFoundError('No user created. Please try again.');
 
   return c.json<CreateUserResponse>(createdUser, { status: 201 });
 };

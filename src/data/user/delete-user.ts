@@ -13,7 +13,7 @@ export async function deleteUserData({ dbClient, id }: DeleteUserDataArgs) {
     .deleteFrom('users')
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 
   return deletedRecord;
 }

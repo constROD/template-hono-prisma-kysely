@@ -15,7 +15,7 @@ export async function archiveUserData({ dbClient, id }: ArchiveUserDataArgs) {
     .set({ deleted_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 
   return archivedRecord;
 }

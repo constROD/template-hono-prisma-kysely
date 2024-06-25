@@ -1,5 +1,5 @@
 import { type DbClient } from '@/db/create-db-client';
-import { ValidationError } from '@/utils/errors';
+import { NotFoundError } from '@/utils/errors';
 
 export type GetUserDataArgs = {
   dbClient: DbClient;
@@ -11,7 +11,7 @@ export async function getUserData({ dbClient, id }: GetUserDataArgs) {
     .selectFrom('users')
     .where('id', '=', id)
     .selectAll()
-    .executeTakeFirstOrThrow(() => new ValidationError('User not found.'));
+    .executeTakeFirstOrThrow(() => new NotFoundError('User not found.'));
 
   return record;
 }

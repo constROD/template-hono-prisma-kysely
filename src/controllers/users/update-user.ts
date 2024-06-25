@@ -1,6 +1,5 @@
 import { userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
-import { NotFoundError } from '@/utils/errors';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -61,8 +60,6 @@ export const updateUserHandler: Handler = async c => {
   const body = await c.req.json<UpdateUserBody>();
 
   const updatedUser = await updateUserData({ dbClient, id: userId, values: body });
-
-  if (!updatedUser) throw new NotFoundError('User not found');
 
   return c.json<UpdateUserResponse>(updatedUser, { status: 200 });
 };
