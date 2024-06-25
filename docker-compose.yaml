@@ -8,5 +8,6 @@ services:
     ports:
       - '${APP_PORT}:3000'
     environment:
+      - STAGE=${STAGE}
       - DB_URL=${DB_URL}
       - TEST_DB_URL=${TEST_DB_URL}

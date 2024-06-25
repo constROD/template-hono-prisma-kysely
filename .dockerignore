@@ -7,10 +7,9 @@ cli/
 *-lock.json
 *.lock
 
-# TODO: Enable when Docker is ENV or ARG is implemented.
-# .env
-# .env.*
-# .env-*
+.env
+.env.*
+.env-*
 
 !**.example
 
