@@ -1,6 +1,6 @@
 import { getUserData } from '@/data/user/get-user';
 import { userSchema } from '@/data/user/schema';
-import { type AuthenticatedUser } from '@/types/auth';
+import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -30,9 +30,9 @@ export const getProfileRoute = createRoute({
 
 export const getProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
+  const session = c.get('session') as Session;
 
-  const currentProfile = await getUserData({ dbClient, id: authenticatedUser.id });
+  const currentProfile = await getUserData({ dbClient, id: session.id });
 
   return c.json<GetProfileResponse>(currentProfile, { status: 200 });
 };

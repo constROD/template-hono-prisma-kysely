@@ -1,6 +1,6 @@
 import { userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
-import { type AuthenticatedUser } from '@/types/auth';
+import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -50,10 +50,10 @@ export const updateProfileRoute = createRoute({
 
 export const updateProfileHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const authenticatedUser = c.get('authenticatedUser') as AuthenticatedUser;
+  const session = c.get('session') as Session;
   const body = await c.req.json<UpdateProfileBody>();
 
-  const updatedProfile = await updateUserData({ dbClient, id: authenticatedUser.id, values: body });
+  const updatedProfile = await updateUserData({ dbClient, id: session.id, values: body });
 
   return c.json<UpdateProfileResponse>(updatedProfile, { status: 200 });
 };
