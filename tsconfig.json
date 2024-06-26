@@ -21,9 +21,8 @@
     /* Bundling: */
     "moduleResolution": "Node",
     "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "outDir": "./dist"
   },
   "include": ["**/*.ts", ".eslintrc.json"],
-  "exclude": ["./node_modules", "./cli", "./dist", "vitest.config.ts"]
+  "exclude": ["./node_modules", "./dist", "vitest.config.ts"]
 }
