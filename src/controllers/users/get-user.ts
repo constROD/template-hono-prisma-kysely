@@ -17,7 +17,6 @@ export type GetUserParams = z.infer<typeof getUserSchema.params>;
 export type GetUserResponse = z.infer<typeof getUserSchema.response>;
 
 export const getUserRoute = createRoute({
-  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users/{userId}',
   tags: ['Users'],
@@ -39,7 +38,7 @@ export const getUserRoute = createRoute({
 
 export const getUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const userId = c.req.param('userId');
+  const { userId } = c.req.param() as GetUserParams;
 
   const user = await getUserData({ dbClient, id: userId });
 

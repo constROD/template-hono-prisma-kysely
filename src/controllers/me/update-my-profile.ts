@@ -22,7 +22,7 @@ export type UpdateMyProfileBody = z.infer<typeof updateMyProfileSchema.body>;
 export type UpdateMyProfileResponse = z.infer<typeof updateMyProfileSchema.response>;
 
 export const updateMyProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }],
+  security: [{ bearerAuth: [] }], // 👈 This line is required for private route
   method: 'put',
   path: '/me',
   tags: ['Me'],

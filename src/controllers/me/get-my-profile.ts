@@ -11,7 +11,7 @@ export const getMyProfileSchema = {
 export type GetMyProfileResponse = z.infer<typeof getMyProfileSchema.response>;
 
 export const getMyProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }],
+  security: [{ bearerAuth: [] }], // 👈 This line is required for private route
   method: 'get',
   path: '/me',
   tags: ['Me'],

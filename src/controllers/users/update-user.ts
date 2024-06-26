@@ -27,7 +27,6 @@ export type UpdateUserBody = z.infer<typeof updateUserSchema.body>;
 export type UpdateUserResponse = z.infer<typeof updateUserSchema.response>;
 
 export const updateUserRoute = createRoute({
-  security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{userId}',
   tags: ['Users'],
@@ -56,7 +55,7 @@ export const updateUserRoute = createRoute({
 
 export const updateUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const userId = c.req.param('userId');
+  const { userId } = c.req.param() as UpdateUserParams;
   const body = await c.req.json<UpdateUserBody>();
 
   const updatedUser = await updateUserData({ dbClient, id: userId, values: body });

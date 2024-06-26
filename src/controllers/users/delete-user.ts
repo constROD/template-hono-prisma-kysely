@@ -17,7 +17,6 @@ export type DeleteUserParams = z.infer<typeof deleteUserSchema.params>;
 export type DeleteUserResponse = z.infer<typeof deleteUserSchema.response>;
 
 export const deleteUserRoute = createRoute({
-  security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{userId}',
   tags: ['Users'],
@@ -39,7 +38,7 @@ export const deleteUserRoute = createRoute({
 
 export const deleteUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const userId = c.req.param('userId');
+  const { userId } = c.req.param() as DeleteUserParams;
 
   const deletedUser = await deleteUserData({ dbClient, id: userId });
 

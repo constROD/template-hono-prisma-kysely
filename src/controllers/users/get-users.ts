@@ -20,7 +20,6 @@ export type GetUsersQuery = z.infer<typeof getUsersSchema.query>;
 export type GetUsersResponse = z.infer<typeof getUsersSchema.response>;
 
 export const getUsersRoute = createRoute({
-  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users',
   tags: ['Users'],
