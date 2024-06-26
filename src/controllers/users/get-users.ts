@@ -1,4 +1,4 @@
-import { getUsersData } from '@/data/user/get-users';
+import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
 import { userSchema } from '@/data/user/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
@@ -9,6 +9,10 @@ export const getUsersSchema = {
     page: z.coerce.number().optional(),
     sort_by: z.string().optional(),
     order_by: z.enum(['asc', 'desc']).optional(),
+    include_archived: z
+      .string()
+      .transform(v => v === 'true')
+      .optional(),
   }),
   response: z.object({
     records: z.array(userSchema),
@@ -41,9 +45,16 @@ export const getUsersRoute = createRoute({
 
 export const getUsersHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const query = c.req.query() as GetUsersQuery | undefined;
+  const query = getUsersSchema.query.parse(c.req.query());
 
-  const data = await getUsersData({ dbClient, ...query });
+  const data = await getUsersData({
+    dbClient,
+    sortBy: query?.sort_by as GetUsersDataArgs['sortBy'],
+    orderBy: query?.order_by,
+    limit: query?.limit,
+    page: query?.page,
+    includeArchived: query?.include_archived,
+  });
 
   return c.json<GetUsersResponse>(
     {

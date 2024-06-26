@@ -1,4 +1,4 @@
-import { getProductsData } from '@/data/product/get-products';
+import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productSchema } from '@/data/product/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
@@ -9,6 +9,10 @@ export const getProductsSchema = {
     page: z.coerce.number().optional(),
     sort_by: z.string().optional(),
     order_by: z.enum(['asc', 'desc']).optional(),
+    include_archived: z
+      .string()
+      .transform(v => v === 'true')
+      .optional(),
   }),
   response: z.object({
     records: z.array(productSchema),
@@ -38,9 +42,16 @@ export const getProductsRoute = createRoute({
 
 export const getProductsHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const query = c.req.query() as GetProductsQuery | undefined;
+  const query = getProductsSchema.query.parse(c.req.query());
 
-  const data = await getProductsData({ dbClient, ...query });
+  const data = await getProductsData({
+    dbClient,
+    sortBy: query?.sort_by as GetProductsDataArgs['sortBy'],
+    orderBy: query?.order_by,
+    limit: query?.limit,
+    page: query?.page,
+    includeArchived: query?.include_archived,
+  });
 
   return c.json<GetProductsResponse>(
     {

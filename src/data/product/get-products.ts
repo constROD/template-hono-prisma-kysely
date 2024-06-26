@@ -7,6 +7,7 @@ export type GetProductsDataArgs = {
   page?: number;
   sortBy?: keyof Product;
   orderBy?: 'asc' | 'desc';
+  includeArchived?: boolean;
 };
 
 export async function getProductsData({
@@ -15,19 +16,26 @@ export async function getProductsData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
+  includeArchived,
 }: GetProductsDataArgs) {
-  const records = await dbClient
+  let query = dbClient
     .selectFrom('products')
     .selectAll()
     .limit(limit)
     .offset((page - 1) * limit)
-    .orderBy(sortBy, orderBy)
-    .execute();
+    .orderBy(sortBy, orderBy);
 
-  const allRecords = await dbClient
+  let allRecordsQuery = dbClient
     .selectFrom('products')
-    .select(dbClient.fn.count('id').as('total_records'))
-    .executeTakeFirst();
+    .select(dbClient.fn.count('id').as('total_records'));
+
+  if (!includeArchived) {
+    query = query.where('deleted_at', 'is', null);
+    allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
+  }
+
+  const records = await query.execute();
+  const allRecords = await allRecordsQuery.executeTakeFirst();
 
   return { records, totalRecords: Number(allRecords?.total_records) ?? 0 };
 }
