@@ -10,7 +10,7 @@ export const getUsersSchema = {
     sort_by: z.string().optional(),
     order_by: z.enum(['asc', 'desc']).optional(),
     include_archived: z
-      .string()
+      .enum(['true', 'false'])
       .transform(v => v === 'true')
       .optional(),
   }),
