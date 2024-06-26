@@ -1,7 +1,7 @@
 import { customLog } from '../utils/logger';
 import { runCommand } from '../utils/run-command';
 
-export function runApplyDbMigration(databaseUrl: string) {
+export function runApplyDbMigration({ databaseUrl }: { databaseUrl: string }) {
   process.env.DB_URL = databaseUrl;
 
   const migrateCommand = 'pnpm prisma migrate dev';

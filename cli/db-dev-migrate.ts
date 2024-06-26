@@ -6,11 +6,11 @@ function run() {
   const dbUrl = envConfig.DB_URL;
   const testDbUrl = envConfig.TEST_DB_URL;
 
-  customLog.info('Running migration on:', dbUrl);
-  runApplyDbMigration(dbUrl);
+  customLog.info(`Running migration on CORE database with STAGE of ${envConfig.STAGE}...`);
+  runApplyDbMigration({ databaseUrl: dbUrl });
 
-  customLog.info('Running migration on:', testDbUrl);
-  runApplyDbMigration(testDbUrl);
+  customLog.info(`Running migration on TEST database with STAGE of ${envConfig.STAGE}...`);
+  runApplyDbMigration({ databaseUrl: testDbUrl });
 }
 
 run();
