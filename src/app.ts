@@ -7,6 +7,7 @@ import { version } from '../package.json';
 import { getMyProfileHandler, getMyProfileRoute } from './controllers/me/get-my-profile';
 import { updateMyProfileHandler, updateMyProfileRoute } from './controllers/me/update-my-profile';
 import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
+import { archiveUserHandler, archiveUserRoute } from './controllers/users/archive-user';
 import { createUserHandler, createUserRoute } from './controllers/users/create-user';
 import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
@@ -62,6 +63,7 @@ app.openapi(createUserRoute, createUserHandler);
 app.openapi(getUserRoute, getUserHandler);
 app.openapi(updateUserRoute, updateUserHandler);
 app.openapi(deleteUserRoute, deleteUserHandler);
+app.openapi(archiveUserRoute, archiveUserHandler);
 
 /* Products */
 app.openapi(getProductsRoute, getProductsHandler);
