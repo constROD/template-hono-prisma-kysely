@@ -26,8 +26,8 @@ export const updateMyProfileRoute = createRoute({
   method: 'put',
   path: '/me',
   tags: ['Me'],
-  summary: 'Update my profile',
-  description: 'Update my profile',
+  summary: 'Update profile',
+  description: 'Update your profile.',
   request: {
     body: {
       content: {

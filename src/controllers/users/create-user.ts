@@ -21,8 +21,8 @@ export const createUserRoute = createRoute({
   method: 'post',
   path: '/users',
   tags: ['Users'],
-  summary: 'Create user',
-  description: 'Create a user',
+  summary: 'Create a user',
+  description: 'Create a new user.',
   request: {
     body: {
       content: {

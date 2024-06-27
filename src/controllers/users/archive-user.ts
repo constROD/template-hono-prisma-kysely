@@ -20,8 +20,8 @@ export const archiveUserRoute = createRoute({
   method: 'put',
   path: '/users/{user_id}/archive',
   tags: ['Users'],
-  summary: 'Archive user',
-  description: 'Archive a user',
+  summary: 'Archive a user',
+  description: 'Archive a user.',
   request: {
     params: archiveUserSchema.params,
   },
