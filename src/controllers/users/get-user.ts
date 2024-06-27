@@ -5,10 +5,10 @@ import { type Handler } from 'hono';
 
 export const getUserSchema = {
   params: z.object({
-    userId: z
+    user_id: z
       .string()
       .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+      .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
   }),
   response: userOpenApiSchema,
 };
@@ -18,7 +18,7 @@ export type GetUserResponse = z.infer<typeof getUserSchema.response>;
 
 export const getUserRoute = createRoute({
   method: 'get',
-  path: '/users/{userId}',
+  path: '/users/{user_id}',
   tags: ['Users'],
   description: 'Get one user',
   request: {
@@ -38,9 +38,9 @@ export const getUserRoute = createRoute({
 
 export const getUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const { userId } = c.req.param() as GetUserParams;
+  const param = c.req.param() as GetUserParams;
 
-  const user = await getUserData({ dbClient, id: userId });
+  const user = await getUserData({ dbClient, id: param.user_id });
 
   return c.json<GetUserResponse>(user, { status: 200 });
 };

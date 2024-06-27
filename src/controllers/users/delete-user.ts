@@ -5,10 +5,10 @@ import { type Handler } from 'hono';
 
 export const deleteUserSchema = {
   params: z.object({
-    userId: z
+    user_id: z
       .string()
       .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+      .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
   }),
   response: userOpenApiSchema,
 };
@@ -18,7 +18,7 @@ export type DeleteUserResponse = z.infer<typeof deleteUserSchema.response>;
 
 export const deleteUserRoute = createRoute({
   method: 'delete',
-  path: '/users/{userId}',
+  path: '/users/{user_id}',
   tags: ['Users'],
   description: 'Delete a user',
   request: {
@@ -38,9 +38,9 @@ export const deleteUserRoute = createRoute({
 
 export const deleteUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const { userId } = c.req.param() as DeleteUserParams;
+  const param = c.req.param() as DeleteUserParams;
 
-  const deletedUser = await deleteUserData({ dbClient, id: userId });
+  const deletedUser = await deleteUserData({ dbClient, id: param.user_id });
 
   return c.json<DeleteUserResponse>(deletedUser, { status: 200 });
 };

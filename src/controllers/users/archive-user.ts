@@ -5,10 +5,10 @@ import { type Handler } from 'hono';
 
 export const archiveUserSchema = {
   params: z.object({
-    userId: z
+    user_id: z
       .string()
       .uuid()
-      .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
+      .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
   }),
   response: userOpenApiSchema,
 };
@@ -19,7 +19,7 @@ export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 export const archiveUserRoute = createRoute({
   security: [{ bearerAuth: [] }],
   method: 'put',
-  path: '/users/{userId}/archive',
+  path: '/users/{user_id}/archive',
   tags: ['Users'],
   description: 'Archive a user',
   request: {
@@ -39,9 +39,9 @@ export const archiveUserRoute = createRoute({
 
 export const archiveUserHandler: Handler = async c => {
   const dbClient = c.get('dbClient');
-  const { userId } = c.req.param() as ArchiveUserParams;
+  const param = c.req.param() as ArchiveUserParams;
 
-  const archivedUser = await archiveUserData({ dbClient, id: userId });
+  const archivedUser = await archiveUserData({ dbClient, id: param.user_id });
 
   return c.json<ArchiveUserResponse>(archivedUser, { status: 200 });
 };

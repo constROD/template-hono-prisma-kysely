@@ -4,7 +4,7 @@
 
 - `kebab-case` - for all folders/files.
 - `PascalCase` - for classes and types.
-- `snake_case` - for database tables and columns.
+- `snake_case` - for database tables, columns, query, params and request body.
 - `camelCase` - for functions, zod schemas and etc.
 
 ## Miscellaneous Folder(s)
