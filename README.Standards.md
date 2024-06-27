@@ -17,6 +17,7 @@
 ## Folder Structure
 
 - `/src` - main source code.
+- `/src/constants` - for constant values.
 - `/src/controllers` - for api routes and handlers.
 - `/src/data` - for data access layer. (e.g. database, cache, etc.)
 - `/src/db` - for database connection and schemas.
@@ -29,4 +30,3 @@
 
 - `/src/app.ts` - main entry point.
 - `/src/env.ts` - for environment variables.
-- `/src/constants.ts` - for constant values. (make this a folder if it's too many)
