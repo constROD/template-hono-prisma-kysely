@@ -1,5 +1,5 @@
 import { getUserData } from '@/data/user/get-user';
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema } from '@/data/user/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -10,7 +10,7 @@ export const getUserSchema = {
       .uuid()
       .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
   }),
-  response: userSchema,
+  response: userOpenApiSchema,
 };
 
 export type GetUserParams = z.infer<typeof getUserSchema.params>;

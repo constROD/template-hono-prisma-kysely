@@ -1,4 +1,4 @@
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
@@ -15,7 +15,7 @@ export const updateMyProfileSchema = {
       role: true,
     })
     .partial(),
-  response: userSchema,
+  response: userOpenApiSchema,
 };
 
 export type UpdateMyProfileBody = z.infer<typeof updateMyProfileSchema.body>;

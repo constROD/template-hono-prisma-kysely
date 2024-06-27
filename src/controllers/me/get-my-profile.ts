@@ -1,11 +1,11 @@
 import { getUserData } from '@/data/user/get-user';
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema } from '@/data/user/schema';
 import { type Session } from '@/types/auth';
 import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
 export const getMyProfileSchema = {
-  response: userSchema,
+  response: userOpenApiSchema,
 };
 
 export type GetMyProfileResponse = z.infer<typeof getMyProfileSchema.response>;

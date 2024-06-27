@@ -1,5 +1,5 @@
 import { archiveUserData } from '@/data/user/archive-user';
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema } from '@/data/user/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -10,7 +10,7 @@ export const archiveUserSchema = {
       .uuid()
       .openapi({ param: { name: 'userId', in: 'path' }, example: crypto.randomUUID() }),
   }),
-  response: userSchema,
+  response: userOpenApiSchema,
 };
 
 export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;

@@ -1,5 +1,5 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema } from '@/data/user/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -15,7 +15,7 @@ export const getUsersSchema = {
       .optional(),
   }),
   response: z.object({
-    records: z.array(userSchema),
+    records: z.array(userOpenApiSchema),
     total_records: z.number(),
   }),
 };

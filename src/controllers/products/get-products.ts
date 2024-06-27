@@ -1,5 +1,5 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
-import { productSchema } from '@/data/product/schema';
+import { productOpenApiSchema } from '@/data/product/schema';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -15,7 +15,7 @@ export const getProductsSchema = {
       .optional(),
   }),
   response: z.object({
-    records: z.array(productSchema),
+    records: z.array(productOpenApiSchema),
     total_records: z.number(),
   }),
 };

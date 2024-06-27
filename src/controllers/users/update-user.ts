@@ -1,4 +1,4 @@
-import { userSchema } from '@/data/user/schema';
+import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
@@ -19,7 +19,7 @@ export const updateUserSchema = {
       email: true,
     })
     .partial(),
-  response: userSchema,
+  response: userOpenApiSchema,
 };
 
 export type UpdateUserParams = z.infer<typeof updateUserSchema.params>;
