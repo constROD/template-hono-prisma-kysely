@@ -17,10 +17,10 @@ export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;
 export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 
 export const archiveUserRoute = createRoute({
-  security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{user_id}/archive',
   tags: ['Users'],
+  summary: 'Archive user',
   description: 'Archive a user',
   request: {
     params: archiveUserSchema.params,

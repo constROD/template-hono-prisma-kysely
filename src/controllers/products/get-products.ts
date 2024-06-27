@@ -27,6 +27,7 @@ export const getProductsRoute = createRoute({
   method: 'get',
   path: '/products',
   tags: ['Products'],
+  summary: 'Get products',
   description: 'List of products',
   responses: {
     200: {

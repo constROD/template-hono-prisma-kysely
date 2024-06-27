@@ -20,6 +20,7 @@ export const getUserRoute = createRoute({
   method: 'get',
   path: '/users/{user_id}',
   tags: ['Users'],
+  summary: 'Get user',
   description: 'Get one user',
   request: {
     params: getUserSchema.params,
