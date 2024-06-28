@@ -1,6 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
+import { NotFoundError } from '@/utils/errors';
 import { sql } from 'kysely';
-import { getUserData } from './get-user';
 
 export type ArchiveUserDataArgs = {
   dbClient: DbClient;
@@ -8,14 +8,12 @@ export type ArchiveUserDataArgs = {
 };
 
 export async function archiveUserData({ dbClient, id }: ArchiveUserDataArgs) {
-  await getUserData({ dbClient, id });
-
   const archivedRecord = await dbClient
     .updateTable('users')
     .set({ deleted_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirstOrThrow();
+    .executeTakeFirstOrThrow(() => new NotFoundError('User not found.'));
 
   return archivedRecord;
 }

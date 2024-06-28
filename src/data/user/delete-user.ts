@@ -1,5 +1,5 @@
 import { type DbClient } from '@/db/create-db-client';
-import { getUserData } from './get-user';
+import { NotFoundError } from '@/utils/errors';
 
 export type DeleteUserDataArgs = {
   dbClient: DbClient;
@@ -7,13 +7,11 @@ export type DeleteUserDataArgs = {
 };
 
 export async function deleteUserData({ dbClient, id }: DeleteUserDataArgs) {
-  await getUserData({ dbClient, id });
-
   const deletedRecord = await dbClient
     .deleteFrom('users')
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirstOrThrow();
+    .executeTakeFirstOrThrow(() => new NotFoundError('User not found.'));
 
   return deletedRecord;
 }

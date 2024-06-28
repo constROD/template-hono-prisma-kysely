@@ -1,6 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
+import { NotFoundError } from '@/utils/errors';
 import { sql } from 'kysely';
-import { getUserData } from './get-user';
 import { type UpdateUser } from './schema';
 
 export type UpdateUserDataArgs = {
@@ -10,14 +10,12 @@ export type UpdateUserDataArgs = {
 };
 
 export async function updateUserData({ dbClient, id, values }: UpdateUserDataArgs) {
-  await getUserData({ dbClient, id });
-
   const updatedRecord = await dbClient
     .updateTable('users')
     .set({ ...values, updated_at: sql`NOW()` })
     .where('id', '=', id)
     .returningAll()
-    .executeTakeFirstOrThrow();
+    .executeTakeFirstOrThrow(() => new NotFoundError('User not found.'));
 
   return updatedRecord;
 }
