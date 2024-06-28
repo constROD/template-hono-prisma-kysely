@@ -29,7 +29,6 @@ export const userSchema = z.object({
 
 export const userOpenApiSchema = userSchema.openapi('User');
 
-export type CreateUser = Required<Pick<User, 'email' | 'role'>> &
-  Partial<Pick<User, 'first_name' | 'last_name'>>;
+export type CreateUser = Omit<User, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>;
 
 export type UpdateUser = Partial<Pick<User, 'first_name' | 'last_name' | 'role'>>;
