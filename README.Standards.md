@@ -20,6 +20,7 @@
 - `/src/constants` - for constant values.
 - `/src/controllers` - for api routes and handlers.
 - `/src/data` - for data access layer. (e.g. database, cache, etc.)
+- `/src/services` - for business logic and orchestration of data access layer.
 - `/src/db` - for database connection and schemas.
 - `/src/lib` - for 3rd party integrations libraries.
 - `/src/middlewares` - for express middlewares.
@@ -30,3 +31,14 @@
 
 - `/src/app.ts` - main entry point.
 - `/src/env.ts` - for environment variables.
+
+## How it works?
+
+- **Pattern 1** (For simple CRUD apps)
+  - Data Access Layer -> Controller -> App
+- **Pattern 2** (For complex apps with business logic)
+  - Data Access Layer -> Service -> Controller -> App
+- **Pattern 3** (Hybrid of Pattern 1 and Pattern 2)
+  - Combined
+    - Data Access Layer -> Controller -> App
+    - Data Access Layer -> Service -> Controller -> App
