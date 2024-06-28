@@ -11,12 +11,10 @@ export const updateUserSchema = {
       .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
   }),
   body: userSchema
-    .omit({
-      id: true,
-      created_at: true,
-      updated_at: true,
-      deleted_at: true,
-      email: true,
+    .pick({
+      first_name: true,
+      last_name: true,
+      role: true,
     })
     .partial(),
   response: userOpenApiSchema,

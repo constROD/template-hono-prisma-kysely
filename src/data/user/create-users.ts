@@ -1,10 +1,9 @@
 import { type DbClient } from '@/db/create-db-client';
-import { type KyselySchema } from '@/db/schema';
-import { type InsertObjectOrList } from 'kysely/dist/cjs/parser/insert-values-parser';
+import { type CreateUser } from './schema';
 
 export type CreateUsersDataArgs = {
   dbClient: DbClient;
-  values: InsertObjectOrList<KyselySchema, 'users'>;
+  values: CreateUser | CreateUser[];
 };
 
 export async function createUsersData({ dbClient, values }: CreateUsersDataArgs) {

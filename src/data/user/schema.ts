@@ -28,3 +28,8 @@ export const userSchema = z.object({
 }) satisfies z.ZodType<User>;
 
 export const userOpenApiSchema = userSchema.openapi('User');
+
+export type CreateUser = Required<Pick<User, 'email' | 'role'>> &
+  Partial<Pick<User, 'first_name' | 'last_name'>>;
+
+export type UpdateUser = Partial<Pick<User, 'first_name' | 'last_name' | 'role'>>;

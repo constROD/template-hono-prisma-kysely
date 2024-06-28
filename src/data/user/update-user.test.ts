@@ -1,6 +1,6 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
-import { NotFoundError, ValidationError } from '@/utils/errors';
+import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
@@ -43,20 +43,6 @@ describe('Update User', () => {
     expect(updatedUser?.updated_at.toISOString()).not.equal(
       beforeUsers[0]?.updated_at.toISOString()
     );
-  });
-
-  it('should throw an error when updating email', async () => {
-    const [testCreatedUser] = await createTestUsersInDB({ dbClient });
-
-    if (!testCreatedUser) throw new Error('testCreatedUser is undefined');
-
-    expect(() =>
-      updateUserData({
-        dbClient,
-        id: testCreatedUser.id,
-        values: { email: faker.internet.email() },
-      })
-    ).rejects.toThrow(new ValidationError('Cannot update email.'));
   });
 
   it('should throw NotFoundError if user is not existing.', async () => {

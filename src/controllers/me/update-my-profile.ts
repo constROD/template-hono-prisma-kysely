@@ -6,13 +6,9 @@ import { type Handler } from 'hono';
 
 export const updateMyProfileSchema = {
   body: userSchema
-    .omit({
-      id: true,
-      created_at: true,
-      updated_at: true,
-      deleted_at: true,
-      email: true,
-      role: true,
+    .pick({
+      first_name: true,
+      last_name: true,
     })
     .partial(),
   response: userOpenApiSchema,

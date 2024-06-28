@@ -5,11 +5,11 @@ import { createRoute, type z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
 export const createUserSchema = {
-  body: userSchema.omit({
-    id: true,
-    created_at: true,
-    updated_at: true,
-    deleted_at: true,
+  body: userSchema.pick({
+    email: true,
+    role: true,
+    first_name: true,
+    last_name: true,
   }),
   response: userOpenApiSchema,
 };
