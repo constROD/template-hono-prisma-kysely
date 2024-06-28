@@ -20,10 +20,10 @@
 - `/src/constants` - for constant values.
 - `/src/controllers` - for api routes and handlers.
 - `/src/data` - for data access layer. (e.g. database, cache, etc.)
-- `/src/services` - for business logic and orchestration of data access layer.
 - `/src/db` - for database connection and schemas.
 - `/src/lib` - for 3rd party integrations libraries.
 - `/src/middlewares` - for express middlewares.
+- `/src/services` - for business logic and orchestration of data access layer.
 - `/src/utils` - for helpers and utilities.
 - `/src/types` - for shared types and interfaces.
 
