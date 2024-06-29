@@ -17,7 +17,7 @@ export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;
 export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 
 export const archiveUserRoute = createRoute({
-  method: 'put',
+  method: 'delete',
   path: '/users/{user_id}/archive',
   tags: ['Users'],
   summary: 'Archive a user',
