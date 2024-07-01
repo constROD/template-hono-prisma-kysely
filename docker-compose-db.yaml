@@ -7,7 +7,7 @@ services:
     ports:
       - '${DB_PORT}:5432'
     volumes:
-      - ./databases/pg/data:/var/lib/postgresql/data
+      - ./volumes/databases/pg/data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -18,7 +18,7 @@ services:
     ports:
       - '${TEST_DB_PORT}:5432'
     volumes:
-      - ./databases/test-pg/data:/var/lib/postgresql/data
+      - ./volumes/databases/test-pg/data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -29,7 +29,7 @@ services:
     ports:
       - '${PGADMIN_PORT}:5050'
     volumes:
-      - ./databases/pg/pgadmin:/var/lib/pgadmin
+      - ./volumes/databases/pg/pgadmin:/var/lib/pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
