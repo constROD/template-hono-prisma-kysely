@@ -1,5 +1,6 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productOpenApiSchema } from '@/data/product/schema';
+import { getAuthenticatedUserMiddleware } from '@/middlewares/get-authenticated-user';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -39,6 +40,7 @@ export const getProductsRoute = createRoute({
       description: 'Products retrieved successfully',
     },
   },
+  middleware: [getAuthenticatedUserMiddleware], // This middleware is used to get the authenticated user from the session
 });
 
 export const getProductsHandler: Handler = async c => {
