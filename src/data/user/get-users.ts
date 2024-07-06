@@ -27,7 +27,7 @@ export async function getUsersData({
 
   let allRecordsQuery = dbClient
     .selectFrom('users')
-    .select(dbClient.fn.count('id').as('total_records'));
+    .select(eb => eb.fn.count('id').as('total_records'));
 
   if (!includeArchived) {
     query = query.where('deleted_at', 'is', null);
