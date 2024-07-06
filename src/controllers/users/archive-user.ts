@@ -35,6 +35,7 @@ export const archiveUserRoute = createRoute({
       description: 'User archived successfully',
     },
   },
+  middleware: [],
 });
 
 export const archiveUserHandler: Handler = async c => {

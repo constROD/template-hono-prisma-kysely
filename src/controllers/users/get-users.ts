@@ -42,6 +42,7 @@ export const getUsersRoute = createRoute({
       description: 'Users retrieved successfully',
     },
   },
+  middleware: [],
 });
 
 export const getUsersHandler: Handler = async c => {

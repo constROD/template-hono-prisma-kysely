@@ -27,6 +27,7 @@ export const getMyProfileRoute = createRoute({
       description: 'My profile retrieved successfully',
     },
   },
+  middleware: [],
 });
 
 export const getMyProfileHandler: Handler = async c => {

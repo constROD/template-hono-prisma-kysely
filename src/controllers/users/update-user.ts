@@ -50,6 +50,7 @@ export const updateUserRoute = createRoute({
       description: 'User updated successfully',
     },
   },
+  middleware: [],
 });
 
 export const updateUserHandler: Handler = async c => {

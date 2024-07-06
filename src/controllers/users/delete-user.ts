@@ -35,6 +35,7 @@ export const deleteUserRoute = createRoute({
       description: 'User deleted successfully',
     },
   },
+  middleware: [],
 });
 
 export const deleteUserHandler: Handler = async c => {

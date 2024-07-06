@@ -43,6 +43,7 @@ export const updateMyProfileRoute = createRoute({
       description: 'My profile updated successfully',
     },
   },
+  middleware: [],
 });
 
 export const updateMyProfileHandler: Handler = async c => {

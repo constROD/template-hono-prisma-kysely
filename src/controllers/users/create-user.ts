@@ -42,6 +42,7 @@ export const createUserRoute = createRoute({
       description: 'User created successfully',
     },
   },
+  middleware: [],
 });
 
 export const createUserHandler: Handler = async c => {
