@@ -32,4 +32,4 @@ export const userOpenApiSchema = userSchema.openapi('User');
 export type CreateUser = Pick<User, 'email'> &
   Partial<Pick<User, 'first_name' | 'last_name' | 'role'>>;
 
-export type UpdateUser = Partial<CreateUser>;
+export type UpdateUser = Partial<User>;
