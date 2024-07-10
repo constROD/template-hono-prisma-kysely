@@ -48,7 +48,7 @@ export function makeError<TError extends Error>(error: TError) {
 
   if (error instanceof UnauthorizedError) {
     return {
-      statusCode: 403,
+      statusCode: 401,
       error: defaultError,
     };
   }
