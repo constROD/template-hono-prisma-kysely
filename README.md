@@ -4,6 +4,12 @@
 
 This is a template for backend development using **node**, **Hono**, **Prisma** and **Kysely**. It includes **ESLint**, **Prettier**, and **Husky** for code quality and linting.
 
+## Clone
+
+```bash
+npx degit https://github.com/constROD/template-hono-prisma-kysely.git
+```
+
 ## Prerequisites
 
 - Download extension [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in your VSCode.
