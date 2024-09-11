@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { ZodError } from 'zod';
 
 export class ValidationError extends Error {
@@ -32,6 +33,14 @@ export class NotFoundError extends Error {
   }
 }
 
+export class ConflictError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ConflictError';
+    this.message = message;
+  }
+}
+
 export function makeError<TError extends Error>(error: TError) {
   const defaultError = {
     name: error.name,
@@ -41,46 +50,53 @@ export function makeError<TError extends Error>(error: TError) {
   /* Custom Errors */
   if (error instanceof ValidationError) {
     return {
-      statusCode: 400,
+      statusCode: StatusCodes.BAD_REQUEST,
       error: defaultError,
     };
   }
 
   if (error instanceof UnauthorizedError) {
     return {
-      statusCode: 401,
+      statusCode: StatusCodes.UNAUTHORIZED,
       error: defaultError,
     };
   }
 
   if (error instanceof ForbiddenError) {
     return {
-      statusCode: 403,
+      statusCode: StatusCodes.FORBIDDEN,
       error: defaultError,
     };
   }
 
   if (error instanceof NotFoundError) {
     return {
-      statusCode: 404,
+      statusCode: StatusCodes.NOT_FOUND,
+      error: defaultError,
+    };
+  }
+
+  if (error instanceof ConflictError) {
+    return {
+      statusCode: StatusCodes.CONFLICT,
       error: defaultError,
     };
   }
 
   /* Library Errors */
   if (error instanceof ZodError) {
+    /* Mostly for Controller's Payload Validation */
     return {
-      statusCode: 400,
+      statusCode: StatusCodes.BAD_REQUEST,
       error: {
-        name: error.name,
-        message: error.message,
+        ...defaultError,
         issues: error.issues,
       },
     };
   }
 
   return {
-    statusCode: 500,
+    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     error: defaultError,
   };
 }
