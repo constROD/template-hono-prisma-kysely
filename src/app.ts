@@ -12,6 +12,7 @@ import { createUserHandler, createUserRoute } from './controllers/users/create-u
 import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
 import { getUserHandler, getUserRoute } from './controllers/users/get-user';
 import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
+import { searchUsersHandler, searchUsersRoute } from './controllers/users/search-users';
 import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
 import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
@@ -58,6 +59,7 @@ app.use(setUpDbClientMiddleware);
 
 /* ===== Public Routes ===== */
 /* Users */
+app.openapi(searchUsersRoute, searchUsersHandler);
 app.openapi(getUsersRoute, getUsersHandler);
 app.openapi(createUserRoute, createUserHandler);
 app.openapi(getUserRoute, getUserHandler);
