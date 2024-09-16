@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { isValidStringDecimalNumber } from './number';
 
 export const emailSchema = z.string().email('Please enter a valid email address.').toLowerCase();
 
@@ -20,6 +21,13 @@ export const passwordSchema = z.string().refine(value => {
 
   return minLength && hasLowercase && hasUppercase && hasSpecialChar && hasNumber && maxLength;
 }, passwordValidationMessages.join('\n'));
+
+export const decimalNumberSchema = z
+  .string()
+  .min(1)
+  .refine(value => isValidStringDecimalNumber(value), {
+    message: 'Value is not a valid decimal number',
+  });
 
 export const paginationSchema = z.object({
   total_pages: z.number(),
