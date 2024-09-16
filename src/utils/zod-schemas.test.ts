@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { emailSchema, passwordSchema } from './zod-schemas';
+import { emailSchema, paginationSchema, passwordSchema } from './zod-schemas';
 
 describe('emailSchema', () => {
   it.each([
@@ -50,4 +50,34 @@ describe('passwordSchema', () => {
       expect(results.success).toBe(valid);
     }
   );
+});
+
+describe('paginationSchema', () => {
+  it('should validate pagination data', () => {
+    const paginationData = {
+      total_pages: 10,
+      current_page: 1,
+      next_page: 2,
+      previous_page: null,
+    };
+
+    const results = paginationSchema.safeParse(paginationData);
+
+    expect(results.success).toBe(true);
+    expect(results.data).toEqual(paginationData);
+  });
+
+  it('should return error for invalid pagination data', () => {
+    const paginationData = {
+      total_pages: true,
+      current_page: 1,
+      next_page: '123',
+      previous_page: 'asd',
+    };
+
+    const results = paginationSchema.safeParse(paginationData);
+
+    expect(results.success).toBe(false);
+    expect(results.error).toBeDefined();
+  });
 });

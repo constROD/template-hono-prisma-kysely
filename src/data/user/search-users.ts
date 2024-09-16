@@ -56,5 +56,12 @@ export async function searchUsersData({
   const records = await query.execute();
   const allRecords = await allRecordsQuery.executeTakeFirst();
 
-  return { records, totalRecords: Number(allRecords?.total_records) ?? 0 };
+  return {
+    records,
+    totalRecords: Number(allRecords?.total_records) ?? 0,
+    totalPages: Math.ceil(Number(allRecords?.total_records) / limit),
+    currentPage: page,
+    nextPage: page < Math.ceil(Number(allRecords?.total_records) / limit) ? page + 1 : null,
+    previousPage: page > 1 ? page - 1 : null,
+  };
 }

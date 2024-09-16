@@ -1,5 +1,6 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
 import { userOpenApiSchema } from '@/data/user/schema';
+import { paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
@@ -14,10 +15,12 @@ export const getUsersSchema = {
       .transform(v => v === 'true')
       .optional(),
   }),
-  response: z.object({
-    records: z.array(userOpenApiSchema),
-    total_records: z.number(),
-  }),
+  response: z
+    .object({
+      records: z.array(userOpenApiSchema),
+      total_records: z.number(),
+    })
+    .extend(paginationSchema.shape),
 };
 
 export type GetUsersQuery = z.infer<typeof getUsersSchema.query>;
@@ -62,6 +65,10 @@ export const getUsersHandler: Handler = async c => {
     {
       records: data.records,
       total_records: data.totalRecords,
+      total_pages: data.totalPages,
+      current_page: data.currentPage,
+      next_page: data.nextPage,
+      previous_page: data.previousPage,
     },
     { status: 200 }
   );

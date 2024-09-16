@@ -20,3 +20,10 @@ export const passwordSchema = z.string().refine(value => {
 
   return minLength && hasLowercase && hasUppercase && hasSpecialChar && hasNumber && maxLength;
 }, passwordValidationMessages.join('\n'));
+
+export const paginationSchema = z.object({
+  total_pages: z.number(),
+  current_page: z.number(),
+  next_page: z.number().nullable(),
+  previous_page: z.number().nullable(),
+});

@@ -17,9 +17,13 @@ describe('Get Users', () => {
 
   it('should get a users', async () => {
     const count = 10;
-    const promiseArray = Array.from({ length: count }).map(() => createTestUsersInDB({ dbClient }));
 
-    await Promise.all(promiseArray);
+    await createTestUsersInDB({
+      dbClient,
+      values: Array.from({ length: count }).map((_, idx) => ({
+        first_name: `John ${idx}`,
+      })),
+    });
 
     const { records, totalRecords } = await getUsersData({ dbClient });
 
@@ -32,5 +36,26 @@ describe('Get Users', () => {
 
     expect(records.length).toBe(0);
     expect(totalRecords).toBe(0);
+  });
+
+  it('should return the correct pagination data', async () => {
+    const count = 100;
+
+    await createTestUsersInDB({
+      dbClient,
+      values: Array.from({ length: count }).map((_, idx) => ({
+        first_name: `John ${idx}`,
+      })),
+    });
+
+    const { records, totalRecords, totalPages, currentPage, nextPage, previousPage } =
+      await getUsersData({ dbClient });
+
+    expect(records.length).toBe(25);
+    expect(totalRecords).toBe(count);
+    expect(totalPages).toBe(4);
+    expect(currentPage).toBe(1);
+    expect(nextPage).toBe(2);
+    expect(previousPage).toBe(null);
   });
 });
