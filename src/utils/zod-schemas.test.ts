@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { emailSchema, paginationSchema, passwordSchema } from './zod-schemas';
+import { decimalNumberSchema, emailSchema, paginationSchema, passwordSchema } from './zod-schemas';
 
 describe('emailSchema', () => {
   it.each([
@@ -45,6 +45,30 @@ describe('passwordSchema', () => {
       if (results.success) {
         expect(results.success).toBe(valid);
         expect(results.data).toBe(password);
+      }
+
+      expect(results.success).toBe(valid);
+    }
+  );
+});
+
+describe('decimalNumberSchema', () => {
+  it.each([
+    { value: '10.00', valid: true },
+    { value: '10', valid: true },
+    { value: '10.00.00', valid: false },
+    { value: '10.00.00.00', valid: false },
+    { value: '', valid: false },
+    { value: null, valid: false },
+    { value: undefined, valid: false },
+  ])(
+    'should validate correct decimal number: value($value) | valid($valid)',
+    ({ value, valid }) => {
+      const results = decimalNumberSchema.safeParse(value);
+
+      if (results.success) {
+        expect(results.success).toBe(valid);
+        expect(results.data).toBe(value);
       }
 
       expect(results.success).toBe(valid);
