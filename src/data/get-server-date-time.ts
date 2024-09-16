@@ -2,11 +2,11 @@ import { type DbClient } from '@/db/create-db-client';
 import { formatDateToISO } from '@/utils/date';
 import { sql } from 'kysely';
 
-export type GetCurrentServerDateDataArgs = {
+export type GetServerDateTimeDataArgs = {
   dbClient: DbClient;
 };
 
-export async function getCurrentServerDateData({ dbClient }: GetCurrentServerDateDataArgs) {
+export async function getServerDateTimeData({ dbClient }: GetServerDateTimeDataArgs) {
   const {
     rows: [serverData],
   } = await sql<{ server_date: Date }>`SELECT CURRENT_TIMESTAMP AS server_date`.execute(dbClient);

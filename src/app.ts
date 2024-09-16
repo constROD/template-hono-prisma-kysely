@@ -4,6 +4,10 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
+import {
+  getServerDateTimeHandler,
+  getServerDateTimeRoute,
+} from './controllers/get-server-date-time';
 import { getMyProfileHandler, getMyProfileRoute } from './controllers/me/get-my-profile';
 import { updateMyProfileHandler, updateMyProfileRoute } from './controllers/me/update-my-profile';
 import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
@@ -58,6 +62,8 @@ app.use(logger());
 app.use(setUpDbClientMiddleware);
 
 /* ===== Public Routes ===== */
+app.openapi(getServerDateTimeRoute, getServerDateTimeHandler);
+
 /* Users */
 app.openapi(searchUsersRoute, searchUsersHandler);
 app.openapi(getUsersRoute, getUsersHandler);
