@@ -6,12 +6,10 @@ import { type Handler } from 'hono';
 
 export const getUsersSchema = {
   query: listQuerySchema,
-  response: z
-    .object({
-      records: z.array(userOpenApiSchema),
-      total_records: z.number(),
-    })
-    .extend(paginationSchema.shape),
+  response: paginationSchema.extend({
+    records: z.array(userOpenApiSchema),
+    total_records: z.number(),
+  }),
 };
 
 export type GetUsersQuery = z.infer<typeof getUsersSchema.query>;

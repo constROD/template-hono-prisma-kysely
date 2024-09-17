@@ -9,12 +9,10 @@ export const searchUsersSchema = {
   query: listQuerySchema.extend({
     search: z.string().optional(),
   }),
-  response: z
-    .object({
-      records: z.array(userOpenApiSchema),
-      total_records: z.number(),
-    })
-    .extend(paginationSchema.shape),
+  response: paginationSchema.extend({
+    records: z.array(userOpenApiSchema),
+    total_records: z.number(),
+  }),
 };
 
 export type SearchUsersQuery = z.infer<typeof searchUsersSchema.query>;
