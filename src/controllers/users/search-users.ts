@@ -25,7 +25,7 @@ export const searchUsersRoute = createRoute({
   path: '/users/search',
   tags: ['Users'],
   summary: 'Search users',
-  description: 'Search users.',
+  description: 'Search for users.',
   request: {
     query: searchUsersSchema.query,
   },
