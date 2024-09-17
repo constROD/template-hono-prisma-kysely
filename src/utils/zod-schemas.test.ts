@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { decimalNumberSchema, emailSchema, paginationSchema, passwordSchema } from './zod-schemas';
+import {
+  decimalNumberSchema,
+  emailSchema,
+  listQuerySchema,
+  paginationSchema,
+  passwordSchema,
+} from './zod-schemas';
 
 describe('emailSchema', () => {
   it.each([
@@ -100,6 +106,38 @@ describe('paginationSchema', () => {
     };
 
     const results = paginationSchema.safeParse(paginationData);
+
+    expect(results.success).toBe(false);
+    expect(results.error).toBeDefined();
+  });
+});
+
+describe('listQuerySchema', () => {
+  it('should validate list query data', () => {
+    const listQueryData = {
+      limit: 10,
+      page: 1,
+      sort_by: 'created_at',
+      order_by: 'desc',
+      include_archived: 'false',
+    };
+
+    const results = listQuerySchema.safeParse(listQueryData);
+
+    expect(results.success).toBe(true);
+    expect(results.data).toEqual({ ...listQueryData, include_archived: false });
+  });
+
+  it('should return error for invalid list query data', () => {
+    const listQueryData = {
+      limit: 10,
+      page: 1,
+      sort_by: 123, // Invalid sort_by
+      order_by: 'desc',
+      include_archived: false, // Invalid string boolean
+    };
+
+    const results = listQuerySchema.safeParse(listQueryData);
 
     expect(results.success).toBe(false);
     expect(results.error).toBeDefined();

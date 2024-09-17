@@ -1,20 +1,11 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
 import { userOpenApiSchema } from '@/data/user/schema';
-import { paginationSchema } from '@/utils/zod-schemas';
+import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
 export const getUsersSchema = {
-  query: z.object({
-    limit: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    sort_by: z.string().optional(),
-    order_by: z.enum(['asc', 'desc']).optional(),
-    include_archived: z
-      .enum(['true', 'false'])
-      .transform(v => v === 'true')
-      .optional(),
-  }),
+  query: listQuerySchema,
   response: z
     .object({
       records: z.array(userOpenApiSchema),
