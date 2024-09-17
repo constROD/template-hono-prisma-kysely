@@ -52,7 +52,7 @@ export const searchUsersHandler: Handler = async c => {
     limit: query?.limit,
     page: query?.page,
     includeArchived: query?.include_archived,
-    searchText: query?.search,
+    filters: { searchText: query?.search },
   });
 
   return c.json<SearchUsersResponse>(

@@ -68,7 +68,10 @@ describe('Search Users', () => {
       },
     });
 
-    const { records, totalRecords } = await searchUsersData({ dbClient, searchText: 'John' });
+    const { records, totalRecords } = await searchUsersData({
+      dbClient,
+      filters: { searchText: 'John' },
+    });
 
     expect(records.length).toBe(1);
     expect(totalRecords).toBe(1);
