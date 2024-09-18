@@ -29,7 +29,7 @@ export const userSchema = z.object({
 
 export const userOpenApiSchema = userSchema.openapi('User');
 
-export type CreateUser = Pick<User, 'email'> &
-  Partial<Pick<User, 'first_name' | 'last_name' | 'role'>>;
+export type CreateUser = Pick<User, 'email' | 'role'> &
+  Partial<Pick<User, 'first_name' | 'last_name'>>;
 
-export type UpdateUser = Partial<User>;
+export type UpdateUser = Partial<z.infer<typeof userSchema>>;
