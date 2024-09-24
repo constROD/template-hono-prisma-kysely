@@ -1,4 +1,4 @@
-import { customLog } from '../utils/logger';
+import { cliLogger } from '../utils/logger';
 import { runCommand } from '../utils/run-command';
 
 export function runApplyDbMigration({ databaseUrl }: { databaseUrl: string }) {
@@ -8,7 +8,7 @@ export function runApplyDbMigration({ databaseUrl }: { databaseUrl: string }) {
   const { error: migrateError } = runCommand(migrateCommand);
 
   if (migrateError) {
-    customLog.error(`Error when running prisma migrate:\n`, migrateError);
+    cliLogger.error(`Error when running prisma migrate:\n`, migrateError);
     process.exit();
   }
 
@@ -16,7 +16,7 @@ export function runApplyDbMigration({ databaseUrl }: { databaseUrl: string }) {
   const { error: generateError } = runCommand(generateCommand);
 
   if (generateError) {
-    customLog.error(`Error when running prisma generate:\n`, generateError);
+    cliLogger.error(`Error when running prisma generate:\n`, generateError);
     process.exit();
   }
 }

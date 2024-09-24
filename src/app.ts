@@ -24,6 +24,7 @@ import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 import { type AuthenticatedUser, type Session } from './types/auth';
+import { pinoLogger } from './utils/logger';
 
 const app = new OpenAPIHono();
 
@@ -96,4 +97,4 @@ serve({
 });
 
 // eslint-disable-next-line no-console
-console.info(`Listening on port: ${envConfig.APP_PORT}`);
+pinoLogger.info('Listening on port', envConfig.APP_PORT);

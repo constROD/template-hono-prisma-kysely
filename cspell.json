@@ -6,7 +6,8 @@
     "Hono",
     "Kysely",
     "Millis",
-    "openapi"
+    "openapi",
+    "pino"
   ],
   "ignorePaths": [
     "./node_modules",

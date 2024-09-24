@@ -15,7 +15,7 @@ function infoLog(title: string, message: string | unknown = '') {
   console.log(chalk(`❯ ${title} `) + chalk.cyan(messageString));
 }
 
-export const customLog = {
+export const cliLogger = {
   success: successLog,
   error: errorLog,
   info: infoLog,
