@@ -41,8 +41,5 @@ export const listQuerySchema = z.object({
   page: z.coerce.number().optional(),
   sort_by: z.string().optional(),
   order_by: z.enum(['asc', 'desc']).optional(),
-  include_archived: z
-    .enum(['true', 'false'])
-    .transform(v => v === 'true')
-    .optional(),
+  include_archived: z.enum(['true', 'false']).optional(),
 });

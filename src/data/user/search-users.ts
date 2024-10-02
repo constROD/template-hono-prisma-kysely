@@ -1,5 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
+import { makeDefaultDataListReturn } from '../make-default-list-return';
 
 export type SearchUserFilters = {
   searchText?: string;
@@ -11,7 +12,7 @@ export type SearchUsersDataArgs = {
   page?: number;
   sortBy?: keyof User;
   orderBy?: 'asc' | 'desc';
-  includeArchived?: boolean;
+  includeArchived?: 'true' | 'false';
   filters?: SearchUserFilters;
 };
 
@@ -21,7 +22,7 @@ export async function searchUsersData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
-  includeArchived,
+  includeArchived = 'false',
   filters,
 }: SearchUsersDataArgs) {
   let query = dbClient
@@ -35,7 +36,8 @@ export async function searchUsersData({
     .selectFrom('users')
     .select(eb => eb.fn.count('id').as('total_records'));
 
-  if (!includeArchived) {
+  const shouldIncludeArchived = includeArchived === 'true';
+  if (!shouldIncludeArchived) {
     query = query.where('deleted_at', 'is', null);
     allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
   }
@@ -60,12 +62,10 @@ export async function searchUsersData({
   const records = await query.execute();
   const allRecords = await allRecordsQuery.executeTakeFirst();
 
-  return {
+  return makeDefaultDataListReturn({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
-    totalPages: Math.ceil(Number(allRecords?.total_records) / limit),
-    currentPage: page,
-    nextPage: page < Math.ceil(Number(allRecords?.total_records) / limit) ? page + 1 : null,
-    previousPage: page > 1 ? page - 1 : null,
-  };
+    limit,
+    page,
+  });
 }

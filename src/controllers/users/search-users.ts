@@ -53,15 +53,5 @@ export const searchUsersHandler: Handler = async c => {
     filters: { searchText: query?.search },
   });
 
-  return c.json<SearchUsersResponse>(
-    {
-      records: data.records,
-      total_records: data.totalRecords,
-      total_pages: data.totalPages,
-      current_page: data.currentPage,
-      next_page: data.nextPage,
-      previous_page: data.previousPage,
-    },
-    { status: 200 }
-  );
+  return c.json<SearchUsersResponse>(data, { status: 200 });
 };

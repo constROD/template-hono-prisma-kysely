@@ -1,21 +1,13 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productOpenApiSchema } from '@/data/product/schema';
 import { getAuthenticatedUserMiddleware } from '@/middlewares/get-authenticated-user';
+import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import { type Handler } from 'hono';
 
 export const getProductsSchema = {
-  query: z.object({
-    limit: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    sort_by: z.string().optional(),
-    order_by: z.enum(['asc', 'desc']).optional(),
-    include_archived: z
-      .enum(['true', 'false'])
-      .transform(v => v === 'true')
-      .optional(),
-  }),
-  response: z.object({
+  query: listQuerySchema,
+  response: paginationSchema.extend({
     records: z.array(productOpenApiSchema),
     total_records: z.number(),
   }),
@@ -56,11 +48,5 @@ export const getProductsHandler: Handler = async c => {
     includeArchived: query?.include_archived,
   });
 
-  return c.json<GetProductsResponse>(
-    {
-      records: data.records,
-      total_records: data.totalRecords,
-    },
-    { status: 200 }
-  );
+  return c.json<GetProductsResponse>(data, { status: 200 });
 };

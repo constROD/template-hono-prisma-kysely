@@ -1,5 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
+import { makeDefaultDataListReturn } from '../make-default-list-return';
 
 export type GetUsersDataArgs = {
   dbClient: DbClient;
@@ -7,7 +8,7 @@ export type GetUsersDataArgs = {
   page?: number;
   sortBy?: keyof User;
   orderBy?: 'asc' | 'desc';
-  includeArchived?: boolean;
+  includeArchived?: 'true' | 'false';
 };
 
 export async function getUsersData({
@@ -16,7 +17,7 @@ export async function getUsersData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
-  includeArchived,
+  includeArchived = 'false',
 }: GetUsersDataArgs) {
   let query = dbClient
     .selectFrom('users')
@@ -29,7 +30,8 @@ export async function getUsersData({
     .selectFrom('users')
     .select(eb => eb.fn.count('id').as('total_records'));
 
-  if (!includeArchived) {
+  const shouldIncludeArchived = includeArchived === 'true';
+  if (!shouldIncludeArchived) {
     query = query.where('deleted_at', 'is', null);
     allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
   }
@@ -37,12 +39,10 @@ export async function getUsersData({
   const records = await query.execute();
   const allRecords = await allRecordsQuery.executeTakeFirst();
 
-  return {
+  return makeDefaultDataListReturn({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
-    totalPages: Math.ceil(Number(allRecords?.total_records) / limit),
-    currentPage: page,
-    nextPage: page < Math.ceil(Number(allRecords?.total_records) / limit) ? page + 1 : null,
-    previousPage: page > 1 ? page - 1 : null,
-  };
+    limit,
+    page,
+  });
 }

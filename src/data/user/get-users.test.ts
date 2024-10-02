@@ -25,17 +25,17 @@ describe('Get Users', () => {
       })),
     });
 
-    const { records, totalRecords } = await getUsersData({ dbClient });
+    const { records, total_records } = await getUsersData({ dbClient });
 
     expect(records.length).toBe(count);
-    expect(totalRecords).toBe(count);
+    expect(total_records).toBe(count);
   });
 
   it('should return empty array when no user', async () => {
-    const { records, totalRecords } = await getUsersData({ dbClient });
+    const { records, total_records } = await getUsersData({ dbClient });
 
     expect(records.length).toBe(0);
-    expect(totalRecords).toBe(0);
+    expect(total_records).toBe(0);
   });
 
   it('should return the correct pagination data', async () => {
@@ -48,14 +48,14 @@ describe('Get Users', () => {
       })),
     });
 
-    const { records, totalRecords, totalPages, currentPage, nextPage, previousPage } =
+    const { records, total_records, total_pages, current_page, next_page, previous_page } =
       await getUsersData({ dbClient });
 
     expect(records.length).toBe(25);
-    expect(totalRecords).toBe(count);
-    expect(totalPages).toBe(4);
-    expect(currentPage).toBe(1);
-    expect(nextPage).toBe(2);
-    expect(previousPage).toBe(null);
+    expect(total_records).toBe(count);
+    expect(total_pages).toBe(4);
+    expect(current_page).toBe(1);
+    expect(next_page).toBe(2);
+    expect(previous_page).toBe(null);
   });
 });

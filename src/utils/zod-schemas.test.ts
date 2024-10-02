@@ -125,7 +125,7 @@ describe('listQuerySchema', () => {
     const results = listQuerySchema.safeParse(listQueryData);
 
     expect(results.success).toBe(true);
-    expect(results.data).toEqual({ ...listQueryData, include_archived: false });
+    expect(results.data).toEqual(listQueryData);
   });
 
   it('should return error for invalid list query data', () => {

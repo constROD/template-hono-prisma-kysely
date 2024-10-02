@@ -1,5 +1,6 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type Product } from '@/db/schema';
+import { makeDefaultDataListReturn } from '../make-default-list-return';
 
 export type GetProductsDataArgs = {
   dbClient: DbClient;
@@ -7,7 +8,7 @@ export type GetProductsDataArgs = {
   page?: number;
   sortBy?: keyof Product;
   orderBy?: 'asc' | 'desc';
-  includeArchived?: boolean;
+  includeArchived?: 'true' | 'false';
 };
 
 export async function getProductsData({
@@ -16,7 +17,7 @@ export async function getProductsData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
-  includeArchived,
+  includeArchived = 'false',
 }: GetProductsDataArgs) {
   let query = dbClient
     .selectFrom('products')
@@ -29,7 +30,8 @@ export async function getProductsData({
     .selectFrom('products')
     .select(eb => eb.fn.count('id').as('total_records'));
 
-  if (!includeArchived) {
+  const shouldIncludeArchived = includeArchived === 'true';
+  if (!shouldIncludeArchived) {
     query = query.where('deleted_at', 'is', null);
     allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
   }
@@ -37,5 +39,10 @@ export async function getProductsData({
   const records = await query.execute();
   const allRecords = await allRecordsQuery.executeTakeFirst();
 
-  return { records, totalRecords: Number(allRecords?.total_records) ?? 0 };
+  return makeDefaultDataListReturn({
+    records,
+    totalRecords: Number(allRecords?.total_records) ?? 0,
+    limit,
+    page,
+  });
 }
