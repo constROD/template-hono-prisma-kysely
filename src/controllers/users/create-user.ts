@@ -1,8 +1,7 @@
 import { createUsersData } from '@/data/user/create-users';
 import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { NotFoundError } from '@/utils/errors';
-import { createRoute, type z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, type z } from '@hono/zod-openapi';
 
 export const createUserSchema = {
   body: userSchema.pick({
@@ -45,13 +44,15 @@ export const createUserRoute = createRoute({
   middleware: [],
 });
 
-export const createUserHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const body = await c.req.json<CreateUserBody>();
+export function makeCreateUserRouteHandler(app: OpenAPIHono) {
+  return app.openapi(createUserRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const body = c.req.valid('json');
 
-  const [createdUser] = await createUsersData({ dbClient, values: body });
+    const [createdUser] = await createUsersData({ dbClient, values: body });
 
-  if (!createdUser) throw new NotFoundError('No user created. Please try again.');
+    if (!createdUser) throw new NotFoundError('No user created. Please try again.');
 
-  return c.json<CreateUserResponse>(createdUser, { status: 201 });
-};
+    return c.json(createdUser, { status: 201 });
+  });
+}

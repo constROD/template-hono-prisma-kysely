@@ -1,7 +1,6 @@
 import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
-import { createRoute, z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const updateUserSchema = {
   params: z.object({
@@ -53,12 +52,14 @@ export const updateUserRoute = createRoute({
   middleware: [],
 });
 
-export const updateUserHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const param = c.req.param() as UpdateUserParams;
-  const body = await c.req.json<UpdateUserBody>();
+export function makeUpdateUserRouteHandler(app: OpenAPIHono) {
+  return app.openapi(updateUserRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const param = c.req.valid('param');
+    const body = c.req.valid('json');
 
-  const updatedUser = await updateUserData({ dbClient, id: param.user_id, values: body });
+    const updatedUser = await updateUserData({ dbClient, id: param.user_id, values: body });
 
-  return c.json<UpdateUserResponse>(updatedUser, { status: 200 });
-};
+    return c.json(updatedUser, { status: 200 });
+  });
+}

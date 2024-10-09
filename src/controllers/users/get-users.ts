@@ -1,8 +1,7 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
 import { userOpenApiSchema } from '@/data/user/schema';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
-import { createRoute, z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const getUsersSchema = {
   query: listQuerySchema,
@@ -37,18 +36,20 @@ export const getUsersRoute = createRoute({
   middleware: [],
 });
 
-export const getUsersHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const query = getUsersSchema.query.parse(c.req.query());
+export function makeGetUsersRouteHandler(app: OpenAPIHono) {
+  return app.openapi(getUsersRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const query = c.req.valid('query');
 
-  const data = await getUsersData({
-    dbClient,
-    sortBy: query?.sort_by as GetUsersDataArgs['sortBy'],
-    orderBy: query?.order_by,
-    limit: query?.limit,
-    page: query?.page,
-    includeArchived: query?.include_archived,
+    const data = await getUsersData({
+      dbClient,
+      sortBy: query?.sort_by as GetUsersDataArgs['sortBy'],
+      orderBy: query?.order_by,
+      limit: query?.limit,
+      page: query?.page,
+      includeArchived: query?.include_archived,
+    });
+
+    return c.json(data, { status: 200 });
   });
-
-  return c.json<GetUsersResponse>(data, { status: 200 });
-};
+}

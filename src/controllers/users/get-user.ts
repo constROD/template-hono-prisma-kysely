@@ -1,7 +1,6 @@
 import { getUserData } from '@/data/user/get-user';
 import { userOpenApiSchema } from '@/data/user/schema';
-import { createRoute, z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const getUserSchema = {
   params: z.object({
@@ -38,11 +37,13 @@ export const getUserRoute = createRoute({
   middleware: [],
 });
 
-export const getUserHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const param = c.req.param() as GetUserParams;
+export function makeGetUserRouteHandler(app: OpenAPIHono) {
+  return app.openapi(getUserRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const param = c.req.valid('param');
 
-  const user = await getUserData({ dbClient, id: param.user_id });
+    const user = await getUserData({ dbClient, id: param.user_id });
 
-  return c.json<GetUserResponse>(user, { status: 200 });
-};
+    return c.json(user, { status: 200 });
+  });
+}

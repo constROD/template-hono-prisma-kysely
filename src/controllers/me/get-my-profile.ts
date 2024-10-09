@@ -1,8 +1,7 @@
 import { getUserData } from '@/data/user/get-user';
 import { userOpenApiSchema } from '@/data/user/schema';
 import { type Session } from '@/types/auth';
-import { createRoute, type z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, type z } from '@hono/zod-openapi';
 
 export const getMyProfileSchema = {
   response: userOpenApiSchema,
@@ -30,11 +29,13 @@ export const getMyProfileRoute = createRoute({
   middleware: [],
 });
 
-export const getMyProfileHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const session = c.get('session') as Session;
+export function makeGetMyProfileRouteHandler(app: OpenAPIHono) {
+  return app.openapi(getMyProfileRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const session = c.get('session') as Session;
 
-  const myProfile = await getUserData({ dbClient, id: session.id });
+    const myProfile = await getUserData({ dbClient, id: session.id });
 
-  return c.json<GetMyProfileResponse>(myProfile, { status: 200 });
-};
+    return c.json(myProfile, { status: 200 });
+  });
+}

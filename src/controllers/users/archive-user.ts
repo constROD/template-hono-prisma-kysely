@@ -1,7 +1,6 @@
 import { archiveUserData } from '@/data/user/archive-user';
 import { userOpenApiSchema } from '@/data/user/schema';
-import { createRoute, z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const archiveUserSchema = {
   params: z.object({
@@ -38,11 +37,13 @@ export const archiveUserRoute = createRoute({
   middleware: [],
 });
 
-export const archiveUserHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const param = c.req.param() as ArchiveUserParams;
+export function makeArchiveUserRouteHandler(app: OpenAPIHono) {
+  return app.openapi(archiveUserRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const param = c.req.valid('param');
 
-  const archivedUser = await archiveUserData({ dbClient, id: param.user_id });
+    const archivedUser = await archiveUserData({ dbClient, id: param.user_id });
 
-  return c.json<ArchiveUserResponse>(archivedUser, { status: 200 });
-};
+    return c.json(archivedUser, { status: 200 });
+  });
+}

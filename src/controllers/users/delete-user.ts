@@ -1,7 +1,6 @@
 import { deleteUserData } from '@/data/user/delete-user';
 import { userOpenApiSchema } from '@/data/user/schema';
-import { createRoute, z } from '@hono/zod-openapi';
-import { type Handler } from 'hono';
+import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const deleteUserSchema = {
   params: z.object({
@@ -38,11 +37,13 @@ export const deleteUserRoute = createRoute({
   middleware: [],
 });
 
-export const deleteUserHandler: Handler = async c => {
-  const dbClient = c.get('dbClient');
-  const param = c.req.param() as DeleteUserParams;
+export function makeDeleteUserRouteHandler(app: OpenAPIHono) {
+  return app.openapi(deleteUserRoute, async c => {
+    const dbClient = c.get('dbClient');
+    const param = c.req.valid('param');
 
-  const deletedUser = await deleteUserData({ dbClient, id: param.user_id });
+    const deletedUser = await deleteUserData({ dbClient, id: param.user_id });
 
-  return c.json<DeleteUserResponse>(deletedUser, { status: 200 });
-};
+    return c.json(deletedUser, { status: 200 });
+  });
+}

@@ -4,20 +4,17 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
-import {
-  getServerDateTimeHandler,
-  getServerDateTimeRoute,
-} from './controllers/get-server-date-time';
-import { getMyProfileHandler, getMyProfileRoute } from './controllers/me/get-my-profile';
-import { updateMyProfileHandler, updateMyProfileRoute } from './controllers/me/update-my-profile';
-import { getProductsHandler, getProductsRoute } from './controllers/products/get-products';
-import { archiveUserHandler, archiveUserRoute } from './controllers/users/archive-user';
-import { createUserHandler, createUserRoute } from './controllers/users/create-user';
-import { deleteUserHandler, deleteUserRoute } from './controllers/users/delete-user';
-import { getUserHandler, getUserRoute } from './controllers/users/get-user';
-import { getUsersHandler, getUsersRoute } from './controllers/users/get-users';
-import { searchUsersHandler, searchUsersRoute } from './controllers/users/search-users';
-import { updateUserHandler, updateUserRoute } from './controllers/users/update-user';
+import { makeGetServerDateTimeRouteHandler } from './controllers/get-server-date-time';
+import { makeGetMyProfileRouteHandler } from './controllers/me/get-my-profile';
+import { makeUpdateMyProfileRouteHandler } from './controllers/me/update-my-profile';
+import { makeGetProductsRouteHandler } from './controllers/products/get-products';
+import { makeArchiveUserRouteHandler } from './controllers/users/archive-user';
+import { makeCreateUserRouteHandler } from './controllers/users/create-user';
+import { makeDeleteUserRouteHandler } from './controllers/users/delete-user';
+import { makeGetUserRouteHandler } from './controllers/users/get-user';
+import { makeGetUsersRouteHandler } from './controllers/users/get-users';
+import { makeSearchUsersRouteHandler } from './controllers/users/search-users';
+import { makeUpdateUserRouteHandler } from './controllers/users/update-user';
 import { type createDbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { authenticationMiddleware } from './middlewares/authentication';
@@ -26,8 +23,6 @@ import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 import { type AuthenticatedUser, type Session } from './types/auth';
 import { pinoLogger } from './utils/logger';
 
-const app = new OpenAPIHono();
-
 declare module 'hono' {
   interface ContextVariableMap {
     session: Session | null;
@@ -35,6 +30,8 @@ declare module 'hono' {
     dbClient: ReturnType<typeof createDbClient>;
   }
 }
+
+const app = new OpenAPIHono();
 
 /* API Docs */
 app.doc('/openapi.json', {
@@ -63,19 +60,19 @@ app.use(logger());
 app.use(setUpDbClientMiddleware);
 
 /* ===== Public Routes ===== */
-app.openapi(getServerDateTimeRoute, getServerDateTimeHandler);
+makeGetServerDateTimeRouteHandler(app);
 
 /* Users */
-app.openapi(searchUsersRoute, searchUsersHandler);
-app.openapi(getUsersRoute, getUsersHandler);
-app.openapi(createUserRoute, createUserHandler);
-app.openapi(getUserRoute, getUserHandler);
-app.openapi(updateUserRoute, updateUserHandler);
-app.openapi(deleteUserRoute, deleteUserHandler);
-app.openapi(archiveUserRoute, archiveUserHandler);
+makeSearchUsersRouteHandler(app);
+makeGetUsersRouteHandler(app);
+makeCreateUserRouteHandler(app);
+makeGetUserRouteHandler(app);
+makeUpdateUserRouteHandler(app);
+makeDeleteUserRouteHandler(app);
+makeArchiveUserRouteHandler(app);
 
 /* Products */
-app.openapi(getProductsRoute, getProductsHandler);
+makeGetProductsRouteHandler(app);
 /* ===== Public Routes ===== */
 
 /**
@@ -86,8 +83,8 @@ app.use(authenticationMiddleware);
 
 /* ===== Private Routes ===== */
 /* Me */
-app.openapi(getMyProfileRoute, getMyProfileHandler);
-app.openapi(updateMyProfileRoute, updateMyProfileHandler);
+makeGetMyProfileRouteHandler(app);
+makeUpdateMyProfileRouteHandler(app);
 /* ===== Private Routes ===== */
 
 /* Serve */
