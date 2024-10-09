@@ -15,7 +15,7 @@ import { makeGetUserRouteHandler } from './controllers/users/get-user';
 import { makeGetUsersRouteHandler } from './controllers/users/get-users';
 import { makeSearchUsersRouteHandler } from './controllers/users/search-users';
 import { makeUpdateUserRouteHandler } from './controllers/users/update-user';
-import { type createDbClient } from './db/create-db-client';
+import { type DbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
@@ -27,7 +27,7 @@ declare module 'hono' {
   interface ContextVariableMap {
     session: Session | null;
     authenticatedUser: AuthenticatedUser | null;
-    dbClient: ReturnType<typeof createDbClient>;
+    dbClient: DbClient;
   }
 }
 
