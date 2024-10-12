@@ -3,6 +3,7 @@ dist/
 coverage/
 volumes/
 cli/
+.sst/
 
 *.config.js
 *.config.ts

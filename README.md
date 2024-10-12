@@ -1,13 +1,13 @@
-# Template Hono Prisma Kysely API by bossROD
+# Template Hono Prisma Kysely with SST v2 by bossROD
 
 ## Description
 
-This is a template for backend development using **node**, **Hono**, **Prisma** and **Kysely**. It includes **ESLint**, **Prettier**, and **Husky** for code quality and linting.
+This is a robust template for serverless backend development using **Node.js**, **SST (Serverless Stack)**, **Hono**, **Prisma**, and **Kysely**. It leverages **AWS Lambda** and **API Gateway** for scalable API deployment. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
 
 ## Clone
 
 ```bash
-npx degit https://github.com/constROD/template-hono-prisma-kysely.git
+npx degit https://github.com/constROD/template-hono-prisma-kysely.git#with-sst-v2
 ```
 
 ## Prerequisites
@@ -39,19 +39,14 @@ pnpm db:stop
 
 - Start the development server.
 ```bash
-pnpm dev
+pnpm dev --stage=<stage> // e.g. pnpm dev --stage=bossrod
 ```
 
 **Production Mode:**
 
-- Build the project.
-```bash
-pnpm build
-```
-
 - Start the build for production.
 ```bash
-pnpm start
+pnpm deploy --stage=<stage> // e.g. pnpm deploy --stage=dev | pnpm deploy --stage=prod
 ```
 
 ## Rules

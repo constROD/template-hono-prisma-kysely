@@ -2,13 +2,15 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "bossrod",
     "datetime",
     "Hono",
     "ilike",
     "Kysely",
     "Millis",
     "openapi",
-    "pino"
+    "pino",
+    "PGADMIN"
   ],
   "ignorePaths": [
     "./node_modules",

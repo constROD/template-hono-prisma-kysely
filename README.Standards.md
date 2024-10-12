@@ -14,6 +14,12 @@
 - `cli` - for cli automation scripts. (e.g. seeders, migrations, etc.)
 - `prisma` - for prisma schema and migrations.
 
+## AWS Folder Structure
+
+- `aws` - main aws folder.
+- `aws/functions` - for all aws lambda functions.
+- `aws/stacks` - for all aws cloudformation stacks.
+
 ## Folder Structure
 
 - `src` - main source code.
@@ -29,16 +35,15 @@
 
 ## File(s)
 
-- `src/app.ts` - main entry point.
 - `src/env.ts` - for environment variables.
 
 ## How it works?
 
 - **Pattern 1** (For simple CRUD apps)
-  - Data Access Layer -> Controller -> App
+  - Data Access Layer -> Controller -> AWS Infrastructure -> App
 - **Pattern 2** (For complex apps with business logic)
-  - Data Access Layer -> Service -> Controller -> App
+  - Data Access Layer -> Service -> Controller -> AWS Infrastructure -> App
 - **Pattern 3** (Hybrid of Pattern 1 and Pattern 2)
   - Combined
-    - Data Access Layer -> Controller -> App
-    - Data Access Layer -> Service -> Controller -> App
+    - Data Access Layer -> Controller -> AWS Infrastructure -> App
+    - Data Access Layer -> Service -> Controller -> AWS Infrastructure -> App
