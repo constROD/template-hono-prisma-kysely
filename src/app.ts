@@ -15,21 +15,11 @@ import { makeGetUserRouteHandler } from './controllers/users/get-user';
 import { makeGetUsersRouteHandler } from './controllers/users/get-users';
 import { makeSearchUsersRouteHandler } from './controllers/users/search-users';
 import { makeUpdateUserRouteHandler } from './controllers/users/update-user';
-import { type DbClient } from './db/create-db-client';
 import { envConfig } from './env';
 import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
-import { type AuthenticatedUser, type Session } from './types/auth';
 import { pinoLogger } from './utils/logger';
-
-declare module 'hono' {
-  interface ContextVariableMap {
-    session: Session | null;
-    authenticatedUser: AuthenticatedUser | null;
-    dbClient: DbClient;
-  }
-}
 
 const app = new OpenAPIHono();
 
