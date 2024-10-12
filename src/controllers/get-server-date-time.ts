@@ -10,7 +10,7 @@ export type GetServerDateTimeResponse = z.infer<typeof getServerDateTimeSchema.r
 export const getServerDateTimeRoute = createRoute({
   security: [{ bearerAuth: [] }],
   method: 'get',
-  path: '/server-date-time',
+  path: '/server/date-time',
   tags: ['Server'],
   summary: 'Retrieve the server date time',
   description: 'Retrieve the server date time.',
