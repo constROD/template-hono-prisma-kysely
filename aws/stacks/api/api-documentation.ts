@@ -1,9 +1,12 @@
-import { type StackContext, Function } from 'sst/constructs';
+import { type StackContext, use } from 'sst/constructs';
+import { ApiStack } from './api';
 
 export function ApiDocumentationRoutesStack(context: StackContext) {
-  const apiDocumentationRoutesFn = new Function(context.stack, 'ApiDocumentationRoutes', {
-    handler: 'aws/functions/api/api-documentation.handler',
-  });
+  const { apiStack } = use(ApiStack);
 
-  return { apiDocumentationRoutesFn };
+  apiStack.addRoutes(context.stack, {
+    'GET /swagger': 'aws/functions/api/api-documentation.handler',
+    'GET /reference': 'aws/functions/api/api-documentation.handler',
+    'GET /openapi.json': 'aws/functions/api/api-documentation.handler',
+  });
 }
