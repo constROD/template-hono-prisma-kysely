@@ -3,11 +3,11 @@ import { envConfig } from '@/env';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import { ApiStack } from 'aws/stacks/api/api';
 import { ApiDocumentationRoutesStack } from 'aws/stacks/api/api-documentation';
+import { DefaultLambdaRoleStack } from 'aws/stacks/api/iam-roles/default-lambda-role';
 import { MeRoutesStack } from 'aws/stacks/api/me';
 import { ProductsRoutesStack } from 'aws/stacks/api/products';
 import { ServerRoutesStack } from 'aws/stacks/api/server';
 import { UsersRoutesStack } from 'aws/stacks/api/users';
-import { DefaultLambdaRoleStack } from 'aws/stacks/iam-roles/default-lambda-role';
 import { SSTConfig } from 'sst';
 import { FunctionProps, NodeJSProps } from 'sst/constructs';
 
