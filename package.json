@@ -15,7 +15,7 @@
       "url": "https://github.com/MarkCay"
     }
   ],
-  "description": "Template Hono Prisma Kysely API",
+  "description": "Template Hono Prisma Kysely",
   "author": "Rodrick Alcantara <rialcantara21@gmail.com>",
   "license": "MIT",
   "scripts": {

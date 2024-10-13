@@ -1,14 +1,32 @@
-# Template Hono Prisma Kysely API by bossROD
+# Template Hono Prisma Kysely by bossROD
 
 ## Description
 
-This is a template for backend development using **node**, **Hono**, **Prisma** and **Kysely**. It includes **ESLint**, **Prettier**, and **Husky** for code quality and linting.
+This is a robust template for serverless backend development using **Node.js**, **SST (Serverless Stack)**, **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
+
 
 ## Clone
 
+Choose the approach that best fits your needs:
+
+### 1. Standard Hono Server
+
+For a basic setup using just the Hono server:
+
 ```bash
-npx degit https://github.com/constROD/template-hono-prisma-kysely.git
+npx degit constROD/template-hono-prisma-kysely
 ```
+
+### 2. With SST v2
+
+For a setup integrated with Serverless Stack (SST) v2:
+
+```bash
+npx degit constROD/template-hono-prisma-kysely#with-sst-v2
+```
+
+Choose the command that corresponds to your preferred API layer approach.
+
 
 ## Prerequisites
 
@@ -16,6 +34,7 @@ npx degit https://github.com/constROD/template-hono-prisma-kysely.git
 - Install [node](https://nodejs.org/en) using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) (check version in [.nvmrc](./.nvmrc))
 - Install [pnpm](https://pnpm.io/) (check version in [package.json](./package.json) file look for `packageManager`)
 - Install [Docker](https://www.docker.com/) for database containerization.
+
 
 ## Installation
 
