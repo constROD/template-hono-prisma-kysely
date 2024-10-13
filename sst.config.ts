@@ -47,10 +47,10 @@ export default {
     /* Stateless Stacks */
     app.stack(DefaultLambdaRoleStack);
     app.stack(ApiStack);
-    app.stack(MeRoutesStack);
-    app.stack(ServerRoutesStack);
     app.stack(ApiDocumentationRoutesStack);
-    app.stack(ProductsRoutesStack);
+    app.stack(ServerRoutesStack);
+    app.stack(MeRoutesStack);
     app.stack(UsersRoutesStack);
+    app.stack(ProductsRoutesStack);
   },
 } satisfies SSTConfig;
