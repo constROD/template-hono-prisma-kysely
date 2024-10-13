@@ -1,9 +1,11 @@
-import { type StackContext, Function } from 'sst/constructs';
+import { type StackContext, use } from 'sst/constructs';
+import { ApiStack } from './api';
 
 export function MeRoutesStack(context: StackContext) {
-  const meRoutesFn = new Function(context.stack, 'MeRoutes', {
-    handler: 'aws/functions/api/me.handler',
-  });
+  const { apiStack } = use(ApiStack);
 
-  return { meRoutesFn };
+  apiStack.addRoutes(context.stack, {
+    'GET /me': 'aws/functions/api/me.handler',
+    'PUT /me': 'aws/functions/api/me.handler',
+  });
 }
