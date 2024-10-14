@@ -4,6 +4,9 @@
 
 This is a robust template for serverless backend development using **Node.js**, **SST (Serverless Stack)**, **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
 
+## Rules
+
+Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
 
 ## Clone
 
@@ -11,7 +14,7 @@ Choose the approach that best fits your needs:
 
 ### 1. Standard Hono Server
 
-Branch: [hono-server](https://github.com/constROD/template-hono-prisma-kysely)
+Branch: [main](https://github.com/constROD/template-hono-prisma-kysely)
 For a basic setup using just the Hono server:
 
 ```bash
@@ -74,7 +77,3 @@ pnpm build
 ```bash
 pnpm start
 ```
-
-## Rules
-
-Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
