@@ -11,6 +11,7 @@ Choose the approach that best fits your needs:
 
 ### 1. Standard Hono Server
 
+Branch: [hono-server](https://github.com/constROD/template-hono-prisma-kysely)
 For a basic setup using just the Hono server:
 
 ```bash
@@ -19,6 +20,7 @@ npx degit constROD/template-hono-prisma-kysely
 
 ### 2. With SST v2
 
+Branch: [with-sst-v2](https://github.com/constROD/template-hono-prisma-kysely/tree/with-sst-v2)
 For a setup integrated with Serverless Stack (SST) v2:
 
 ```bash
