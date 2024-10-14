@@ -4,6 +4,10 @@
 
 This is a robust template for serverless backend development using **Node.js**, **SST (Serverless Stack)**, **Hono**, **Prisma**, and **Kysely**. It leverages **AWS Lambda** and **API Gateway** for scalable API deployment. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
 
+## Rules
+
+Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
+
 ## Clone
 
 ```bash
@@ -48,7 +52,3 @@ pnpm dev --stage=<stage> // e.g. pnpm dev --stage=bossrod
 ```bash
 pnpm deploy --stage=<stage> // e.g. pnpm deploy --stage=dev | pnpm deploy --stage=prod
 ```
-
-## Rules
-
-Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
