@@ -2,6 +2,7 @@ node_modules/
 dist/
 coverage/
 volumes/
+.sst/
 
 *-lock.json
 *-lock.yaml

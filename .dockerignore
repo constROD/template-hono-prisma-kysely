@@ -3,6 +3,7 @@ dist/
 coverage/
 databases/
 cli/
+.sst/
 
 *-lock.json
 *.lock
