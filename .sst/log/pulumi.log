@@ -1,0 +1,26 @@
+Updating (dev):
+
+@ updating....
+    cloudflare:index:WorkerScript HomeScript  warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.
+ +  cloudflare:index:WorkerScript HomeScript creating (0s) warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.
+@ updating..............
+ +  cloudflare:index:WorkerScript HomeScript creating (10s) error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2
+ +  cloudflare:index:WorkerScript HomeScript creating (10s) error: 1 error occurred:
+ +  cloudflare:index:WorkerScript HomeScript **creating failed** error: 1 error occurred:
+    pulumi:pulumi:Stack template-hono-prisma-kysely-dev running error: update failed
+    pulumi:pulumi:Stack template-hono-prisma-kysely-dev **failed** 1 error
+Diagnostics:
+  pulumi:pulumi:Stack (template-hono-prisma-kysely-dev):
+    error: update failed
+
+  cloudflare:index:WorkerScript (HomeScript):
+    warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.
+    error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2
+    error: 1 error occurred:
+    	* error creating worker script: received internal server error response (HTTP 500), please try again later
+
+Resources:
+    3 unchanged
+
+Duration: 12s
+

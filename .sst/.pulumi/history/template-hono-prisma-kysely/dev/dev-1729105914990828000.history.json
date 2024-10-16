@@ -1,0 +1,42 @@
+{
+    "kind": "update",
+    "startTime": 1729105902,
+    "message": "chore: update readme",
+    "environment": {
+        "exec.kind": "auto.local",
+        "git.author": "constROD",
+        "git.author.email": "rialcantara21@gmail.com",
+        "git.committer": "constROD",
+        "git.committer.email": "rialcantara21@gmail.com",
+        "git.dirty": "true",
+        "git.head": "69da4698010f9f757ba35255be81930f1a777bdc",
+        "git.headName": "refs/heads/with-sst-v3-cloudflare",
+        "pulumi.arch": "arm64",
+        "pulumi.env.PULUMI_CONFIG_PASSPHRASE": "set",
+        "pulumi.env.PULUMI_DEBUG_COMMANDS": "true",
+        "pulumi.env.PULUMI_HOME": "set",
+        "pulumi.env.PULUMI_SKIP_UPDATE_CHECK": "true",
+        "pulumi.flag.event-log": "set",
+        "pulumi.flag.exec-kind": "set",
+        "pulumi.flag.non-interactive": "true",
+        "pulumi.flag.skip-preview": "true",
+        "pulumi.flag.stack": "set",
+        "pulumi.flag.target-dependents": "true",
+        "pulumi.flag.verbose": "set",
+        "pulumi.flag.yes": "true",
+        "pulumi.os": "darwin",
+        "pulumi.version": "v3.136.1",
+        "updatePlan": "false",
+        "vcs.kind": "github.com",
+        "vcs.owner": "constROD",
+        "vcs.repo": "template-hono-prisma-kysely",
+        "vcs.root": ".sst"
+    },
+    "config": {},
+    "version": 0,
+    "result": "failed",
+    "endTime": 1729105914,
+    "resourceChanges": {
+        "same": 3
+    }
+}

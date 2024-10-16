@@ -1,0 +1,331 @@
+time=2024-10-17T03:08:08.967+08:00 level=INFO msg="checking for pulumi" path="/Users/bossrod/Library/Application Support/sst/bin/pulumi"
+time=2024-10-17T03:08:09.045+08:00 level=INFO msg="checking for bun" path="/Users/bossrod/Library/Application Support/sst/bin/bun"
+time=2024-10-17T03:08:09.049+08:00 level=INFO msg="initializing project" version=3.2.31
+time=2024-10-17T03:08:09.049+08:00 level=INFO msg="esbuild building" out=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105689049.mjs
+time=2024-10-17T03:08:09.051+08:00 level=INFO msg="esbuild built" outfile=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105689049.mjs
+time=2024-10-17T03:08:09.052+08:00 level=INFO msg="evaluating config"
+time=2024-10-17T03:08:09.076+08:00 level=INFO msg="config evaluated"
+time=2024-10-17T03:08:09.077+08:00 level=INFO msg="checking platform"
+time=2024-10-17T03:08:09.077+08:00 level=INFO msg="loading home"
+time=2024-10-17T03:08:09.077+08:00 level=INFO msg="cloudflare account selected" account=9e6dc599200ae2a55acdbc0f9a761f83
+time=2024-10-17T03:08:10.122+08:00 level=INFO msg="found existing bucket" bucket=sst-state
+time=2024-10-17T03:08:10.122+08:00 level=INFO msg="loaded config" app=template-hono-prisma-kysely stage=dev
+time=2024-10-17T03:08:10.122+08:00 level=INFO msg=mosaic project=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely
+time=2024-10-17T03:08:10.122+08:00 level=INFO msg="starting watcher" root=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely
+time=2024-10-17T03:08:10.122+08:00 level=INFO msg="server port assigned" port=13557
+time=2024-10-17T03:08:10.124+08:00 level=INFO msg=server addr=0.0.0.0:13557
+time=2024-10-17T03:08:10.126+08:00 level=INFO msg=resize
+time=2024-10-17T03:08:10.126+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:08:10.126+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely
+time=2024-10-17T03:08:10.127+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cli
+time=2024-10-17T03:08:10.127+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cli/commands
+time=2024-10-17T03:08:10.127+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cli/utils
+time=2024-10-17T03:08:10.127+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cloudflare
+time=2024-10-17T03:08:10.127+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cloudflare/workers
+time=2024-10-17T03:08:10.128+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/prisma
+time=2024-10-17T03:08:10.128+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/prisma/migrations
+time=2024-10-17T03:08:10.128+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/prisma/migrations/20240622111535_initial_setup
+time=2024-10-17T03:08:10.128+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src
+time=2024-10-17T03:08:10.131+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/constants
+time=2024-10-17T03:08:10.131+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/controllers
+time=2024-10-17T03:08:10.132+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/controllers/__test-utils__
+time=2024-10-17T03:08:10.132+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/controllers/me
+time=2024-10-17T03:08:10.133+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/controllers/products
+time=2024-10-17T03:08:10.133+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/controllers/users
+time=2024-10-17T03:08:10.134+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/data
+time=2024-10-17T03:08:10.134+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/data/__test-utils__
+time=2024-10-17T03:08:10.134+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/data/product
+time=2024-10-17T03:08:10.136+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/data/user
+time=2024-10-17T03:08:10.138+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/db
+time=2024-10-17T03:08:10.138+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/db/__test-utils__
+time=2024-10-17T03:08:10.139+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/lib
+time=2024-10-17T03:08:10.139+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/middlewares
+time=2024-10-17T03:08:10.139+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/middlewares/__test-utils__
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/services
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/types
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/src/utils
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases
+time=2024-10-17T03:08:10.140+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg
+time=2024-10-17T03:08:10.141+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data
+time=2024-10-17T03:08:10.142+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/base
+time=2024-10-17T03:08:10.142+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/base/1
+time=2024-10-17T03:08:10.153+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/base/16384
+time=2024-10-17T03:08:10.162+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/base/4
+time=2024-10-17T03:08:10.170+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/base/5
+time=2024-10-17T03:08:10.178+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/global
+time=2024-10-17T03:08:10.179+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_commit_ts
+time=2024-10-17T03:08:10.179+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_dynshmem
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_logical
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_logical/mappings
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_logical/snapshots
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_multixact
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_multixact/members
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_multixact/offsets
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_notify
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_replslot
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_serial
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_snapshots
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_stat
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_stat_tmp
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_subtrans
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_tblspc
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_twophase
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_wal
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_wal/archive_status
+time=2024-10-17T03:08:10.180+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/data/pg_xact
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/pgadmin
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/pgadmin/azurecredentialcache
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/pgadmin/sessions
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/pg/pgadmin/storage
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data
+time=2024-10-17T03:08:10.181+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/base
+time=2024-10-17T03:08:10.182+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/base/1
+time=2024-10-17T03:08:10.189+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/base/16384
+time=2024-10-17T03:08:10.196+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/base/4
+time=2024-10-17T03:08:10.203+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/base/5
+time=2024-10-17T03:08:10.209+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/global
+time=2024-10-17T03:08:10.210+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_commit_ts
+time=2024-10-17T03:08:10.210+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_dynshmem
+time=2024-10-17T03:08:10.210+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_logical
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_logical/mappings
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_logical/snapshots
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_multixact
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_multixact/members
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_multixact/offsets
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_notify
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_replslot
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_serial
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_snapshots
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_stat
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_stat_tmp
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_subtrans
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_tblspc
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_twophase
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_wal
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_wal/archive_status
+time=2024-10-17T03:08:10.211+08:00 level=INFO msg=watching path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/volumes/databases/test-pg/data/pg_xact
+time=2024-10-17T03:08:10.281+08:00 level=INFO msg=subscribed addr=[::1]:54099
+time=2024-10-17T03:08:10.281+08:00 level=INFO msg=subscribed addr=[::1]:54098
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg="deploy requested"
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg=publishing type=*deployer.DeployRequestedEvent
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg="deployer deploying"
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg="running stack command" cmd=deploy
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg=publishing type=*project.StackCommandEvent
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg="INFO locking app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:10.282+08:00 level=INFO msg="INFO getting data key=lock app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:10.959+08:00 level=INFO msg="INFO putting data key=lock app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:11.970+08:00 level=INFO msg="INFO pulling state app=template-hono-prisma-kysely stage=dev out=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/.pulumi/stacks/template-hono-prisma-kysely/dev.json"
+time=2024-10-17T03:08:13.093+08:00 level=INFO msg="INFO getting passphrase app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:13.663+08:00 level=INFO msg="INFO getting data key=secret app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:13.663+08:00 level=INFO msg="INFO getting data key=secret app=template-hono-prisma-kysely stage=_fallback"
+time=2024-10-17T03:08:14.934+08:00 level=INFO msg="built workspace"
+time=2024-10-17T03:08:15.019+08:00 level=INFO msg="built stack"
+time=2024-10-17T03:08:15.209+08:00 level=INFO msg=link outputs="map[include:[map[binding:r2BucketBindings properties:map[bucketName:template-hono-prisma-kysely-dev-projectesportsbucket] type:cloudflare.binding]] properties:map[type:sst.cloudflare.Bucket] target:ProjectEsports]"
+time=2024-10-17T03:08:15.209+08:00 level=INFO msg=publishing type=*project.CompleteEvent
+time=2024-10-17T03:08:15.209+08:00 level=INFO msg="got previous deployment"
+time=2024-10-17T03:08:15.209+08:00 level=INFO msg="esbuild building" out=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105694820.mjs
+time=2024-10-17T03:08:15.224+08:00 level=INFO msg="esbuild built" outfile=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105694820.mjs
+time=2024-10-17T03:08:15.230+08:00 level=INFO msg=publishing type=*project.BuildSuccessEvent
+time=2024-10-17T03:08:15.230+08:00 level=INFO msg="tracked files"
+time=2024-10-17T03:08:15.311+08:00 level=INFO msg="built config"
+time=2024-10-17T03:08:15.311+08:00 level=INFO msg="running stack command" cmd=deploy
+time=2024-10-17T03:08:15.884+08:00 level=INFO msg=publishing type=*apitype.PreludeEvent
+time=2024-10-17T03:08:16.337+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.337+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.344+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.347+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.347+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.349+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.350+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.890+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.891+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.891+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.891+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.891+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.891+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.892+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.895+08:00 level=INFO msg=publishing type=*apitype.ResOutputsEvent
+time=2024-10-17T03:08:16.896+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.897+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.897+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2024-10-17T03:08:16.897+08:00 level=INFO msg="building function" runtime=worker functionID=Home
+time=2024-10-17T03:08:16.898+08:00 level=INFO msg="loader info" loader=map[]
+time=2024-10-17T03:08:16.898+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.899+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.899+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.900+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.900+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.900+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.901+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.901+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.902+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.902+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.903+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.903+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.903+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.904+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.904+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.904+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.905+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.905+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.906+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.907+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.907+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.908+08:00 level=INFO msg="function built" runtime=worker functionID=Home
+time=2024-10-17T03:08:16.956+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.956+08:00 level=INFO msg=publishing type=*apitype.ResOutputsEvent
+time=2024-10-17T03:08:16.958+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.958+08:00 level=INFO msg=publishing type=*apitype.ResOutputsEvent
+time=2024-10-17T03:08:16.960+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.960+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.961+08:00 level=INFO msg=publishing type=*apitype.ResOutputsEvent
+time=2024-10-17T03:08:16.971+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.972+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.972+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.972+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.973+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:16.974+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:08:16.977+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:28.758+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:28.759+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:08:28.760+08:00 level=INFO msg=publishing type=*apitype.ResOpFailedEvent
+time=2024-10-17T03:08:28.763+08:00 level=INFO msg=publishing type=*apitype.SummaryEvent
+time=2024-10-17T03:08:28.776+08:00 level=INFO msg=publishing type=*apitype.CancelEvent
+time=2024-10-17T03:08:28.836+08:00 level=INFO msg="done running stack command"
+time=2024-10-17T03:08:28.836+08:00 level=ERROR msg="stack run failed" error="failed to run update: exit status 255\ncode: 255\nstdout: Updating (dev):\n\n@ updating....\n    cloudflare:index:WorkerScript HomeScript  warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n +  cloudflare:index:WorkerScript HomeScript creating (0s) warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n@ updating...............\n +  cloudflare:index:WorkerScript HomeScript creating (11s) error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2\n +  cloudflare:index:WorkerScript HomeScript creating (11s) error: 1 error occurred:\n +  cloudflare:index:WorkerScript HomeScript **creating failed** error: 1 error occurred:\n    pulumi:pulumi:Stack template-hono-prisma-kysely-dev running error: update failed\n    pulumi:pulumi:Stack template-hono-prisma-kysely-dev **failed** 1 error\nDiagnostics:\n  cloudflare:index:WorkerScript (HomeScript):\n    warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n    error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2\n    error: 1 error occurred:\n    \t* error creating worker script: received internal server error response (HTTP 500), please try again later\n\n  pulumi:pulumi:Stack (template-hono-prisma-kysely-dev):\n    error: update failed\n\nResources:\n    6 unchanged\n\nDuration: 13s\n\n\nstderr: \n"
+time=2024-10-17T03:08:28.836+08:00 level=INFO msg="INFO putting summary app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:28.836+08:00 level=INFO msg="INFO putting data key=summary app=template-hono-prisma-kysely stage=dev/g68yz7f5cuyymfos2a14bz6d"
+time=2024-10-17T03:08:31.265+08:00 level=INFO msg="parsing state"
+time=2024-10-17T03:08:31.494+08:00 level=INFO msg=link outputs="map[include:[map[binding:r2BucketBindings properties:map[bucketName:template-hono-prisma-kysely-dev-projectesportsbucket] type:cloudflare.binding]] properties:map[type:sst.cloudflare.Bucket] target:ProjectEsports]"
+time=2024-10-17T03:08:31.494+08:00 level=INFO msg="generating types" root=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely
+time=2024-10-17T03:08:31.503+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=CHMOD
+time=2024-10-17T03:08:31.503+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=WRITE
+time=2024-10-17T03:08:31.503+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:08:31.503+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=WRITE
+time=2024-10-17T03:08:31.515+08:00 level=INFO msg=publishing type=*project.CompleteEvent
+time=2024-10-17T03:08:31.515+08:00 level=INFO msg="done parsing state"
+time=2024-10-17T03:08:31.515+08:00 level=INFO msg="INFO pushing state app=template-hono-prisma-kysely stage=dev from=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/.pulumi/stacks/template-hono-prisma-kysely/dev.json"
+time=2024-10-17T03:08:32.502+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=CHMOD
+time=2024-10-17T03:08:32.720+08:00 level=INFO msg="INFO unlocking app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:08:33.302+08:00 level=INFO msg=publishing type=*deployer.DeployFailedEvent
+time=2024-10-17T03:08:33.302+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:08:33.302+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:08:33.302+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:08:44.642+08:00 level=INFO msg=resize
+time=2024-10-17T03:08:48.620+08:00 level=INFO msg=resize
+time=2024-10-17T03:08:54.548+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.md op=CHMOD
+time=2024-10-17T03:08:54.548+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.md op=WRITE
+time=2024-10-17T03:08:54.548+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:08:54.548+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:08:54.939+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.md op=CHMOD
+time=2024-10-17T03:09:06.664+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=CHMOD
+time=2024-10-17T03:09:13.588+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cloudflare/stacks op=CREATE
+time=2024-10-17T03:09:13.588+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:09:13.589+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:11:16.595+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=CHMOD
+time=2024-10-17T03:11:16.595+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=WRITE
+time=2024-10-17T03:11:16.595+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:11:16.595+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:11:16.981+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=CHMOD
+time=2024-10-17T03:11:37.544+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst.config.ts op=CHMOD
+time=2024-10-17T03:11:37.544+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst.config.ts op=WRITE
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg="deployer deploying"
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg="running stack command" cmd=deploy
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg=publishing type=*project.StackCommandEvent
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg="INFO locking app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:37.545+08:00 level=INFO msg="INFO getting data key=lock app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:37.927+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst.config.ts op=CHMOD
+time=2024-10-17T03:11:38.431+08:00 level=INFO msg="INFO putting data key=lock app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:39.723+08:00 level=INFO msg="INFO pulling state app=template-hono-prisma-kysely stage=dev out=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/.pulumi/stacks/template-hono-prisma-kysely/dev.json"
+time=2024-10-17T03:11:40.639+08:00 level=INFO msg="INFO getting passphrase app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:41.265+08:00 level=INFO msg="INFO getting data key=secret app=template-hono-prisma-kysely stage=_fallback"
+time=2024-10-17T03:11:41.265+08:00 level=INFO msg="INFO getting data key=secret app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:42.237+08:00 level=INFO msg="built workspace"
+time=2024-10-17T03:11:42.318+08:00 level=INFO msg="built stack"
+time=2024-10-17T03:11:42.508+08:00 level=INFO msg=link outputs="map[include:[map[binding:r2BucketBindings properties:map[bucketName:template-hono-prisma-kysely-dev-projectesportsbucket] type:cloudflare.binding]] properties:map[type:sst.cloudflare.Bucket] target:ProjectEsports]"
+time=2024-10-17T03:11:42.508+08:00 level=INFO msg=publishing type=*project.CompleteEvent
+time=2024-10-17T03:11:42.508+08:00 level=INFO msg="got previous deployment"
+time=2024-10-17T03:11:42.508+08:00 level=INFO msg="esbuild building" out=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105902125.mjs
+time=2024-10-17T03:11:42.527+08:00 level=INFO msg="esbuild built" outfile=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/sst.config.1729105902125.mjs
+time=2024-10-17T03:11:42.532+08:00 level=INFO msg=publishing type=*project.BuildSuccessEvent
+time=2024-10-17T03:11:42.532+08:00 level=INFO msg="tracked files"
+time=2024-10-17T03:11:42.611+08:00 level=INFO msg="built config"
+time=2024-10-17T03:11:42.612+08:00 level=INFO msg="running stack command" cmd=deploy
+time=2024-10-17T03:11:43.160+08:00 level=INFO msg=publishing type=*apitype.PreludeEvent
+time=2024-10-17T03:11:43.607+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:11:43.611+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:43.614+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:43.617+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:43.618+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:43.618+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:43.619+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.149+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.150+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:11:44.150+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:11:44.151+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.152+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.152+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2024-10-17T03:11:44.152+08:00 level=INFO msg="building function" runtime=worker functionID=Home
+time=2024-10-17T03:11:44.153+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.153+08:00 level=INFO msg="loader info" loader=map[]
+time=2024-10-17T03:11:44.153+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.154+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.154+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.155+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.155+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.155+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.156+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.156+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.156+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.157+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.157+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.165+08:00 level=INFO msg="function built" runtime=worker functionID=Home
+time=2024-10-17T03:11:44.203+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.204+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.262+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:11:44.262+08:00 level=INFO msg=publishing type=*apitype.ResOutputsEvent
+time=2024-10-17T03:11:44.263+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:44.264+08:00 level=INFO msg=publishing type=*apitype.ResourcePreEvent
+time=2024-10-17T03:11:44.268+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:54.971+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:54.972+08:00 level=INFO msg=publishing type=*apitype.DiagnosticEvent
+time=2024-10-17T03:11:54.973+08:00 level=INFO msg=publishing type=*apitype.ResOpFailedEvent
+time=2024-10-17T03:11:54.976+08:00 level=INFO msg=publishing type=*apitype.SummaryEvent
+time=2024-10-17T03:11:54.990+08:00 level=INFO msg=publishing type=*apitype.CancelEvent
+time=2024-10-17T03:11:55.052+08:00 level=INFO msg="done running stack command"
+time=2024-10-17T03:11:55.052+08:00 level=ERROR msg="stack run failed" error="failed to run update: exit status 255\ncode: 255\nstdout: Updating (dev):\n\n@ updating....\n    cloudflare:index:WorkerScript HomeScript  warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n +  cloudflare:index:WorkerScript HomeScript creating (0s) warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n@ updating..............\n +  cloudflare:index:WorkerScript HomeScript creating (10s) error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2\n +  cloudflare:index:WorkerScript HomeScript creating (10s) error: 1 error occurred:\n +  cloudflare:index:WorkerScript HomeScript **creating failed** error: 1 error occurred:\n    pulumi:pulumi:Stack template-hono-prisma-kysely-dev running error: update failed\n    pulumi:pulumi:Stack template-hono-prisma-kysely-dev **failed** 1 error\nDiagnostics:\n  pulumi:pulumi:Stack (template-hono-prisma-kysely-dev):\n    error: update failed\n\n  cloudflare:index:WorkerScript (HomeScript):\n    warning: urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker$cloudflare:index/workerScript:WorkerScript::HomeScript verification warning: `cloudflare_worker_script` is now deprecated and will be removed in the next major version. Use `cloudflare_workers_script` instead.\n    error:   sdk-v2/provider2.go:520: sdk.helper_schema: error creating worker script: received internal server error response (HTTP 500), please try again later: provider=cloudflare@5.40.2\n    error: 1 error occurred:\n    \t* error creating worker script: received internal server error response (HTTP 500), please try again later\n\nResources:\n    3 unchanged\n\nDuration: 12s\n\n\nstderr: \n"
+time=2024-10-17T03:11:55.052+08:00 level=INFO msg="INFO putting summary app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:55.052+08:00 level=INFO msg="INFO putting data key=summary app=template-hono-prisma-kysely stage=dev/eexod96h93sxor0hjizr92fs"
+time=2024-10-17T03:11:56.397+08:00 level=INFO msg="parsing state"
+time=2024-10-17T03:11:56.615+08:00 level=INFO msg=link outputs="map[include:[map[binding:r2BucketBindings properties:map[bucketName:template-hono-prisma-kysely-dev-projectesportsbucket] type:cloudflare.binding]] properties:map[type:sst.cloudflare.Bucket] target:ProjectEsports]"
+time=2024-10-17T03:11:56.617+08:00 level=INFO msg="generating types" root=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely
+time=2024-10-17T03:11:56.626+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=CHMOD
+time=2024-10-17T03:11:56.626+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=WRITE
+time=2024-10-17T03:11:56.626+08:00 level=INFO msg=publishing type=*watcher.FileChangedEvent
+time=2024-10-17T03:11:56.626+08:00 level=INFO msg="file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=WRITE
+time=2024-10-17T03:11:56.640+08:00 level=INFO msg=publishing type=*project.CompleteEvent
+time=2024-10-17T03:11:56.640+08:00 level=INFO msg="done parsing state"
+time=2024-10-17T03:11:56.640+08:00 level=INFO msg="INFO pushing state app=template-hono-prisma-kysely stage=dev from=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/.pulumi/stacks/template-hono-prisma-kysely/dev.json"
+time=2024-10-17T03:11:56.996+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/sst-env.d.ts op=CHMOD
+time=2024-10-17T03:11:58.526+08:00 level=INFO msg="INFO unlocking app=template-hono-prisma-kysely stage=dev"
+time=2024-10-17T03:11:59.244+08:00 level=INFO msg=publishing type=*deployer.DeployFailedEvent
+time=2024-10-17T03:11:59.244+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:11:59.244+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:11:59.244+08:00 level=INFO msg="deployer waiting for trigger"
+time=2024-10-17T03:20:21.494+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=CHMOD
+time=2024-10-17T03:22:42.177+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/README.Standards.md op=CHMOD
+time=2024-10-17T03:23:14.129+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cloudflare/workers/index.ts op=RENAME
+time=2024-10-17T03:23:17.383+08:00 level=INFO msg="ignoring file event" path=/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/cloudflare/workers op=RENAME
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="killing process" pid=5664
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="process killed"
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="killing process" pid=5665
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="process killed"
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg=interrupted
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="watcher done"
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="deployer done"
+time=2024-10-17T03:24:48.630+08:00 level=INFO msg="shutting down server"
+time=2024-10-17T03:24:48.631+08:00 level=INFO msg="server done"
+time=2024-10-17T03:24:48.631+08:00 level=INFO msg="done mosaic" err=<nil>

@@ -1,0 +1,131 @@
+{
+    "version": 3,
+    "checkpoint": {
+        "stack": "organization/template-hono-prisma-kysely/dev",
+        "latest": {
+            "manifest": {
+                "time": "2024-10-17T03:11:54.9712+08:00",
+                "magic": "3b1911ae6e2d8d1f468975cdca7c3c6a48585f5e805330548231ecc6cfbc84ff",
+                "version": "v3.136.1"
+            },
+            "secrets_providers": {
+                "type": "passphrase",
+                "state": {
+                    "salt": "v1:L5f2Z9MJZns=:v1:2E3vdVwanlEdCrHd:8zouiYhyf357kCLTCC6Y+XxCLXOqTA=="
+                }
+            },
+            "resources": [
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:pulumi:Stack::template-hono-prisma-kysely-dev",
+                    "custom": false,
+                    "type": "pulumi:pulumi:Stack",
+                    "created": "2024-10-16T18:43:58.413926Z",
+                    "modified": "2024-10-16T18:43:58.413926Z",
+                    "sourcePosition": "project:///platform/node_modules/@pulumi/runtime/stack.ts#38,23"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Worker::Home",
+                    "custom": false,
+                    "type": "sst:cloudflare:Worker",
+                    "parent": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:pulumi:Stack::template-hono-prisma-kysely-dev",
+                    "created": "2024-10-16T18:43:59.282943Z",
+                    "modified": "2024-10-16T18:43:59.282943Z",
+                    "sourcePosition": "project:///../file:/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/src/components/cloudflare/worker.ts#238,5"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::sst:sst:LinkRef::HomeLinkRef",
+                    "custom": false,
+                    "type": "sst:sst:LinkRef",
+                    "parent": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:pulumi:Stack::template-hono-prisma-kysely-dev",
+                    "created": "2024-10-16T18:43:59.28091Z",
+                    "modified": "2024-10-16T18:43:59.28091Z",
+                    "sourcePosition": "project:///../file:/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/src/components/link.ts#25,7"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:providers:cloudflare::default_5_40_2",
+                    "custom": true,
+                    "id": "8f4058f2-b442-4bbf-936e-d17d24681ac0",
+                    "type": "pulumi:providers:cloudflare",
+                    "inputs": {
+                        "__internal": {},
+                        "apiClientLogging": "false",
+                        "maxBackoff": "30",
+                        "minBackoff": "1",
+                        "retries": "3",
+                        "rps": "4",
+                        "version": "5.40.2"
+                    },
+                    "outputs": {
+                        "apiClientLogging": "false",
+                        "maxBackoff": "30",
+                        "minBackoff": "1",
+                        "retries": "3",
+                        "rps": "4",
+                        "version": "5.40.2"
+                    },
+                    "created": "2024-10-16T18:44:00.437721Z",
+                    "modified": "2024-10-16T18:44:00.437721Z"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Bucket::ProjectEsports",
+                    "custom": false,
+                    "type": "sst:cloudflare:Bucket",
+                    "parent": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:pulumi:Stack::template-hono-prisma-kysely-dev",
+                    "created": "2024-10-16T18:43:59.282257Z",
+                    "modified": "2024-10-16T18:43:59.282257Z",
+                    "sourcePosition": "project:///../file:/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/src/components/cloudflare/bucket.ts#61,5"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::sst:sst:LinkRef::ProjectEsportsLinkRef",
+                    "custom": false,
+                    "type": "sst:sst:LinkRef",
+                    "outputs": {
+                        "include": [
+                            {
+                                "binding": "r2BucketBindings",
+                                "properties": {
+                                    "bucketName": "template-hono-prisma-kysely-dev-projectesportsbucket"
+                                },
+                                "type": "cloudflare.binding"
+                            }
+                        ],
+                        "properties": {
+                            "type": "sst.cloudflare.Bucket"
+                        },
+                        "target": "ProjectEsports"
+                    },
+                    "parent": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:pulumi:Stack::template-hono-prisma-kysely-dev",
+                    "created": "2024-10-16T18:43:59.281579Z",
+                    "modified": "2024-10-16T18:43:59.281579Z",
+                    "sourcePosition": "project:///../file:/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/src/components/link.ts#25,7"
+                },
+                {
+                    "urn": "urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Bucket$cloudflare:index/r2Bucket:R2Bucket::ProjectEsportsBucket",
+                    "custom": true,
+                    "id": "template-hono-prisma-kysely-dev-projectesportsbucket",
+                    "type": "cloudflare:index/r2Bucket:R2Bucket",
+                    "inputs": {
+                        "accountId": "9e6dc599200ae2a55acdbc0f9a761f83",
+                        "name": "template-hono-prisma-kysely-dev-projectesportsbucket"
+                    },
+                    "outputs": {
+                        "accountId": "9e6dc599200ae2a55acdbc0f9a761f83",
+                        "id": "template-hono-prisma-kysely-dev-projectesportsbucket",
+                        "location": "APAC",
+                        "name": "template-hono-prisma-kysely-dev-projectesportsbucket"
+                    },
+                    "parent": "urn:pulumi:dev::template-hono-prisma-kysely::sst:cloudflare:Bucket::ProjectEsports",
+                    "provider": "urn:pulumi:dev::template-hono-prisma-kysely::pulumi:providers:cloudflare::default_5_40_2::8f4058f2-b442-4bbf-936e-d17d24681ac0",
+                    "propertyDependencies": {
+                        "accountId": [],
+                        "name": []
+                    },
+                    "created": "2024-10-16T18:44:03.409697Z",
+                    "modified": "2024-10-16T18:44:03.409697Z",
+                    "sourcePosition": "project:///../file:/Users/bossrod/Desktop/Projects/Personal/template-hono-prisma-kysely/.sst/platform/src/components/cloudflare/bucket.ts#70,14"
+                }
+            ],
+            "metadata": {}
+        }
+    }
+}
