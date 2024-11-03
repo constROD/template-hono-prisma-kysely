@@ -6,7 +6,7 @@ This is a robust template for serverless backend development using **Node.js**, 
 
 ## Rules
 
-Please read the repo **Standards** here [README.Standards.md](./README.Standards.md)
+Please read the repo **Code Standards** here [README.code-standards.md](./README.code-standards.md)
 
 ## Clone
 
