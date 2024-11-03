@@ -12,15 +12,14 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
 
-    /* Paths: */
+    /* Paths */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
 
-    /* Bundling: */
-    "moduleResolution": "Node",
-    "module": "CommonJS",
+    /* Bundling */
+    "moduleResolution": "Bundler",
     "outDir": "./dist"
   },
   "include": ["**/*.ts", ".eslintrc.json"],
