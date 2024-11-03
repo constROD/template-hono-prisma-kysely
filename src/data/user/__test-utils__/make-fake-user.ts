@@ -2,7 +2,7 @@ import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
-import { createUsersData } from '../user/create-users';
+import { createUsersData } from '../create-users';
 
 export function makeFakeUser(args?: Partial<User>) {
   return {

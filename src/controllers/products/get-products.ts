@@ -1,6 +1,5 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productOpenApiSchema } from '@/data/product/schema';
-import { getAuthenticatedUserMiddleware } from '@/middlewares/get-authenticated-user';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
@@ -34,7 +33,7 @@ export const getProductsRoute = createRoute({
       description: 'Products retrieved successfully',
     },
   },
-  middleware: [getAuthenticatedUserMiddleware], // This middleware is used to get the authenticated user from the session
+  middleware: [],
 });
 
 export function makeGetProductsRouteHandler(app: OpenAPIHono) {
