@@ -1,7 +1,7 @@
 import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
 import { createTestDbClient } from '@/db/create-db-client';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { makeFakeUser } from '../__test-utils__/make-fake-user';
+import { makeFakeUser } from './__test-utils__/make-fake-user';
 import { createUsersData } from './create-users';
 
 const dbClient = createTestDbClient();

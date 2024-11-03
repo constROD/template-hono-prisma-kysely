@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     include: ['**/*.test.{ts,tsx}'],
-    exclude: ['node_modules', '.next/**'],
+    exclude: ['node_modules', '.sst/**'],
     coverage: {
       all: true,
       provider: 'v8',
@@ -13,8 +13,8 @@ export default defineConfig({
       exclude: ['**/__test-utils__/**'],
     },
     poolOptions: {
-      threads: {
-        singleThread: true,
+      forks: {
+        singleFork: true,
       },
     },
   },

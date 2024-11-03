@@ -3,7 +3,7 @@ import { createTestDbClient } from '@/db/create-db-client';
 import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
-import { createTestUsersInDB } from '../__test-utils__/make-fake-user';
+import { createTestUsersInDB } from './__test-utils__/make-fake-user';
 import { getUserData } from './get-user';
 
 const dbClient = createTestDbClient();
