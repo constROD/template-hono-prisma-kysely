@@ -5,5 +5,5 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "exclude": ["./node_modules", "./dist", "vitest.config.ts", "./cli"]
+  "exclude": ["./node_modules", "./dist", "./cli", "vitest.config.ts"]
 }
