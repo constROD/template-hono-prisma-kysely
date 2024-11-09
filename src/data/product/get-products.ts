@@ -8,7 +8,7 @@ export type GetProductsDataArgs = {
   page?: number;
   sortBy?: keyof Product;
   orderBy?: 'asc' | 'desc';
-  includeArchived?: 'true' | 'false';
+  includeArchived?: boolean;
 };
 
 export async function getProductsData({
@@ -17,7 +17,7 @@ export async function getProductsData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
-  includeArchived = 'false',
+  includeArchived = false,
 }: GetProductsDataArgs) {
   let query = dbClient
     .selectFrom('products')
@@ -30,8 +30,7 @@ export async function getProductsData({
     .selectFrom('products')
     .select(eb => eb.fn.count('id').as('total_records'));
 
-  const shouldIncludeArchived = includeArchived === 'true';
-  if (!shouldIncludeArchived) {
+  if (!includeArchived) {
     query = query.where('deleted_at', 'is', null);
     allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
   }

@@ -49,7 +49,7 @@ export function makeSearchUsersRouteHandler(app: OpenAPIHono) {
       orderBy: query?.order_by,
       limit: query?.limit,
       page: query?.page,
-      includeArchived: query?.include_archived,
+      includeArchived: query?.include_archived === 'true',
       filters: { searchText: query?.search },
     });
 

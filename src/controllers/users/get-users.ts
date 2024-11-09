@@ -47,7 +47,7 @@ export function makeGetUsersRouteHandler(app: OpenAPIHono) {
       orderBy: query?.order_by,
       limit: query?.limit,
       page: query?.page,
-      includeArchived: query?.include_archived,
+      includeArchived: query?.include_archived === 'true',
     });
 
     return c.json(data, { status: 200 });

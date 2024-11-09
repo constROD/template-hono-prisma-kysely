@@ -12,7 +12,7 @@ export type SearchUsersDataArgs = {
   page?: number;
   sortBy?: keyof User;
   orderBy?: 'asc' | 'desc';
-  includeArchived?: 'true' | 'false';
+  includeArchived?: boolean;
   filters?: SearchUserFilters;
 };
 
@@ -22,7 +22,7 @@ export async function searchUsersData({
   page = 1,
   sortBy = 'created_at',
   orderBy = 'desc',
-  includeArchived = 'false',
+  includeArchived = false,
   filters,
 }: SearchUsersDataArgs) {
   let query = dbClient
@@ -36,8 +36,7 @@ export async function searchUsersData({
     .selectFrom('users')
     .select(eb => eb.fn.count('id').as('total_records'));
 
-  const shouldIncludeArchived = includeArchived === 'true';
-  if (!shouldIncludeArchived) {
+  if (!includeArchived) {
     query = query.where('deleted_at', 'is', null);
     allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
   }
