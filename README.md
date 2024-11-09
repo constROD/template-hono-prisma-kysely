@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a robust template for serverless backend development using **Node.js**, **SST (Serverless Stack)**, **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
+This is a robust template for backend development either for serverless or non-serverless using **Node.js** or **SST (Serverless Stack)** with **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
 
 ## Rules
 
