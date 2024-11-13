@@ -1,21 +1,10 @@
-import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
-import { createTestDbClient } from '@/db/create-db-client';
-import { afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { createTestUsersInDB } from './__test-utils__/make-fake-user';
 import { getUsersData } from './get-users';
 
-const dbClient = createTestDbClient();
-
 describe('Get Users', () => {
-  beforeEach(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  afterAll(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  it('should get a users', async () => {
+  testWithDbClient('should get a users', async ({ dbClient }) => {
     const count = 10;
 
     await createTestUsersInDB({
@@ -31,14 +20,14 @@ describe('Get Users', () => {
     expect(total_records).toBe(count);
   });
 
-  it('should return empty array when no user', async () => {
+  testWithDbClient('should return empty array when no user', async ({ dbClient }) => {
     const { records, total_records } = await getUsersData({ dbClient });
 
     expect(records.length).toBe(0);
     expect(total_records).toBe(0);
   });
 
-  it('should return the correct pagination data', async () => {
+  testWithDbClient('should return the correct pagination data', async ({ dbClient }) => {
     const count = 100;
 
     await createTestUsersInDB({
