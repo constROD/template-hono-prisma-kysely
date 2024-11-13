@@ -12,11 +12,6 @@ export default defineConfig({
       reporter: ['lcov', 'text-summary'],
       exclude: ['**/__test-utils__/**'],
     },
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
   },
   resolve: { alias: { '@': '/src' } },
 });

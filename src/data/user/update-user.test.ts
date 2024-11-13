@@ -1,23 +1,12 @@
-import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
-import { createTestDbClient } from '@/db/create-db-client';
 import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
-import { afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { createTestUsersInDB } from './__test-utils__/make-fake-user';
 import { updateUserData } from './update-user';
 
-const dbClient = createTestDbClient();
-
 describe('Update User', () => {
-  beforeEach(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  afterAll(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  it('should update a user', async () => {
+  testWithDbClient('should update a user', async ({ dbClient }) => {
     const [testCreatedUser] = await createTestUsersInDB({ dbClient });
 
     if (!testCreatedUser) throw new Error('testCreatedUser is undefined');
@@ -45,7 +34,7 @@ describe('Update User', () => {
     );
   });
 
-  it('should throw NotFoundError if user is not existing.', async () => {
+  testWithDbClient('should throw NotFoundError if user is not existing.', async ({ dbClient }) => {
     expect(() =>
       updateUserData({
         dbClient,

@@ -1,21 +1,10 @@
-import { deleteAllRecords } from '@/data/__test-utils__/delete-all-records';
-import { createTestDbClient } from '@/db/create-db-client';
-import { afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { makeFakeUser } from './__test-utils__/make-fake-user';
 import { createUsersData } from './create-users';
 
-const dbClient = createTestDbClient();
-
 describe('Create User', () => {
-  beforeEach(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  afterAll(async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-  });
-
-  it('should create a user', async () => {
+  testWithDbClient('should create a user', async ({ dbClient }) => {
     const fakeUser = makeFakeUser();
 
     const [createdUser] = await createUsersData({ dbClient, values: fakeUser });
@@ -32,9 +21,7 @@ describe('Create User', () => {
     expect(currentUsers.length).toBe(1);
   });
 
-  it('should create multiple users', async () => {
-    await deleteAllRecords({ dbClient, tableName: 'users' });
-
+  testWithDbClient('should create multiple users', async ({ dbClient }) => {
     const count = 5;
     const fakeUsers = Array.from({ length: count }, makeFakeUser);
 
