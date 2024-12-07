@@ -19,6 +19,7 @@
 - `src` - main source code.
 - `src/constants` - for constant values.
 - `src/controllers` - for api routes and handlers.
+  - `src/controllers/dto` - for api request/response dto.
 - `src/data` - for data access layer. (e.g. database, cache, etc.)
 - `src/db` - for database connection and schemas.
 - `src/lib` - for 3rd party integrations libraries.
