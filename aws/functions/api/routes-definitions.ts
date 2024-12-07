@@ -1,7 +1,7 @@
-import { makeGetServerDateTimeRouteHandler } from '@/controllers/get-server-date-time';
 import { makeGetMyProfileRouteHandler } from '@/controllers/me/get-my-profile';
 import { makeUpdateMyProfileRouteHandler } from '@/controllers/me/update-my-profile';
 import { makeGetProductsRouteHandler } from '@/controllers/products/get-products';
+import { makeGetServerDateTimeRouteHandler } from '@/controllers/server/get-server-date-time';
 import { makeArchiveUserRouteHandler } from '@/controllers/users/archive-user';
 import { makeCreateUserRouteHandler } from '@/controllers/users/create-user';
 import { makeDeleteUserRouteHandler } from '@/controllers/users/delete-user';

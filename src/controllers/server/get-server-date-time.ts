@@ -1,4 +1,4 @@
-import { getServerDateTimeData } from '@/data/get-server-date-time';
+import { getServerDateTimeData } from '@/data/server/get-server-date-time';
 import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
 
 export const getServerDateTimeSchema = {

@@ -2,7 +2,6 @@ import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
-import { createUsersData } from '../create-users';
 
 export function makeFakeUser(args?: Partial<User>) {
   return {
@@ -24,6 +23,10 @@ export type CreateTestUsersInDBArgs = {
 
 export async function createTestUsersInDB({ dbClient, values }: CreateTestUsersInDBArgs) {
   const fakeUsers = values instanceof Array ? values.map(makeFakeUser) : makeFakeUser(values);
-  const createdUsers = await createUsersData({ dbClient, values: fakeUsers });
+  const createdUsers = await dbClient
+    .insertInto('users')
+    .values(fakeUsers)
+    .returningAll()
+    .execute();
   return createdUsers;
 }

@@ -1,7 +1,7 @@
 import { formatDateToISO } from '@/utils/date';
 import { describe, expect } from 'vitest';
 import { z } from 'zod';
-import { testWithDbClient } from './__test-utils__/test-with-db-client';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { getServerDateTimeData } from './get-server-date-time';
 
 describe('getServerDateTimeData', () => {
