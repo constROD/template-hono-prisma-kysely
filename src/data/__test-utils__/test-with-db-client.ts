@@ -8,8 +8,9 @@ export class KyselyRollbackError extends Error {}
 export const testWithDbClient = test.extend<{ dbClient: DbClient }>({
   // eslint-disable-next-line no-empty-pattern
   dbClient: async ({}, use) => {
+    let dbClient: DbClient | undefined;
     try {
-      const dbClient = await createTestDbClient();
+      dbClient = await createTestDbClient();
       await dbClient
         .transaction()
         .setIsolationLevel('read uncommitted')
@@ -20,6 +21,8 @@ export const testWithDbClient = test.extend<{ dbClient: DbClient }>({
     } catch (err) {
       const isRollbackError = err instanceof KyselyRollbackError;
       if (!isRollbackError) throw err;
+    } finally {
+      await dbClient?.destroy();
     }
   },
 });
