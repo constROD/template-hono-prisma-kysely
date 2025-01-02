@@ -1,5 +1,6 @@
 import { getUserData } from '@/data/user/get-user';
 import { userOpenApiSchema } from '@/data/user/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
 import { createRoute, type OpenAPIHono, type z } from '@hono/zod-openapi';
 
@@ -10,7 +11,7 @@ export const getMyProfileSchema = {
 export type GetMyProfileResponse = z.infer<typeof getMyProfileSchema.response>;
 
 export const getMyProfileRoute = createRoute({
-  security: [{ bearerAuth: [] }], // 👈 This line is required for private route
+  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/me',
   tags: ['Me'],
@@ -26,7 +27,7 @@ export const getMyProfileRoute = createRoute({
       description: 'My profile retrieved successfully',
     },
   },
-  middleware: [],
+  middleware: [authenticationMiddleware], // 👈 This line is required for private route
 });
 
 export function makeGetMyProfileRouteHandler(app: OpenAPIHono) {

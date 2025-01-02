@@ -17,6 +17,7 @@ export type CreateUserBody = z.infer<typeof createUserSchema.body>;
 export type CreateUserResponse = z.infer<typeof createUserSchema.response>;
 
 export const createUserRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'post',
   path: '/users',
   tags: ['Users'],

@@ -4,19 +4,11 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
-import { makeGetMyProfileRouteHandler } from './controllers/me/get-my-profile';
-import { makeUpdateMyProfileRouteHandler } from './controllers/me/update-my-profile';
-import { makeGetProductsRouteHandler } from './controllers/products/get-products';
-import { makeGetServerDateTimeRouteHandler } from './controllers/server/get-server-date-time';
-import { makeArchiveUserRouteHandler } from './controllers/users/archive-user';
-import { makeCreateUserRouteHandler } from './controllers/users/create-user';
-import { makeDeleteUserRouteHandler } from './controllers/users/delete-user';
-import { makeGetUserRouteHandler } from './controllers/users/get-user';
-import { makeGetUsersRouteHandler } from './controllers/users/get-users';
-import { makeSearchUsersRouteHandler } from './controllers/users/search-users';
-import { makeUpdateUserRouteHandler } from './controllers/users/update-user';
+import meRoutes from './controllers/me/routes';
+import productsRoutes from './controllers/products/routes';
+import serverRoutes from './controllers/server/routes';
+import usersRoutes from './controllers/users/routes';
 import { envConfig } from './env';
-import { authenticationMiddleware } from './middlewares/authentication';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 import { pinoLogger } from './utils/logger';
@@ -36,7 +28,7 @@ app.doc('/openapi.json', {
     url: '/reference',
   },
 });
-app.openAPIRegistry.registerComponent('securitySchemes', 'Bearer', {
+app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
   type: 'http',
   scheme: 'bearer',
   bearerFormat: 'JWT',
@@ -49,33 +41,12 @@ app.onError(errorHandlerMiddleware);
 app.use(logger());
 app.use(setUpDbClientMiddleware);
 
-/* ===== Public Routes ===== */
-makeGetServerDateTimeRouteHandler(app);
+/* Routes */
+const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes];
 
-/* Users */
-makeSearchUsersRouteHandler(app);
-makeGetUsersRouteHandler(app);
-makeCreateUserRouteHandler(app);
-makeGetUserRouteHandler(app);
-makeUpdateUserRouteHandler(app);
-makeDeleteUserRouteHandler(app);
-makeArchiveUserRouteHandler(app);
-
-/* Products */
-makeGetProductsRouteHandler(app);
-/* ===== Public Routes ===== */
-
-/**
- * This needs to be declared before the private routes
- * so that the routes `BELOW` will be protected by this middleware
- */
-app.use(authenticationMiddleware);
-
-/* ===== Private Routes ===== */
-/* Me */
-makeGetMyProfileRouteHandler(app);
-makeUpdateMyProfileRouteHandler(app);
-/* ===== Private Routes ===== */
+routes.forEach(route => {
+  app.route('/', route);
+});
 
 /* Serve */
 serve({
@@ -83,5 +54,4 @@ serve({
   port: envConfig.APP_PORT,
 });
 
-// eslint-disable-next-line no-console
 pinoLogger.info('Listening on port', envConfig.APP_PORT);

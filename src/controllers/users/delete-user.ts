@@ -16,6 +16,7 @@ export type DeleteUserParams = z.infer<typeof deleteUserSchema.params>;
 export type DeleteUserResponse = z.infer<typeof deleteUserSchema.response>;
 
 export const deleteUserRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{user_id}',
   tags: ['Users'],

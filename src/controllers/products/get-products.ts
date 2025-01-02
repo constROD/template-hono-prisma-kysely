@@ -15,6 +15,7 @@ export type GetProductsQuery = z.infer<typeof getProductsSchema.query>;
 export type GetProductsResponse = z.infer<typeof getProductsSchema.response>;
 
 export const getProductsRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/products',
   tags: ['Products'],
