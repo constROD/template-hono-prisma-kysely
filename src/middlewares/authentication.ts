@@ -1,4 +1,3 @@
-// import { UnauthorizedError } from '@/utils/errors';
 import { UnauthorizedError } from '@/utils/errors';
 import { type Context, type Next } from 'hono';
 
