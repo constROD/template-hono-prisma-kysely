@@ -3,7 +3,10 @@ import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { handle } from 'hono/aws-lambda';
-import { setupAllRoutesDefinitions } from './routes-definitions';
+import meRoutes from 'src/controllers/me/routes';
+import productsRoutes from 'src/controllers/products/routes';
+import serverRoutes from 'src/controllers/server/routes';
+import usersRoutes from 'src/controllers/users/routes';
 
 const app = new OpenAPIHono();
 
@@ -20,14 +23,18 @@ app.doc('/openapi.json', {
     url: '/reference',
   },
 });
-app.openAPIRegistry.registerComponent('securitySchemes', 'AuthToken', {
-  type: 'apiKey',
-  name: 'x-id-token',
-  in: 'header',
+app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
+  type: 'http',
+  scheme: 'bearer',
+  bearerFormat: 'JWT',
 });
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
 app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 
-setupAllRoutesDefinitions(app);
+const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes];
+
+routes.forEach(route => {
+  app.route('/', route);
+});
 
 export const handler = handle(app);

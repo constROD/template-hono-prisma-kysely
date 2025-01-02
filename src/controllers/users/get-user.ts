@@ -16,6 +16,7 @@ export type GetUserParams = z.infer<typeof getUserSchema.params>;
 export type GetUserResponse = z.infer<typeof getUserSchema.response>;
 
 export const getUserRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users/{user_id}',
   tags: ['Users'],

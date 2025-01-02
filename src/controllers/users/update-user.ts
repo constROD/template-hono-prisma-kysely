@@ -24,6 +24,7 @@ export type UpdateUserBody = z.infer<typeof updateUserSchema.body>;
 export type UpdateUserResponse = z.infer<typeof updateUserSchema.response>;
 
 export const updateUserRoute = createRoute({
+  security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{user_id}',
   tags: ['Users'],

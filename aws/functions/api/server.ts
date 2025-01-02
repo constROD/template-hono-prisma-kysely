@@ -1,16 +1,4 @@
-import { authenticationMiddleware } from '@/middlewares/authentication';
-import { errorHandlerMiddleware } from '@/middlewares/error-handler';
-import { setUpDbClientMiddleware } from '@/middlewares/set-up-db-client';
-import { OpenAPIHono } from '@hono/zod-openapi';
 import { handle } from 'hono/aws-lambda';
-import { setupServerRoutes } from './routes-definitions';
+import serverRoutes from 'src/controllers/server/routes';
 
-const app = new OpenAPIHono();
-
-app.onError(errorHandlerMiddleware);
-app.use(setUpDbClientMiddleware);
-app.use(authenticationMiddleware);
-
-setupServerRoutes(app);
-
-export const handler = handle(app);
+export const handler = handle(serverRoutes);
