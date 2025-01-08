@@ -1,10 +1,10 @@
 import {
+  BadRequestError,
   ConflictError,
   ForbiddenError,
   makeError,
   NotFoundError,
   UnauthorizedError,
-  ValidationError,
 } from '@/utils/errors';
 import { type Context } from 'hono';
 import { StatusCodes } from 'http-status-codes';
@@ -14,7 +14,7 @@ import { errorHandlerMiddleware } from './error-handler';
 
 describe('errorHandlerMiddleware', () => {
   it.each([
-    { ErrorClass: ValidationError, expectedStatus: StatusCodes.BAD_REQUEST },
+    { ErrorClass: BadRequestError, expectedStatus: StatusCodes.BAD_REQUEST },
     { ErrorClass: UnauthorizedError, expectedStatus: StatusCodes.UNAUTHORIZED },
     { ErrorClass: ForbiddenError, expectedStatus: StatusCodes.FORBIDDEN },
     { ErrorClass: NotFoundError, expectedStatus: StatusCodes.NOT_FOUND },
