@@ -1,4 +1,4 @@
-import { ValidationError } from '@/utils/errors';
+import { BadRequestError } from '@/utils/errors';
 
 export type MakeDefaultDataListReturnArgs<TRecords> = {
   records: TRecords[];
@@ -13,7 +13,7 @@ export function makeDefaultDataListReturn<TRecords>({
   limit,
   page,
 }: MakeDefaultDataListReturnArgs<TRecords>) {
-  if (limit <= 0 || page <= 0) throw new ValidationError('Limit and page must be greater than 0');
+  if (limit <= 0 || page <= 0) throw new BadRequestError('Limit and page must be greater than 0');
 
   const totalPages = Math.ceil(totalRecords / limit);
 

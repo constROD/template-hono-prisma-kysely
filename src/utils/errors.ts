@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import { ZodError } from 'zod';
 
-export class ValidationError extends Error {
+export class BadRequestError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'ValidationError';
+    this.name = 'BadRequestError';
     this.message = message;
   }
 }
@@ -55,7 +55,7 @@ export function makeError<TError extends Error>(error: TError) {
     };
   }
 
-  if (error instanceof ValidationError) {
+  if (error instanceof BadRequestError) {
     return {
       statusCode: StatusCodes.BAD_REQUEST,
       error: defaultError,
