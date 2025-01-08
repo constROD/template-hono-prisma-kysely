@@ -1,8 +1,9 @@
 import { type GetUsersDataArgs } from '@/data/user/get-users';
 import { userOpenApiSchema } from '@/data/user/schema';
 import { searchUsersData } from '@/data/user/search-users';
+import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
-import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
+import { createRoute, z } from '@hono/zod-openapi';
 
 export const searchUsersSchema = {
   query: listQuerySchema.extend({
@@ -39,21 +40,19 @@ export const searchUsersRoute = createRoute({
   },
 });
 
-export function makeSearchUsersRouteHandler(app: OpenAPIHono) {
-  return app.openapi(searchUsersRoute, async c => {
-    const dbClient = c.get('dbClient');
-    const query = c.req.valid('query');
+export const searchUsersRouteHandler: AppRouteHandler<typeof searchUsersRoute> = async c => {
+  const dbClient = c.get('dbClient');
+  const query = c.req.valid('query');
 
-    const data = await searchUsersData({
-      dbClient,
-      sortBy: query?.sort_by as GetUsersDataArgs['sortBy'],
-      orderBy: query?.order_by,
-      limit: query?.limit,
-      page: query?.page,
-      includeArchived: query?.include_archived === 'true',
-      filters: { searchText: query?.search },
-    });
-
-    return c.json(data, { status: 200 });
+  const data = await searchUsersData({
+    dbClient,
+    sortBy: query?.sort_by as GetUsersDataArgs['sortBy'],
+    orderBy: query?.order_by,
+    limit: query?.limit,
+    page: query?.page,
+    includeArchived: query?.include_archived === 'true',
+    filters: { searchText: query?.search },
   });
-}
+
+  return c.json(data, { status: 200 });
+};

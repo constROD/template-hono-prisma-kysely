@@ -1,7 +1,8 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productOpenApiSchema } from '@/data/product/schema';
+import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
-import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
+import { createRoute, z } from '@hono/zod-openapi';
 
 export const getProductsSchema = {
   query: listQuerySchema,
@@ -37,20 +38,18 @@ export const getProductsRoute = createRoute({
   middleware: [],
 });
 
-export function makeGetProductsRouteHandler(app: OpenAPIHono) {
-  return app.openapi(getProductsRoute, async c => {
-    const dbClient = c.get('dbClient');
-    const query = c.req.valid('query');
+export const getProductsRouteHandler: AppRouteHandler<typeof getProductsRoute> = async c => {
+  const dbClient = c.get('dbClient');
+  const query = c.req.valid('query');
 
-    const data = await getProductsData({
-      dbClient,
-      sortBy: query?.sort_by as GetProductsDataArgs['sortBy'],
-      orderBy: query?.order_by,
-      limit: query?.limit,
-      page: query?.page,
-      includeArchived: query?.include_archived === 'true',
-    });
-
-    return c.json(data, { status: 200 });
+  const data = await getProductsData({
+    dbClient,
+    sortBy: query?.sort_by as GetProductsDataArgs['sortBy'],
+    orderBy: query?.order_by,
+    limit: query?.limit,
+    page: query?.page,
+    includeArchived: query?.include_archived === 'true',
   });
-}
+
+  return c.json(data, { status: 200 });
+};

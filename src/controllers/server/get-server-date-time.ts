@@ -1,5 +1,6 @@
 import { getServerDateTimeData } from '@/data/server/get-server-date-time';
-import { createRoute, type OpenAPIHono, z } from '@hono/zod-openapi';
+import { type AppRouteHandler } from '@/types/hono';
+import { createRoute, z } from '@hono/zod-openapi';
 
 export const getServerDateTimeSchema = {
   response: z.string(),
@@ -26,12 +27,12 @@ export const getServerDateTimeRoute = createRoute({
   },
 });
 
-export const makeGetServerDateTimeRouteHandler = (app: OpenAPIHono) => {
-  return app.openapi(getServerDateTimeRoute, async c => {
-    const dbClient = c.get('dbClient');
+export const getServerDateTimeRouteHandler: AppRouteHandler<
+  typeof getServerDateTimeRoute
+> = async c => {
+  const dbClient = c.get('dbClient');
 
-    const serverDateTime = await getServerDateTimeData({ dbClient });
+  const serverDateTime = await getServerDateTimeData({ dbClient });
 
-    return c.json(serverDateTime, { status: 200 });
-  });
+  return c.json(serverDateTime, { status: 200 });
 };

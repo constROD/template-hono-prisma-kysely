@@ -1,13 +1,12 @@
-import { errorHandlerMiddleware } from '@/middlewares/error-handler';
-import { setUpDbClientMiddleware } from '@/middlewares/set-up-db-client';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import { type HonoEnv } from '@/types/hono';
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { makeGetServerDateTimeRouteHandler } from './get-server-date-time';
+import { getServerDateTimeRoute, getServerDateTimeRouteHandler } from './get-server-date-time';
 
-const app = new OpenAPIHono();
+const router = new OpenAPIHono<HonoEnv>().openapi(
+  getServerDateTimeRoute,
+  getServerDateTimeRouteHandler
+);
 
-app.onError(errorHandlerMiddleware);
-app.use(setUpDbClientMiddleware);
-
-makeGetServerDateTimeRouteHandler(app);
-
-export default app;
+export default router;

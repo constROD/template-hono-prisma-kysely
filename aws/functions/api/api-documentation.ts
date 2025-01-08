@@ -1,14 +1,12 @@
+import { routes } from '@/controllers/routes';
 import { envConfig } from '@/env';
+import { type HonoEnv } from '@/types/hono';
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { handle } from 'hono/aws-lambda';
-import meRoutes from 'src/controllers/me/routes';
-import productsRoutes from 'src/controllers/products/routes';
-import serverRoutes from 'src/controllers/server/routes';
-import usersRoutes from 'src/controllers/users/routes';
 
-const app = new OpenAPIHono();
+const app = new OpenAPIHono<HonoEnv>();
 
 /* API Docs */
 app.doc('/openapi.json', {
@@ -30,8 +28,6 @@ app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
 });
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
 app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
-
-const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes];
 
 routes.forEach(route => {
   app.route('/', route);
