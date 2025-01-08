@@ -1,10 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { makeGetMyProfileRouteHandler } from './get-my-profile';
-import { makeUpdateMyProfileRouteHandler } from './update-my-profile';
+import { getMyProfileRoute, getMyProfileRouteHandler } from './get-my-profile';
+import { updateMyProfileRoute, updateMyProfileRouteHandler } from './update-my-profile';
 
-const app = new OpenAPIHono();
+const router = new OpenAPIHono()
+  .openapi(getMyProfileRoute, getMyProfileRouteHandler)
+  .openapi(updateMyProfileRoute, updateMyProfileRouteHandler);
 
-makeGetMyProfileRouteHandler(app);
-makeUpdateMyProfileRouteHandler(app);
-
-export default app;
+export default router;

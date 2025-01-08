@@ -1,7 +1,8 @@
 import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { type Session } from '@/types/auth';
-import { createRoute, type OpenAPIHono, type z } from '@hono/zod-openapi';
+import { type AppRouteHandler } from '@/types/hono';
+import { createRoute, type z } from '@hono/zod-openapi';
 
 export const updateMyProfileSchema = {
   body: userSchema
@@ -45,14 +46,14 @@ export const updateMyProfileRoute = createRoute({
   middleware: [],
 });
 
-export function makeUpdateMyProfileRouteHandler(app: OpenAPIHono) {
-  return app.openapi(updateMyProfileRoute, async c => {
-    const dbClient = c.get('dbClient');
-    const session = c.get('session') as Session;
-    const body = c.req.valid('json');
+export const updateMyProfileRouteHandler: AppRouteHandler<
+  typeof updateMyProfileRoute
+> = async c => {
+  const dbClient = c.get('dbClient');
+  const session = c.get('session') as Session;
+  const body = c.req.valid('json');
 
-    const updatedMyProfile = await updateUserData({ dbClient, id: session.id, values: body });
+  const updatedMyProfile = await updateUserData({ dbClient, id: session.id, values: body });
 
-    return c.json(updatedMyProfile, { status: 200 });
-  });
-}
+  return c.json(updatedMyProfile, { status: 200 });
+};

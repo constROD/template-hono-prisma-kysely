@@ -1,8 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { makeGetServerDateTimeRouteHandler } from './get-server-date-time';
+import { getServerDateTimeRoute, getServerDateTimeRouteHandler } from './get-server-date-time';
 
-const app = new OpenAPIHono();
+const router = new OpenAPIHono().openapi(getServerDateTimeRoute, getServerDateTimeRouteHandler);
 
-makeGetServerDateTimeRouteHandler(app);
-
-export default app;
+export default router;

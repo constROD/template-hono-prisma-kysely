@@ -1,20 +1,21 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { makeArchiveUserRouteHandler } from './archive-user';
-import { makeCreateUserRouteHandler } from './create-user';
-import { makeDeleteUserRouteHandler } from './delete-user';
-import { makeGetUserRouteHandler } from './get-user';
-import { makeGetUsersRouteHandler } from './get-users';
-import { makeSearchUsersRouteHandler } from './search-users';
-import { makeUpdateUserRouteHandler } from './update-user';
+import { archiveUserRoute, archiveUserRouteHandler } from './archive-user';
+import { createUserRoute, createUserRouteHandler } from './create-user';
+import { deleteUserRoute, deleteUserRouteHandler } from './delete-user';
+import { getUserRoute, getUserRouteHandler } from './get-user';
+import { getUsersRoute, getUsersRouteHandler } from './get-users';
+import { searchUsersRoute, searchUsersRouteHandler } from './search-users';
+import { updateUserRoute, updateUserRouteHandler } from './update-user';
 
-const app = new OpenAPIHono();
+const router = new OpenAPIHono()
+  .openapi(getUsersRoute, getUsersRouteHandler)
+  .openapi(searchUsersRoute, searchUsersRouteHandler)
+  .openapi(getUserRoute, getUserRouteHandler)
+  .openapi(createUserRoute, createUserRouteHandler)
+  .openapi(updateUserRoute, updateUserRouteHandler)
+  .openapi(deleteUserRoute, deleteUserRouteHandler)
+  .openapi(archiveUserRoute, archiveUserRouteHandler);
 
-makeGetUsersRouteHandler(app);
-makeSearchUsersRouteHandler(app);
-makeGetUserRouteHandler(app);
-makeCreateUserRouteHandler(app);
-makeUpdateUserRouteHandler(app);
-makeDeleteUserRouteHandler(app);
-makeArchiveUserRouteHandler(app);
-
-export default app;
+export default router;

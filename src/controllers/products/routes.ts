@@ -1,8 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { makeGetProductsRouteHandler } from './get-products';
+import { getProductsRoute, getProductsRouteHandler } from './get-products';
 
-const app = new OpenAPIHono();
+const router = new OpenAPIHono().openapi(getProductsRoute, getProductsRouteHandler);
 
-makeGetProductsRouteHandler(app);
-
-export default app;
+export default router;

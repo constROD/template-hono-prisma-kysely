@@ -11,9 +11,10 @@ import usersRoutes from './controllers/users/routes';
 import { envConfig } from './env';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
+import { type HonoEnv } from './types/hono';
 import { pinoLogger } from './utils/logger';
 
-const app = new OpenAPIHono();
+const app = new OpenAPIHono<HonoEnv>();
 
 /* API Docs */
 app.doc('/openapi.json', {
@@ -42,7 +43,7 @@ app.use(logger());
 app.use(setUpDbClientMiddleware);
 
 /* Routes */
-const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes];
+const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes] as const;
 
 routes.forEach(route => {
   app.route('/', route);
@@ -55,3 +56,7 @@ serve({
 });
 
 pinoLogger.info('Listening on port', envConfig.APP_PORT);
+
+export type AppType = (typeof routes)[number];
+
+export default app;
