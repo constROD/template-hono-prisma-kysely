@@ -4,10 +4,7 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
-import meRoutes from './controllers/me/routes';
-import productsRoutes from './controllers/products/routes';
-import serverRoutes from './controllers/server/routes';
-import usersRoutes from './controllers/users/routes';
+import { routes } from './controllers/routes';
 import { envConfig } from './env';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
@@ -43,8 +40,6 @@ app.use(logger());
 app.use(setUpDbClientMiddleware);
 
 /* Routes */
-const routes = [serverRoutes, meRoutes, usersRoutes, productsRoutes] as const;
-
 routes.forEach(route => {
   app.route('/', route);
 });
@@ -56,7 +51,5 @@ serve({
 });
 
 pinoLogger.info('Listening on port', envConfig.APP_PORT);
-
-export type AppType = (typeof routes)[number];
 
 export default app;
