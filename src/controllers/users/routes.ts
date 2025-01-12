@@ -11,10 +11,10 @@ import { searchUsersRoute, searchUsersRouteHandler } from './search-users';
 import { updateUserRoute, updateUserRouteHandler } from './update-user';
 
 const router = new OpenAPIHono<HonoEnv>()
-  .openapi(getUsersRoute, getUsersRouteHandler)
   .openapi(searchUsersRoute, searchUsersRouteHandler)
-  .openapi(getUserRoute, getUserRouteHandler)
+  .openapi(getUsersRoute, getUsersRouteHandler)
   .openapi(createUserRoute, createUserRouteHandler)
+  .openapi(getUserRoute, getUserRouteHandler)
   .openapi(updateUserRoute, updateUserRouteHandler)
   .openapi(deleteUserRoute, deleteUserRouteHandler)
   .openapi(archiveUserRoute, archiveUserRouteHandler);
