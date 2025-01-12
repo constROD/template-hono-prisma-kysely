@@ -16,6 +16,7 @@ export type GetProductsQuery = z.infer<typeof getProductsSchema.query>;
 export type GetProductsResponse = z.infer<typeof getProductsSchema.response>;
 
 export const getProductsRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/products',
@@ -35,7 +36,6 @@ export const getProductsRoute = createRoute({
       description: 'Products retrieved successfully',
     },
   },
-  middleware: [],
 });
 
 export const getProductsRouteHandler: AppRouteHandler<typeof getProductsRoute> = async c => {

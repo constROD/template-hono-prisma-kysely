@@ -9,6 +9,7 @@ export const getServerDateTimeSchema = {
 export type GetServerDateTimeResponse = z.infer<typeof getServerDateTimeSchema.response>;
 
 export const getServerDateTimeRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/server/date-time',

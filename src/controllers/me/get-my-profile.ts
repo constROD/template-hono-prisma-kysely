@@ -12,6 +12,7 @@ export const getMyProfileSchema = {
 export type GetMyProfileResponse = z.infer<typeof getMyProfileSchema.response>;
 
 export const getMyProfileRoute = createRoute({
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/me',
@@ -28,7 +29,6 @@ export const getMyProfileRoute = createRoute({
       description: 'My profile retrieved successfully',
     },
   },
-  middleware: [authenticationMiddleware], // 👈 This line is required for private route
 });
 
 export const getMyProfileRouteHandler: AppRouteHandler<typeof getMyProfileRoute> = async c => {

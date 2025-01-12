@@ -17,6 +17,7 @@ export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;
 export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 
 export const archiveUserRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{user_id}/archive',
@@ -36,7 +37,6 @@ export const archiveUserRoute = createRoute({
       description: 'User archived successfully',
     },
   },
-  middleware: [],
 });
 
 export const archiveUserRouteHandler: AppRouteHandler<typeof archiveUserRoute> = async c => {
