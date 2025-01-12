@@ -5,8 +5,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { getMyProfileRoute, getMyProfileRouteHandler } from './get-my-profile';
 import { updateMyProfileRoute, updateMyProfileRouteHandler } from './update-my-profile';
 
-const router = new OpenAPIHono<HonoEnv>()
+const meRoutes = new OpenAPIHono<HonoEnv>()
   .openapi(getMyProfileRoute, getMyProfileRouteHandler)
   .openapi(updateMyProfileRoute, updateMyProfileRouteHandler);
 
-export default router;
+export default meRoutes;
