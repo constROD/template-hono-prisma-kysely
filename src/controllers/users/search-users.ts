@@ -19,6 +19,7 @@ export type SearchUsersQuery = z.infer<typeof searchUsersSchema.query>;
 export type SearchUsersResponse = z.infer<typeof searchUsersSchema.response>;
 
 export const searchUsersRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users/search',

@@ -1,5 +1,6 @@
 import { userOpenApiSchema, userSchema } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, type z } from '@hono/zod-openapi';
@@ -18,6 +19,7 @@ export type UpdateMyProfileBody = z.infer<typeof updateMyProfileSchema.body>;
 export type UpdateMyProfileResponse = z.infer<typeof updateMyProfileSchema.response>;
 
 export const updateMyProfileRoute = createRoute({
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/me',
@@ -43,7 +45,6 @@ export const updateMyProfileRoute = createRoute({
       description: 'My profile updated successfully',
     },
   },
-  middleware: [],
 });
 
 export const updateMyProfileRouteHandler: AppRouteHandler<

@@ -25,6 +25,7 @@ export type UpdateUserBody = z.infer<typeof updateUserSchema.body>;
 export type UpdateUserResponse = z.infer<typeof updateUserSchema.response>;
 
 export const updateUserRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{user_id}',
@@ -51,7 +52,6 @@ export const updateUserRoute = createRoute({
       description: 'User updated successfully',
     },
   },
-  middleware: [],
 });
 
 export const updateUserRouteHandler: AppRouteHandler<typeof updateUserRoute> = async c => {

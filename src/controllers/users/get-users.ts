@@ -16,6 +16,7 @@ export type GetUsersQuery = z.infer<typeof getUsersSchema.query>;
 export type GetUsersResponse = z.infer<typeof getUsersSchema.response>;
 
 export const getUsersRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users',
@@ -35,7 +36,6 @@ export const getUsersRoute = createRoute({
       description: 'Users retrieved successfully',
     },
   },
-  middleware: [],
 });
 
 export const getUsersRouteHandler: AppRouteHandler<typeof getUsersRoute> = async c => {

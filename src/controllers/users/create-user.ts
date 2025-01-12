@@ -18,6 +18,7 @@ export type CreateUserBody = z.infer<typeof createUserSchema.body>;
 export type CreateUserResponse = z.infer<typeof createUserSchema.response>;
 
 export const createUserRoute = createRoute({
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'post',
   path: '/users',
@@ -43,7 +44,6 @@ export const createUserRoute = createRoute({
       description: 'User created successfully',
     },
   },
-  middleware: [],
 });
 
 export const createUserRouteHandler: AppRouteHandler<typeof createUserRoute> = async c => {
