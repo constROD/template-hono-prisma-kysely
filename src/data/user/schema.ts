@@ -10,22 +10,22 @@ export const userSchema = z.object({
   updated_at: z.union([z.coerce.date(), z.string()]).openapi({
     example: new Date().toISOString(),
   }),
-  deleted_at: z.union([z.coerce.date(), z.string()]).nullable().openapi({
+  deleted_at: z.union([z.coerce.date(), z.string()]).nullable().optional().openapi({
     example: null,
   }),
   email: z.string().email().openapi({
     example: 'bossROD@gmail.com',
   }),
-  first_name: z.string().nullable().openapi({
+  first_name: z.string().nullable().optional().openapi({
     example: 'boss',
   }),
-  last_name: z.string().nullable().openapi({
+  last_name: z.string().nullable().optional().openapi({
     example: 'ROD',
   }),
   role: z.nativeEnum(UserRoleType).openapi({
     example: UserRoleType.USER,
   }),
-}) satisfies z.ZodType<User>;
+});
 
 export const userOpenApiSchema = userSchema.openapi('User');
 
