@@ -10,7 +10,7 @@ export const testWithDbClient = test.extend<{ dbClient: DbClient }>({
   dbClient: async ({}, use) => {
     let dbClient: DbClient | undefined;
     try {
-      dbClient = await createTestDbClient();
+      dbClient = createTestDbClient();
       await dbClient
         .transaction()
         .setIsolationLevel('read uncommitted')

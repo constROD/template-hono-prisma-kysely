@@ -1,5 +1,4 @@
 import { type DbClient } from '@/db/create-db-client';
-import { ValidationError } from '@/utils/errors';
 import { type CreateUser } from './schema';
 
 export type CreateUserDataArgs = {
@@ -12,7 +11,6 @@ export async function createUserData({ dbClient, values }: CreateUserDataArgs) {
     .insertInto('users')
     .values(values)
     .returningAll()
-    .executeTakeFirstOrThrow(() => new ValidationError('Unable to create user.'));
-
+    .executeTakeFirstOrThrow();
   return createdRecord;
 }
