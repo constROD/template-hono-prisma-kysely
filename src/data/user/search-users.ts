@@ -25,31 +25,14 @@ export async function searchUsersData({
   includeArchived = false,
   filters,
 }: SearchUsersDataArgs) {
-  let query = dbClient
-    .selectFrom('users')
-    .selectAll()
-    .limit(limit)
-    .offset((page - 1) * limit)
-    .orderBy(sortBy, orderBy);
-
-  let allRecordsQuery = dbClient
-    .selectFrom('users')
-    .select(eb => eb.fn.count('id').as('total_records'));
+  let baseQuery = dbClient.selectFrom('users');
 
   if (!includeArchived) {
-    query = query.where('deleted_at', 'is', null);
-    allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
+    baseQuery = baseQuery.where('deleted_at', 'is', null);
   }
 
   if (filters?.searchText) {
-    query = query.where(eb =>
-      eb.or([
-        eb('first_name', 'ilike', `%${filters.searchText}%`),
-        eb('last_name', 'ilike', `%${filters.searchText}%`),
-        eb('email', 'ilike', `%${filters.searchText}%`),
-      ])
-    );
-    allRecordsQuery = allRecordsQuery.where(eb =>
+    baseQuery = baseQuery.where(eb =>
       eb.or([
         eb('first_name', 'ilike', `%${filters.searchText}%`),
         eb('last_name', 'ilike', `%${filters.searchText}%`),
@@ -58,8 +41,16 @@ export async function searchUsersData({
     );
   }
 
-  const records = await query.execute();
-  const allRecords = await allRecordsQuery.executeTakeFirst();
+  const records = await baseQuery
+    .selectAll()
+    .limit(limit)
+    .offset((page - 1) * limit)
+    .orderBy(sortBy, orderBy)
+    .execute();
+
+  const allRecords = await baseQuery
+    .select(eb => eb.fn.count('id').as('total_records'))
+    .executeTakeFirst();
 
   return makeDefaultDataListReturn({
     records,

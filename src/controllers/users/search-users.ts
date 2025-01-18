@@ -1,5 +1,5 @@
 import { type GetUsersDataArgs } from '@/data/user/get-users';
-import { userOpenApiSchema } from '@/data/user/schema';
+import { userSchemaOpenApi } from '@/data/user/schema';
 import { searchUsersData } from '@/data/user/search-users';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
@@ -10,7 +10,7 @@ export const searchUsersSchema = {
     search: z.string().optional(),
   }),
   response: paginationSchema.extend({
-    records: z.array(userOpenApiSchema),
+    records: z.array(userSchemaOpenApi),
     total_records: z.number(),
   }),
 };

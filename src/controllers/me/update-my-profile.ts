@@ -1,4 +1,4 @@
-import { userOpenApiSchema, userSchema } from '@/data/user/schema';
+import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
@@ -12,7 +12,7 @@ export const updateMyProfileSchema = {
       last_name: true,
     })
     .partial(),
-  response: userOpenApiSchema,
+  response: userSchemaOpenApi,
 };
 
 export type UpdateMyProfileBody = z.infer<typeof updateMyProfileSchema.body>;

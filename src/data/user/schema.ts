@@ -2,7 +2,7 @@ import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { z } from '@hono/zod-openapi';
 
-export const userSchema = z.object({
+export const userSchemaObject = {
   id: z.string().uuid(),
   created_at: z.union([z.coerce.date(), z.string()]).openapi({
     example: new Date().toISOString(),
@@ -25,11 +25,11 @@ export const userSchema = z.object({
   role: z.nativeEnum(UserRoleType).openapi({
     example: UserRoleType.USER,
   }),
-}) satisfies z.ZodType<User>;
+};
 
-export const userOpenApiSchema = userSchema.openapi('User');
+export const userSchema = z.object(userSchemaObject) satisfies z.ZodType<User>;
+export const userSchemaOpenApi = userSchema.openapi('User');
+export const userSchemaFields = z.enum(Object.keys(userSchemaObject) as [string, ...string[]]);
 
-export type CreateUser = Pick<User, 'email' | 'role'> &
-  Partial<Pick<User, 'first_name' | 'last_name'>>;
-
-export type UpdateUser = Partial<z.infer<typeof userSchema>>;
+export type CreateUser = Omit<User, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>;
+export type UpdateUser = Partial<User>;

@@ -18,6 +18,7 @@ export type products = {
     name: string;
     description: string | null;
     price: number;
+    user_id: string;
 };
 export type users = {
     id: Generated<string>;

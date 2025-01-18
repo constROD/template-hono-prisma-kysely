@@ -1,13 +1,15 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
-import { productOpenApiSchema } from '@/data/product/schema';
+import { productSchemaFields, productSchemaOpenApi } from '@/data/product/schema';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const getProductsSchema = {
-  query: listQuerySchema,
+  query: listQuerySchema.extend({
+    sort_by: productSchemaFields.optional(),
+  }),
   response: paginationSchema.extend({
-    records: z.array(productOpenApiSchema),
+    records: z.array(productSchemaOpenApi),
     total_records: z.number(),
   }),
 };

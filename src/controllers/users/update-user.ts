@@ -1,4 +1,4 @@
-import { userOpenApiSchema, userSchema } from '@/data/user/schema';
+import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
 import { updateUserData } from '@/data/user/update-user';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
@@ -17,7 +17,7 @@ export const updateUserSchema = {
       role: true,
     })
     .partial(),
-  response: userOpenApiSchema,
+  response: userSchemaOpenApi,
 };
 
 export type UpdateUserParams = z.infer<typeof updateUserSchema.params>;

@@ -1,13 +1,15 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/user/get-users';
-import { userOpenApiSchema } from '@/data/user/schema';
+import { userSchemaFields, userSchemaOpenApi } from '@/data/user/schema';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const getUsersSchema = {
-  query: listQuerySchema,
+  query: listQuerySchema.extend({
+    sort_by: userSchemaFields.optional(),
+  }),
   response: paginationSchema.extend({
-    records: z.array(userOpenApiSchema),
+    records: z.array(userSchemaOpenApi),
     total_records: z.number(),
   }),
 };
