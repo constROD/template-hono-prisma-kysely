@@ -1,5 +1,5 @@
 import { deleteUserData } from '@/data/user/delete-user';
-import { userOpenApiSchema } from '@/data/user/schema';
+import { userSchemaOpenApi } from '@/data/user/schema';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -10,7 +10,7 @@ export const deleteUserSchema = {
       .uuid()
       .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
   }),
-  response: userOpenApiSchema,
+  response: userSchemaOpenApi,
 };
 
 export type DeleteUserParams = z.infer<typeof deleteUserSchema.params>;

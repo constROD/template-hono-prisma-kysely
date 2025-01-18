@@ -117,7 +117,6 @@ describe('listQuerySchema', () => {
     const listQueryData = {
       limit: 10,
       page: 1,
-      sort_by: 'created_at',
       order_by: 'desc',
       include_archived: 'false',
     };
@@ -132,7 +131,6 @@ describe('listQuerySchema', () => {
     const listQueryData = {
       limit: 10,
       page: 1,
-      sort_by: 123, // Invalid sort_by
       order_by: 'desc',
       include_archived: false, // Invalid string boolean
     };

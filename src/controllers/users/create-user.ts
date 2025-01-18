@@ -1,5 +1,5 @@
 import { createUserData } from '@/data/user/create-user';
-import { userOpenApiSchema, userSchema } from '@/data/user/schema';
+import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
 import { type AppRouteHandler } from '@/types/hono';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
@@ -11,7 +11,7 @@ export const createUserSchema = {
     first_name: true,
     last_name: true,
   }),
-  response: userOpenApiSchema,
+  response: userSchemaOpenApi,
 };
 
 export type CreateUserBody = z.infer<typeof createUserSchema.body>;

@@ -1,7 +1,8 @@
 import { envConfig, isTest } from '@/env';
 import { ForbiddenError } from '@/utils/errors';
 import { Kysely, PostgresDialect } from 'kysely';
-import { Pool } from 'pg';
+import pg from 'pg';
+
 import { type KyselySchema } from './schema';
 
 export function createDbClient() {
@@ -12,7 +13,7 @@ export function createDbClient() {
 
   const dbClient = new Kysely<KyselySchema>({
     dialect: new PostgresDialect({
-      pool: new Pool({
+      pool: new pg.Pool({
         connectionString: envConfig.DB_URL,
         max: 50, // Set maximum <number> of client(s) in the pool
         connectionTimeoutMillis: 1000, // return an error after <number> second(s) if connection could not be established
@@ -30,7 +31,7 @@ export function createDbClient() {
 export function createTestDbClient() {
   const dbClient = new Kysely<KyselySchema>({
     dialect: new PostgresDialect({
-      pool: new Pool({
+      pool: new pg.Pool({
         connectionString: envConfig.TEST_DB_URL,
         max: 50, // Set maximum <number> of client(s) in the pool
         connectionTimeoutMillis: 1000, // return an error after <number> second(s) if connection could not be established

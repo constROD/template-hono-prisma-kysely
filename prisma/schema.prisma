@@ -24,6 +24,17 @@ model users {
   last_name  String?
   email      String       @unique
   role       UserRoleType @default(USER)
+
+  // Relations
+  products products[]
+
+  // Indexes
+  @@index([created_at])
+  @@index([updated_at])
+  @@index([deleted_at])
+  @@index([first_name])
+  @@index([last_name])
+  @@index([email])
 }
 
 model products {
@@ -34,4 +45,18 @@ model products {
   name        String
   description String?
   price       Float
+
+  // Foreign Keys
+  user_id String @db.Uuid
+
+  // Relations
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([created_at])
+  @@index([updated_at])
+  @@index([deleted_at])
+  @@index([name])
+  @@index([price])
+  @@index([user_id])
 }
