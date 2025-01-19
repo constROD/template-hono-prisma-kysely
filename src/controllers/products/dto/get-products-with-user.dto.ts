@@ -1,5 +1,5 @@
 import { productSchema } from '@/data/product/schema';
-import { type searchProductsData } from '@/data/product/search-products';
+import { type SearchProductsDataReturn } from '@/data/product/search-products';
 import { userSchema } from '@/data/user/schema';
 import { type z } from 'zod';
 
@@ -9,26 +9,26 @@ export const getProductsWithUserDTOSchema = productSchema.omit({ user_id: true }
 
 export type GetProductsWithUserDTO = z.infer<typeof getProductsWithUserDTOSchema>;
 
-export function getProductsWithUserDTO(
-  records: Awaited<ReturnType<typeof searchProductsData>>['records']
-) {
-  return records.map(product => ({
-    id: product.id,
-    created_at: product.created_at,
-    updated_at: product.updated_at,
-    deleted_at: product.deleted_at,
-    name: product.name,
-    description: product.description,
-    price: product.price,
+export type GetProductsWithUserDTOArgs = SearchProductsDataReturn['records'][number];
+
+export function getProductsWithUserDTO(record: GetProductsWithUserDTOArgs) {
+  return {
+    id: record.id,
+    created_at: record.created_at,
+    updated_at: record.updated_at,
+    deleted_at: record.deleted_at,
+    name: record.name,
+    description: record.description,
+    price: record.price,
     user: {
-      id: product.user_id,
-      created_at: product.user_created_at,
-      updated_at: product.user_updated_at,
-      deleted_at: product.user_deleted_at,
-      first_name: product.user_first_name,
-      last_name: product.user_last_name,
-      email: product.user_email,
-      role: product.user_role,
+      id: record.user_id,
+      created_at: record.user_created_at,
+      updated_at: record.user_updated_at,
+      deleted_at: record.user_deleted_at,
+      first_name: record.user_first_name,
+      last_name: record.user_last_name,
+      email: record.user_email,
+      role: record.user_role,
     } as GetProductsWithUserDTO['user'],
-  })) satisfies GetProductsWithUserDTO[];
+  } satisfies GetProductsWithUserDTO;
 }
