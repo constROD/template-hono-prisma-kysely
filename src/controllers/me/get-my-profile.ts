@@ -17,7 +17,7 @@ export const getMyProfileRoute = createRoute({
   method: 'get',
   path: '/me',
   tags: ['Me'],
-  summary: 'Retrieve a profile',
+  summary: 'Retrieve my profile',
   description: 'Retrieve your profile.',
   responses: {
     200: {
