@@ -19,24 +19,22 @@ export async function getProductsData({
   orderBy = 'desc',
   includeArchived = false,
 }: GetProductsDataArgs) {
-  let query = dbClient
-    .selectFrom('products')
+  let baseQuery = dbClient.selectFrom('products');
+
+  if (!includeArchived) {
+    baseQuery = baseQuery.where('deleted_at', 'is', null);
+  }
+
+  const records = await baseQuery
     .selectAll()
     .limit(limit)
     .offset((page - 1) * limit)
-    .orderBy(sortBy, orderBy);
+    .orderBy(sortBy, orderBy)
+    .execute();
 
-  let allRecordsQuery = dbClient
-    .selectFrom('products')
-    .select(eb => eb.fn.count('id').as('total_records'));
-
-  if (!includeArchived) {
-    query = query.where('deleted_at', 'is', null);
-    allRecordsQuery = allRecordsQuery.where('deleted_at', 'is', null);
-  }
-
-  const records = await query.execute();
-  const allRecords = await allRecordsQuery.executeTakeFirst();
+  const allRecords = await baseQuery
+    .select(eb => eb.fn.count('id').as('total_records'))
+    .executeTakeFirst();
 
   return makeDefaultDataListReturn({
     records,
