@@ -8,6 +8,8 @@ import { productSchemaFields } from './schema';
 export type SearchProductFilters = {
   searchText?: string;
   userId?: string;
+  startDate?: Date | string;
+  endDate?: Date | string;
 };
 
 export type SearchProductsDataArgs = {
@@ -44,6 +46,17 @@ export async function searchProductsData({
         eb('products.description', 'ilike', `%${filters.searchText}%`),
       ])
     );
+  }
+
+  if (filters?.userId) {
+    baseQuery = baseQuery.where('products.user_id', '=', filters.userId);
+  }
+
+  if (filters?.startDate) {
+    baseQuery = baseQuery.where('products.created_at', '>=', new Date(filters.startDate));
+  }
+  if (filters?.endDate) {
+    baseQuery = baseQuery.where('products.created_at', '<=', new Date(filters.endDate));
   }
 
   let recordQuery = baseQuery
@@ -99,3 +112,5 @@ export async function searchProductsData({
     page,
   });
 }
+
+export type SearchProductsDataReturn = Awaited<ReturnType<typeof searchProductsData>>;
