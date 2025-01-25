@@ -1,4 +1,5 @@
 import { routes } from '@/controllers/routes';
+import { schemas } from '@/data/schema';
 import { envConfig } from '@/env';
 import { type HonoEnv } from '@/types/hono';
 import { swaggerUI } from '@hono/swagger-ui';
@@ -26,9 +27,17 @@ app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
   scheme: 'bearer',
   bearerFormat: 'JWT',
 });
+
+/* Register Schemas */
+Object.entries(schemas).forEach(([key, value]) => {
+  app.openAPIRegistry.register(key, value);
+});
+
+/* API Docs */
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
 app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 
+/* Routes */
 routes.forEach(route => {
   app.route('/', route);
 });
