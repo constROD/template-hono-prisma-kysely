@@ -5,6 +5,7 @@ import { apiReference } from '@scalar/hono-api-reference';
 import { logger } from 'hono/logger';
 import { version } from '../package.json';
 import { routes } from './controllers/routes';
+import { schemas } from './data/schema';
 import { envConfig } from './env';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
@@ -31,6 +32,13 @@ app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
   scheme: 'bearer',
   bearerFormat: 'JWT',
 });
+
+/* Register Schemas */
+Object.entries(schemas).forEach(([key, value]) => {
+  app.openAPIRegistry.register(key, value);
+});
+
+/* API Docs */
 app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
 app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 
