@@ -2,6 +2,7 @@
 
 ## Naming conventions
 - `kebab-case` - for all folders/files.
+- `_kebab-case` - for feature domain's specific common modules.
 - `PascalCase` - for classes and types.
 - `snake_case` - for database tables, columns, query, params and request body.
 - `camelCase` - for functions, zod schemas and etc.
