@@ -65,15 +65,16 @@
 
 - **Pattern 1** (For simple CRUD apps)
   ```
-  Data Access Layer -> Controller Layer -> App
+  Data Access Layer -> Controller Layer -> AWS Infrastructure Layer -> App
   ```
 - **Pattern 2** (For complex apps with business logic)
   ```
-  Data Access Layer -> Service Layer -> Controller Layer -> App
+  Data Access Layer -> Service Layer -> Controller Layer -> AWS Infrastructure Layer -> App
   ```
 - **Pattern 3 (Hybrid)** (Combination of Pattern 1 and Pattern 2) 
   ```
-  Data Access Layer -> Controller Layer -> App
-  Data Access Layer -> Service Layer -> Controller Layer -> App
+  Data Access Layer -> Controller Layer -> AWS Infrastructure Layer -> App
+  Data Access Layer -> Service Layer -> Controller Layer -> AWS Infrastructure Layer -> App
   ```
+
 
