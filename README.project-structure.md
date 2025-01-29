@@ -1,4 +1,4 @@
-# Standards
+# Project Structure & Code Organization
 
 ## Naming conventions
 - `kebab-case` - for all folders/files.
@@ -16,10 +16,12 @@
 ## Common Modules
 - `constants` - for constant values.
 - `controllers` - for api routes and handlers.
-  - `controllers/dto` - for api request/response DTOs.
+  - `controllers/*/dto` - for specific resource request/response DTOs.
   - `controllers/*/routes.ts` - contains all routes of specific resource.
-  - `controllers/routes.ts` - contains all routes of all resources.
+  - `controllers/routes.ts` - root routes file that contains all routes of all resources.
 - `data` - for data access layer. (e.g. `api`, `database`, `cache`, etc.)
+  - `data/*/schema.ts` - for data access layer schema.
+  - `data/schema.ts` - root schema file that contains all schema of all resources.
 - `db` - for database connection and schemas.
 - `lib` - for 3rd party integrations libraries.
 - `middlewares` - for middlewares.
@@ -33,6 +35,9 @@
 ## AWS Folder Structure
 - `aws` - main aws folder.
 - `aws/functions` - for all aws lambda functions.
+  - `aws/functions/api` - for all aws lambda functions that are related to api.
+  - `aws/functions/cron` - for all aws lambda functions that are related to cron jobs.
+  - `aws/functions/queues` - for all aws lambda functions that are related to queues.
 - `aws/stacks` - for all aws cloudformation stacks.
 
 ## Domain Folders
@@ -45,11 +50,11 @@
 - `src/db` - for shared database connection and schemas.
 - `src/lib` - for shared 3rd party integrations libraries.
 - `src/middlewares` - for shared middlewares.
-- `src/services` - for shared business logic and orchestration of data access layer. **(Only if necessary)**
+- `src/services` - for shared business logic and orchestration of data access layer.
 - `src/types` - for shared types.
 - `src/utils` - for shared utilities.
   
-### Features Domain
+### Features Domain (Optional)
 - `src/features/<feature-name>` - for feature.
   - `src/features/<feature-name>/_constants` - for feature's constants.
   - `src/features/<feature-name>/_controllers` - for feature's controllers.
