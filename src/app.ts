@@ -52,7 +52,7 @@ routes.forEach(route => {
   app.route('/', route);
 });
 
-/* Serve */
+/* Server */
 serve({ fetch: app.fetch, port: envConfig.APP_PORT }, info => {
   pinoLogger.info('Listening on port', info.port);
 });
