@@ -53,11 +53,8 @@ routes.forEach(route => {
 });
 
 /* Serve */
-serve({
-  fetch: app.fetch,
-  port: envConfig.APP_PORT,
+serve({ fetch: app.fetch, port: envConfig.APP_PORT }, info => {
+  pinoLogger.info('Listening on port', info.port);
 });
-
-pinoLogger.info('Listening on port', envConfig.APP_PORT);
 
 export default app;
