@@ -4,9 +4,11 @@ import { ApiStack } from './api';
 export function ApiDocumentationRoutesStack(context: StackContext) {
   const { apiStack } = use(ApiStack);
 
+  const handler = 'aws/functions/api/api-documentation.handler';
+
   apiStack.addRoutes(context.stack, {
-    'GET /swagger': 'aws/functions/api/api-documentation.handler',
-    'GET /reference': 'aws/functions/api/api-documentation.handler',
-    'GET /openapi.json': 'aws/functions/api/api-documentation.handler',
+    'GET /swagger': { function: { handler } },
+    'GET /reference': { function: { handler } },
+    'GET /openapi.json': { function: { handler } },
   });
 }
