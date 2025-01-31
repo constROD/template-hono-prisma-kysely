@@ -50,7 +50,7 @@
   "dependencies": {
     "@hono/node-server": "^1.13.5",
     "@hono/swagger-ui": "^0.4.1",
-    "@hono/zod-openapi": "^0.17.0",
+    "@hono/zod-openapi": "^0.16.4",
     "@scalar/hono-api-reference": "^0.5.159",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
