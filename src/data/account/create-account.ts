@@ -1,14 +1,14 @@
 import { type DbClient } from '@/db/create-db-client';
-import { type CreateUser } from './schema';
+import { type CreateAccount } from './schema';
 
-export type CreateUserDataArgs = {
+export type CreateAccountDataArgs = {
   dbClient: DbClient;
-  values: CreateUser;
+  values: CreateAccount;
 };
 
-export async function createUserData({ dbClient, values }: CreateUserDataArgs) {
+export async function createAccountData({ dbClient, values }: CreateAccountDataArgs) {
   const createdRecord = await dbClient
-    .insertInto('users')
+    .insertInto('accounts')
     .values({ ...values, email: values.email.trim().toLowerCase() })
     .returningAll()
     .executeTakeFirstOrThrow();

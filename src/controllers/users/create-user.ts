@@ -1,5 +1,6 @@
 import { createUserData } from '@/data/user/create-user';
 import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
@@ -18,7 +19,7 @@ export type CreateUserBody = z.infer<typeof createUserSchema.body>;
 export type CreateUserResponse = z.infer<typeof createUserSchema.response>;
 
 export const createUserRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'post',
   path: '/users',

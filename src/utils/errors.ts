@@ -55,6 +55,20 @@ export function makeError<TError extends Error>(error: TError) {
     };
   }
 
+  if (error.message.includes('jwt malformed')) {
+    return {
+      statusCode: StatusCodes.BAD_REQUEST,
+      error: { name: 'BadRequestError', message: 'Invalid access token' },
+    };
+  }
+
+  if (error.message.includes('jwt expired')) {
+    return {
+      statusCode: StatusCodes.UNAUTHORIZED,
+      error: { name: 'UnauthorizedError', message: 'Access token expired' },
+    };
+  }
+
   if (error instanceof BadRequestError) {
     return {
       statusCode: StatusCodes.BAD_REQUEST,

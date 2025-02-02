@@ -1,5 +1,6 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/product/get-products';
 import { productSchemaFields, productSchemaOpenApi } from '@/data/product/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
@@ -18,7 +19,7 @@ export type GetProductsQuery = z.infer<typeof getProductsSchema.query>;
 export type GetProductsResponse = z.infer<typeof getProductsSchema.response>;
 
 export const getProductsRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/products',

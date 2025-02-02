@@ -1,5 +1,6 @@
 import { archiveUserData } from '@/data/user/archive-user';
 import { userSchemaOpenApi } from '@/data/user/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -17,7 +18,7 @@ export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;
 export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 
 export const archiveUserRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{user_id}/archive',

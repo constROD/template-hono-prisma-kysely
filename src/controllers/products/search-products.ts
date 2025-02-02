@@ -1,6 +1,7 @@
 import { productSchemaFields } from '@/data/product/schema';
 import { searchProductsData, type SearchProductsDataArgs } from '@/data/product/search-products';
 import { userSchemaFields } from '@/data/user/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
@@ -28,7 +29,7 @@ export type SearchProductsQuery = z.infer<typeof searchProductsSchema.query>;
 export type SearchProductsResponse = z.infer<typeof searchProductsSchema.response>;
 
 export const searchProductsRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/products/search',

@@ -13,6 +13,8 @@ const envSchema = z.object({
   STAGE: z.nativeEnum(STAGES).default(STAGES.Dev),
   DB_URL: z.string(),
   TEST_DB_URL: z.string(),
+  JWT_ACCESS_TOKEN_SECRET: z.string(),
+  JWT_REFRESH_TOKEN_SECRET: z.string(),
 });
 
 export const envConfig = envSchema.parse({
@@ -20,6 +22,8 @@ export const envConfig = envSchema.parse({
   STAGE: process.env.STAGE,
   DB_URL: process.env.DB_URL,
   TEST_DB_URL: process.env.TEST_DB_URL,
+  JWT_ACCESS_TOKEN_SECRET: process.env.JWT_ACCESS_TOKEN_SECRET,
+  JWT_REFRESH_TOKEN_SECRET: process.env.JWT_REFRESH_TOKEN_SECRET,
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;

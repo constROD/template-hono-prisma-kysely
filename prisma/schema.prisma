@@ -37,6 +37,44 @@ model users {
   @@index([email])
 }
 
+model accounts {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime  @default(now()) @db.Timestamptz(6)
+  deleted_at DateTime? @db.Timestamptz(6)
+  email      String    @unique
+  password   String
+
+  // Relations
+  sessions sessions[]
+
+  // Indexes
+  @@index([created_at])
+  @@index([updated_at])
+  @@index([deleted_at])
+  @@index([email])
+}
+
+model sessions {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime  @default(now()) @db.Timestamptz(6)
+  deleted_at    DateTime? @db.Timestamptz(6)
+  refresh_token String    @unique @db.Text
+
+  // Foreign Keys
+  account_id String @db.Uuid
+
+  // Relations
+  account accounts @relation(fields: [account_id], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([created_at])
+  @@index([updated_at])
+  @@index([deleted_at])
+  @@index([account_id])
+}
+
 model products {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at  DateTime  @default(now()) @db.Timestamptz(6)

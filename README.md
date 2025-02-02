@@ -1,4 +1,4 @@
-# Template Hono Prisma Kysely by bossROD
+# Template Hono Prisma Kysely with JWT Auth by bossROD
 
 ## Description
 
@@ -12,26 +12,9 @@ Please read the repo's **Project Structure & Code Organization** here [README.pr
 
 Choose the approach that best fits your needs:
 
-### 1. Standard Hono Server
-
-Branch: [main](https://github.com/constROD/template-hono-prisma-kysely)
-For a basic setup using just the Hono server:
-
 ```bash
-npx degit constROD/template-hono-prisma-kysely
+npx degit constROD/template-hono-prisma-kysely#with-auth-jwt
 ```
-
-### 2. With SST v2 (AWS Provider)
-
-Branch: [with-sst-v2](https://github.com/constROD/template-hono-prisma-kysely/tree/with-sst-v2)
-For a setup integrated with Serverless Stack (SST) v2 - AWS Provider:
-
-```bash
-npx degit constROD/template-hono-prisma-kysely#with-sst-v2
-```
-
-Choose the command that corresponds to your preferred API layer approach.
-
 
 ## Prerequisites
 

@@ -1,4 +1,11 @@
-import { type DB, type UserRoleType, type products, type users } from './types';
+import {
+  type accounts,
+  type DB,
+  type products,
+  type sessions,
+  type UserRoleType,
+  type users,
+} from './types';
 
 /**
  * Utility type to override specific field types from database tables:
@@ -34,6 +41,8 @@ type OverrideUsers = Omit<OverrideCommonFields<users>, 'role'> & {
 };
 
 export type User = OverrideUsers;
+export type Account = OverrideCommonFields<accounts>;
+export type Session = OverrideCommonFields<sessions>;
 export type Product = OverrideCommonFields<products>;
 
 export type KyselySchema = DB;
