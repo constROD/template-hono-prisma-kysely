@@ -30,8 +30,16 @@ For a setup integrated with Serverless Stack (SST) v2 - AWS Provider:
 npx degit constROD/template-hono-prisma-kysely#with-sst-v2
 ```
 
-Choose the command that corresponds to your preferred API layer approach.
+### 3. With JWT Auth
 
+Branch: [with-auth-jwt](https://github.com/constROD/template-hono-prisma-kysely/tree/with-auth-jwt)
+For a setup with JWT authentication:
+
+```bash
+npx degit constROD/template-hono-prisma-kysely#with-auth-jwt
+```
+
+Choose the command that corresponds to your preferred API layer approach.
 
 ## Prerequisites
 
