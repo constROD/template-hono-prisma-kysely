@@ -32,11 +32,11 @@ npx degit constROD/template-hono-prisma-kysely#with-sst-v2
 
 ### 3. With JWT Auth
 
-Branch: [with-auth-jwt](https://github.com/constROD/template-hono-prisma-kysely/tree/with-auth-jwt)
+Branch: [with-jwt-auth](https://github.com/constROD/template-hono-prisma-kysely/tree/with-jwt-auth)
 For a setup with JWT authentication:
 
 ```bash
-npx degit constROD/template-hono-prisma-kysely#with-auth-jwt
+npx degit constROD/template-hono-prisma-kysely#with-jwt-auth
 ```
 
 Choose the command that corresponds to your preferred API layer approach.
