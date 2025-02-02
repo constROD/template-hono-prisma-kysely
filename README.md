@@ -13,7 +13,7 @@ Please read the repo's **Project Structure & Code Organization** here [README.pr
 Choose the approach that best fits your needs:
 
 ```bash
-npx degit constROD/template-hono-prisma-kysely#with-auth-jwt
+npx degit constROD/template-hono-prisma-kysely#with-jwt-auth
 ```
 
 ## Prerequisites
