@@ -29,7 +29,7 @@ services:
     ports:
       - '${PGADMIN_PORT}:5050'
     volumes:
-      - ./volumes/databases/pg/pgadmin:/var/lib/pgadmin
+      - ./volumes/databases/pgadmin:/var/lib/pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
