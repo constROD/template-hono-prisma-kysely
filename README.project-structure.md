@@ -9,7 +9,7 @@
 
 ## Miscellaneous Folders
 - `.husky` - for husky configuration.
-- `volumes` - for database container volume.
+- `volumes` - for docker container volume.
 - `cli` - for cli automation scripts. (e.g. seeders, migrations, etc.)
 - `prisma` - for prisma schema and migrations.
 
