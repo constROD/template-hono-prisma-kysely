@@ -1,5 +1,5 @@
 import { envConfig } from '@/env';
-import jwt from 'jsonwebtoken';
+import jwt, { type JwtPayload } from 'jsonwebtoken';
 
 export type GenerateAccessTokenArgs = {
   payload: {
@@ -37,14 +37,14 @@ export function generateRefreshToken({ payload, options }: GenerateRefreshTokenA
   });
 }
 
-export function verifyAccessToken(token: string): GenerateAccessTokenArgs['payload'] | null {
-  return jwt.verify(token, envConfig.JWT_ACCESS_TOKEN_SECRET) as
-    | GenerateAccessTokenArgs['payload']
-    | null;
+export type VerifyAccessTokenResponse = GenerateAccessTokenArgs['payload'] & JwtPayload;
+
+export function verifyAccessToken(token: string): VerifyAccessTokenResponse | null {
+  return jwt.verify(token, envConfig.JWT_ACCESS_TOKEN_SECRET) as VerifyAccessTokenResponse | null;
 }
 
-export function verifyRefreshToken(token: string): GenerateRefreshTokenArgs['payload'] | null {
-  return jwt.verify(token, envConfig.JWT_REFRESH_TOKEN_SECRET) as
-    | GenerateRefreshTokenArgs['payload']
-    | null;
+export type VerifyRefreshTokenResponse = GenerateRefreshTokenArgs['payload'] & JwtPayload;
+
+export function verifyRefreshToken(token: string): VerifyRefreshTokenResponse | null {
+  return jwt.verify(token, envConfig.JWT_REFRESH_TOKEN_SECRET) as VerifyRefreshTokenResponse | null;
 }

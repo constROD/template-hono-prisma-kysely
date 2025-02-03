@@ -72,7 +72,7 @@ export async function verifySessionAuthService({
       values: { refresh_token: newRefreshToken },
     });
 
-    const accessToken = dependencies.generateAccessToken({
+    const newAccessToken = dependencies.generateAccessToken({
       payload: {
         sessionId: updatedSession.id,
         accountId: accessTokenPayload.accountId,
@@ -84,7 +84,7 @@ export async function verifySessionAuthService({
     return {
       accountId: accessTokenPayload.accountId,
       email: accessTokenPayload.email,
-      accessToken,
+      accessToken: newAccessToken,
     };
   });
 }
