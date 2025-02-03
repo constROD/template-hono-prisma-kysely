@@ -1,6 +1,6 @@
 # Create Endpoint
 
-## Layers
+## Understanding the Layers
 
 ####  Database Layer
 - `prisma` - for prisma schema and migrations.
