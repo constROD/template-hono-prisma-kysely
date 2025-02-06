@@ -47,7 +47,7 @@ describe('loginAuthService', () => {
       dependencies: mockDependencies,
     });
 
-    expect(result).toEqual({ accessToken: 'accessToken123' });
+    expect(result).toEqual({ accessToken: 'accessToken123', refreshToken: 'refreshToken123' });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClientTrx,
@@ -65,7 +65,7 @@ describe('loginAuthService', () => {
         accountId: mockExistingAccount.id,
         email: mockExistingAccount.email,
       },
-      options: { expiresIn: '1d', issuer: 'login', audience: 'frontend' },
+      options: { expiresIn: '5m', issuer: 'login', audience: 'frontend' },
     });
   });
 
@@ -101,6 +101,6 @@ describe('loginAuthService', () => {
         payload,
         dependencies: mockDependencies,
       })
-    ).rejects.toThrow(new BadRequestError('Password is incorrect.'));
+    ).rejects.toThrow(new BadRequestError('Invalid credentials.'));
   });
 });

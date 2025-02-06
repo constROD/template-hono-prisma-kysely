@@ -1,7 +1,7 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
 import { BadRequestError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { verifySessionAuthService } from './verify-session';
+import { verifySessionAuthService } from './get-new-tokens';
 
 const mockDependencies = {
   getSessionData: vi.fn(),
@@ -9,20 +9,14 @@ const mockDependencies = {
   updateSessionData: vi.fn(),
   generateAccessToken: vi.fn(),
   generateRefreshToken: vi.fn(),
-  verifyAccessToken: vi.fn(),
   verifyRefreshToken: vi.fn(),
-};
-
-const mockAccessTokenPayload = {
-  sessionId: 'session123',
-  accountId: 'account123',
-  email: 'test@example.com',
 };
 
 const mockSession = {
   id: 'session123',
   refresh_token: 'refreshToken123',
   account_id: 'account123',
+  email: 'test@example.com',
 };
 
 describe('verifySessionService', () => {
@@ -32,12 +26,11 @@ describe('verifySessionService', () => {
 
   it('should successfully verify and refresh tokens', async () => {
     const payload = {
-      accessToken: 'validAccessToken',
+      refreshToken: 'validRefreshToken',
     };
 
-    mockDependencies.verifyAccessToken.mockReturnValue(mockAccessTokenPayload);
     mockDependencies.getSessionData.mockResolvedValue(mockSession);
-    mockDependencies.verifyRefreshToken.mockReturnValue({ accountId: 'account123' });
+    mockDependencies.verifyRefreshToken.mockReturnValue({ accountId: mockSession.account_id });
     mockDependencies.generateRefreshToken.mockReturnValue('newRefreshToken');
     mockDependencies.updateSessionData.mockResolvedValue({
       ...mockSession,
@@ -53,14 +46,13 @@ describe('verifySessionService', () => {
 
     expect(result).toEqual({
       accessToken: 'newAccessToken',
-      accountId: mockAccessTokenPayload.accountId,
-      email: mockAccessTokenPayload.email,
+      refreshToken: 'newRefreshToken',
     });
 
-    expect(mockDependencies.verifyAccessToken).toHaveBeenCalledWith(payload.accessToken);
+    expect(mockDependencies.verifyRefreshToken).toHaveBeenCalledWith(payload.refreshToken);
     expect(mockDependencies.getSessionData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClientTrx,
-      id: mockAccessTokenPayload.sessionId,
+      refreshToken: payload.refreshToken,
     });
     expect(mockDependencies.updateSessionData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClientTrx,
@@ -71,10 +63,10 @@ describe('verifySessionService', () => {
 
   it('should throw BadRequestError when access token is invalid', async () => {
     const payload = {
-      accessToken: 'invalidAccessToken',
+      refreshToken: 'invalidRefreshToken',
     };
 
-    mockDependencies.verifyAccessToken.mockReturnValue(null);
+    mockDependencies.verifyRefreshToken.mockReturnValue(null);
 
     await expect(
       verifySessionAuthService({
@@ -82,15 +74,14 @@ describe('verifySessionService', () => {
         payload,
         dependencies: mockDependencies,
       })
-    ).rejects.toThrow(new BadRequestError('Invalid access token.'));
+    ).rejects.toThrow(new BadRequestError('Invalid refresh token.'));
   });
 
   it('should throw BadRequestError when refresh token is invalid', async () => {
     const payload = {
-      accessToken: 'validAccessToken',
+      refreshToken: 'invalidRefreshToken',
     };
 
-    mockDependencies.verifyAccessToken.mockReturnValue(mockAccessTokenPayload);
     mockDependencies.getSessionData.mockResolvedValue(mockSession);
     mockDependencies.verifyRefreshToken.mockReturnValue(null);
 
@@ -105,10 +96,9 @@ describe('verifySessionService', () => {
 
   it('should throw BadRequestError when refresh token accountId does not match access token', async () => {
     const payload = {
-      accessToken: 'validAccessToken',
+      refreshToken: 'validRefreshToken',
     };
 
-    mockDependencies.verifyAccessToken.mockReturnValue(mockAccessTokenPayload);
     mockDependencies.getSessionData.mockResolvedValue(mockSession);
     mockDependencies.verifyRefreshToken.mockReturnValue({ accountId: 'differentAccount' });
 
@@ -118,6 +108,6 @@ describe('verifySessionService', () => {
         payload,
         dependencies: mockDependencies,
       })
-    ).rejects.toThrow(new BadRequestError('Refresh token does not match access token.'));
+    ).rejects.toThrow(new BadRequestError('Refresh token does not match the session account.'));
   });
 });

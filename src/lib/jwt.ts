@@ -22,18 +22,18 @@ export function generateAccessToken({ payload, options }: GenerateAccessTokenArg
       aud: options?.audience,
     },
     envConfig.JWT_ACCESS_TOKEN_SECRET,
-    { expiresIn: options?.expiresIn || '1d' }
+    { expiresIn: options?.expiresIn || '5m' }
   );
 }
 
 export type GenerateRefreshTokenArgs = {
-  payload: { accountId: string };
+  payload: { accountId: string; email: string };
   options?: { expiresIn?: string };
 };
 
 export function generateRefreshToken({ payload, options }: GenerateRefreshTokenArgs) {
   return jwt.sign(payload, envConfig.JWT_REFRESH_TOKEN_SECRET, {
-    expiresIn: options?.expiresIn || '30d',
+    expiresIn: options?.expiresIn || '1h',
   });
 }
 

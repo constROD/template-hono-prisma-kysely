@@ -49,14 +49,14 @@ export async function loginAuthService({
     });
 
     if (!isPasswordCorrect) {
-      throw new BadRequestError('Password is incorrect.');
+      throw new BadRequestError('Invalid credentials.');
     }
 
     await dependencies.revokeSessionData({ dbClient: dbClientTrx, accountId: existingAccount.id });
 
     const refreshToken = dependencies.generateRefreshToken({
-      payload: { accountId: existingAccount.id },
-      options: { expiresIn: '30d' },
+      payload: { accountId: existingAccount.id, email: existingAccount.email },
+      options: { expiresIn: '1h' },
     });
 
     const createdSession = await dependencies.createSessionData({
@@ -70,9 +70,9 @@ export async function loginAuthService({
         accountId: existingAccount.id,
         email: existingAccount.email,
       },
-      options: { expiresIn: '1d', issuer: 'login', audience: 'frontend' },
+      options: { expiresIn: '5m', issuer: 'login', audience: 'frontend' },
     });
 
-    return { accessToken };
+    return { accessToken, refreshToken };
   });
 }

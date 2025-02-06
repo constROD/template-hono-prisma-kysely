@@ -2,28 +2,22 @@ import { getSessionData } from '@/data/session/get-session';
 import { revokeSessionData } from '@/data/session/revoke-session';
 import { updateSessionData } from '@/data/session/update-session';
 import { type DbClient } from '@/db/create-db-client';
-import {
-  generateAccessToken,
-  generateRefreshToken,
-  verifyAccessToken,
-  verifyRefreshToken,
-} from '@/lib/jwt';
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '@/lib/jwt';
 import { BadRequestError } from '@/utils/errors';
 
-export type VerifySessionServiceDependencies = {
+export type GetNewTokensServiceDependencies = {
   getSessionData: typeof getSessionData;
   revokeSessionData: typeof revokeSessionData;
   updateSessionData: typeof updateSessionData;
   generateAccessToken: typeof generateAccessToken;
   generateRefreshToken: typeof generateRefreshToken;
-  verifyAccessToken: typeof verifyAccessToken;
   verifyRefreshToken: typeof verifyRefreshToken;
 };
 
-export type VerifySessionServiceArgs = {
+export type GetNewTokensServiceArgs = {
   dbClient: DbClient;
-  payload: { accessToken: string };
-  dependencies?: VerifySessionServiceDependencies;
+  payload: { refreshToken: string };
+  dependencies?: GetNewTokensServiceDependencies;
 };
 
 export async function verifySessionAuthService({
@@ -35,35 +29,32 @@ export async function verifySessionAuthService({
     updateSessionData,
     generateAccessToken,
     generateRefreshToken,
-    verifyAccessToken,
     verifyRefreshToken,
   },
-}: VerifySessionServiceArgs) {
+}: GetNewTokensServiceArgs) {
   return await dbClient.transaction().execute(async dbClientTrx => {
-    const accessTokenPayload = dependencies.verifyAccessToken(payload.accessToken);
-
-    if (!accessTokenPayload) {
-      throw new BadRequestError('Invalid access token.');
-    }
+    const refreshTokenPayload = dependencies.verifyRefreshToken(payload.refreshToken);
 
     const session = await dependencies.getSessionData({
       dbClient: dbClientTrx,
-      id: accessTokenPayload.sessionId,
+      refreshToken: payload.refreshToken,
     });
-
-    const refreshTokenPayload = dependencies.verifyRefreshToken(session.refresh_token);
 
     if (!refreshTokenPayload) {
       throw new BadRequestError('Invalid refresh token.');
     }
 
-    if (refreshTokenPayload.accountId !== accessTokenPayload.accountId) {
-      throw new BadRequestError('Refresh token does not match access token.');
+    if (!session) {
+      throw new BadRequestError('Refresh token has already been used.');
+    }
+
+    if (refreshTokenPayload.accountId !== session.account_id) {
+      throw new BadRequestError('Refresh token does not match the session account.');
     }
 
     const newRefreshToken = dependencies.generateRefreshToken({
-      payload: { accountId: accessTokenPayload.accountId },
-      options: { expiresIn: '30d' },
+      payload: { accountId: session.account_id, email: refreshTokenPayload.email },
+      options: { expiresIn: '1h' },
     });
 
     const updatedSession = await dependencies.updateSessionData({
@@ -75,16 +66,12 @@ export async function verifySessionAuthService({
     const newAccessToken = dependencies.generateAccessToken({
       payload: {
         sessionId: updatedSession.id,
-        accountId: accessTokenPayload.accountId,
-        email: accessTokenPayload.email,
+        accountId: session.account_id,
+        email: refreshTokenPayload.email,
       },
-      options: { expiresIn: '1d', issuer: 'refresh', audience: 'frontend' },
+      options: { expiresIn: '5m', issuer: 'refresh', audience: 'frontend' },
     });
 
-    return {
-      accountId: accessTokenPayload.accountId,
-      email: accessTokenPayload.email,
-      accessToken: newAccessToken,
-    };
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
   });
 }

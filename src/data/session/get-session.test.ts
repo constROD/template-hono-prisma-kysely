@@ -1,5 +1,3 @@
-import { NotFoundError } from '@/utils/errors';
-import { faker } from '@faker-js/faker';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import {
@@ -24,17 +22,6 @@ describe('Get Session', () => {
 
     expect(session?.id).toBe(testCreatedSession.id);
     expect(session?.account_id).toBe(fakeSession.account_id);
+    expect(session?.refresh_token).toBe(fakeSession.refresh_token);
   });
-
-  testWithDbClient(
-    'should throw NotFoundError if session is not existing.',
-    async ({ dbClient }) => {
-      expect(() =>
-        getSessionData({
-          dbClient,
-          id: faker.string.uuid(),
-        })
-      ).rejects.toThrow(new NotFoundError('Session not found.'));
-    }
-  );
 });

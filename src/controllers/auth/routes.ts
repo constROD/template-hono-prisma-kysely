@@ -1,12 +1,16 @@
 import { type HonoEnv } from '@/types/hono';
 import { OpenAPIHono } from '@hono/zod-openapi';
+import { changePasswordAuthRoute, changePasswordAuthRouteHandler } from './change-password';
 import { loginAuthRoute, loginAuthRouteHandler } from './login';
+import { logoutAuthRoute, logoutAuthRouteHandler } from './logout';
 import { registerAuthRoute, registerAuthRouteHandler } from './register';
-import { verifySessionAuthRoute, verifySessionAuthRouteHandler } from './verify-session';
+import { tokenAuthRoute, tokenAuthRouteHandler } from './token';
 
 const authRoutes = new OpenAPIHono<HonoEnv>()
-  .openapi(loginAuthRoute, loginAuthRouteHandler)
   .openapi(registerAuthRoute, registerAuthRouteHandler)
-  .openapi(verifySessionAuthRoute, verifySessionAuthRouteHandler);
+  .openapi(loginAuthRoute, loginAuthRouteHandler)
+  .openapi(tokenAuthRoute, tokenAuthRouteHandler)
+  .openapi(changePasswordAuthRoute, changePasswordAuthRouteHandler)
+  .openapi(logoutAuthRoute, logoutAuthRouteHandler);
 
 export default authRoutes;

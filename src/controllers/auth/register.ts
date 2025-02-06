@@ -20,8 +20,8 @@ export const registerAuthRoute = createRoute({
   method: 'post',
   path: '/auth/register',
   tags: ['Auth'],
-  summary: 'Register new user',
-  description: 'Register a new user.',
+  summary: 'Register new account',
+  description: 'Register a new account.',
   request: {
     body: {
       content: {
