@@ -1,5 +1,5 @@
-import { getUserData } from '@/data/user/get-user';
-import { userSchemaOpenApi } from '@/data/user/schema';
+import { getUserData } from '@/data/users/get-user';
+import { userSchemaOpenApi } from '@/data/users/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
 import { type AppRouteHandler } from '@/types/hono';
