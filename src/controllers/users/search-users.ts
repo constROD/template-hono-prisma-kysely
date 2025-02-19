@@ -1,6 +1,6 @@
-import { type GetUsersDataArgs } from '@/data/user/get-users';
-import { userSchemaFields, userSchemaOpenApi } from '@/data/user/schema';
-import { searchUsersData } from '@/data/user/search-users';
+import { type GetUsersDataArgs } from '@/data/users/get-users';
+import { userSchemaFields, userSchemaOpenApi } from '@/data/users/schema';
+import { searchUsersData } from '@/data/users/search-users';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';

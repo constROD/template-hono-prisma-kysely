@@ -1,4 +1,4 @@
-import { revokeSessionData } from '@/data/session/revoke-session';
+import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
 import { type AppRouteHandler } from '@/types/hono';

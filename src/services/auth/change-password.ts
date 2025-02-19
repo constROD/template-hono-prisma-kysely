@@ -1,5 +1,5 @@
-import { getAccountData } from '@/data/account/get-account';
-import { updateAccountData } from '@/data/account/update-account';
+import { getAccountData } from '@/data/accounts/get-account';
+import { updateAccountData } from '@/data/accounts/update-account';
 import { type DbClient } from '@/db/create-db-client';
 import { compareTextToHashedText, hashText } from '@/lib/bcrypt';
 import { type Session } from '@/types/auth';

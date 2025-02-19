@@ -1,6 +1,6 @@
-import { getAccountData } from '@/data/account/get-account';
-import { createSessionData } from '@/data/session/create-session';
-import { revokeSessionData } from '@/data/session/revoke-session';
+import { getAccountData } from '@/data/accounts/get-account';
+import { createSessionData } from '@/data/sessions/create-session';
+import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { type DbClient } from '@/db/create-db-client';
 import { compareTextToHashedText } from '@/lib/bcrypt';
 import { generateAccessToken, generateRefreshToken } from '@/lib/jwt';

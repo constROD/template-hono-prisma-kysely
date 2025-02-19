@@ -1,6 +1,6 @@
-import { getSessionData } from '@/data/session/get-session';
-import { revokeSessionData } from '@/data/session/revoke-session';
-import { updateSessionData } from '@/data/session/update-session';
+import { getSessionData } from '@/data/sessions/get-session';
+import { revokeSessionData } from '@/data/sessions/revoke-session';
+import { updateSessionData } from '@/data/sessions/update-session';
 import { type DbClient } from '@/db/create-db-client';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '@/lib/jwt';
 import { BadRequestError } from '@/utils/errors';

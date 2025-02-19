@@ -2,10 +2,7 @@ import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
-import {
-  createTestAccountsInDB,
-  makeFakeAccount,
-} from '../account/__test-utils__/make-fake-account';
+import { createTestAccountsInDB, makeFakeAccount } from './__test-utils__/make-fake-account';
 import { updateAccountData } from './update-account';
 
 describe('Update Account', () => {

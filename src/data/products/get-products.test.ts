@@ -1,6 +1,6 @@
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
-import { createTestUsersInDB, makeFakeUser } from '../user/__test-utils__/make-fake-user';
+import { createTestUsersInDB, makeFakeUser } from '../users/__test-utils__/make-fake-user';
 import { createTestProductsInDB } from './__test-utils__/make-fake-product';
 import { getProductsData } from './get-products';
 

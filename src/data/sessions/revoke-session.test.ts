@@ -3,7 +3,7 @@ import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import {
   createTestAccountsInDB,
   makeFakeAccount,
-} from '../account/__test-utils__/make-fake-account';
+} from '../accounts/__test-utils__/make-fake-account';
 import { createTestSessionsInDB, makeFakeSession } from './__test-utils__/make-fake-session';
 import { revokeSessionData } from './revoke-session';
 
