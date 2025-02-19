@@ -1,5 +1,5 @@
-import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
-import { updateUserData } from '@/data/user/update-user';
+import { userSchema, userSchemaOpenApi } from '@/data/users/schema';
+import { updateUserData } from '@/data/users/update-user';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 

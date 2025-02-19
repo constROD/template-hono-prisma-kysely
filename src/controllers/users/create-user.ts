@@ -1,5 +1,5 @@
-import { createUserData } from '@/data/user/create-user';
-import { userSchema, userSchemaOpenApi } from '@/data/user/schema';
+import { createUserData } from '@/data/users/create-user';
+import { userSchema, userSchemaOpenApi } from '@/data/users/schema';
 import { type AppRouteHandler } from '@/types/hono';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
