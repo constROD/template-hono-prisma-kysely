@@ -1,6 +1,6 @@
-import { getFeatureFlagData } from '@/data/feature-flags/get-feature-flag';
 import { featureFlagSchemaOpenApi } from '@/data/feature-flags/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
+import { getFeatureFlagService } from '@/services/feature-flags/get-feature-flag';
 import { type Session } from '@/types/auth';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, type z } from '@hono/zod-openapi';
@@ -35,10 +35,9 @@ export const getFeatureFlagRouteHandler: AppRouteHandler<typeof getFeatureFlagRo
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
 
-  const featureFlag = await getFeatureFlagData({
+  const featureFlag = await getFeatureFlagService({
     dbClient,
-    role: session.role,
-    appType: session.app_type,
+    payload: { session },
   });
 
   return c.json(featureFlag, { status: 200 });
