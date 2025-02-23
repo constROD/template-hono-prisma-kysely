@@ -75,6 +75,23 @@ model sessions {
   @@index([account_id])
 }
 
+model feature_flags {
+  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at DateTime     @default(now()) @db.Timestamptz(6)
+  deleted_at DateTime?    @db.Timestamptz(6)
+  role       UserRoleType
+  json       Json
+
+  // Unique constraints
+  @@unique([role])
+  // Indexes
+  @@index([created_at])
+  @@index([updated_at])
+  @@index([deleted_at])
+  @@index([role])
+}
+
 model products {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at  DateTime  @default(now()) @db.Timestamptz(6)

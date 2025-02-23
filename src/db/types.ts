@@ -18,6 +18,14 @@ export type accounts = {
     email: string;
     password: string;
 };
+export type feature_flags = {
+    id: Generated<string>;
+    created_at: Generated<Timestamp>;
+    updated_at: Generated<Timestamp>;
+    deleted_at: Timestamp | null;
+    role: UserRoleType;
+    json: unknown;
+};
 export type products = {
     id: Generated<string>;
     created_at: Generated<Timestamp>;
@@ -48,6 +56,7 @@ export type users = {
 };
 export type DB = {
     accounts: accounts;
+    feature_flags: feature_flags;
     products: products;
     sessions: sessions;
     users: users;

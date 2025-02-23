@@ -1,4 +1,5 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
+import { UserRoleType } from '@/db/types';
 import { BadRequestError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { changePasswordAuthService } from './change-password';
@@ -18,6 +19,7 @@ const mockExistingAccount = {
 
 const mockSession = {
   id: '123',
+  role: UserRoleType.ADMIN,
   email: 'test@example.com',
 };
 
