@@ -1,4 +1,4 @@
-import { type DB, type UserRoleType, type products, type users } from './types';
+import { type DB, type UserRoleType, type feature_flags, type products, type users } from './types';
 
 /**
  * Utility type to override specific field types from database tables:
@@ -33,7 +33,26 @@ type OverrideUsers = Omit<OverrideCommonFields<users>, 'role'> & {
   role: UserRoleType;
 };
 
+export const FEATURE_FLAG_SCOPES = [
+  'users:read:*',
+  'users:write:*',
+  'users:write:create',
+  'users:write:update',
+  'users:write:delete',
+  'users:write:archive',
+  'users:write:restore',
+
+  'products:read:*',
+] as const;
+
+export type FeatureFlagScope = (typeof FEATURE_FLAG_SCOPES)[number];
+
+type OverrideFeatureFlags = Omit<OverrideCommonFields<feature_flags>, 'json'> & {
+  json: Array<FeatureFlagScope>;
+};
+
 export type User = OverrideUsers;
+export type FeatureFlag = OverrideFeatureFlags;
 export type Product = OverrideCommonFields<products>;
 
 export type KyselySchema = DB;

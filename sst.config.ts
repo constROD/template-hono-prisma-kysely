@@ -3,6 +3,7 @@ import { envConfig } from '@/env';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import { ApiStack } from 'aws/stacks/api/api';
 import { ApiDocumentationRoutesStack } from 'aws/stacks/api/api-documentation';
+import { FeatureFlagsStack } from 'aws/stacks/api/feature-flags';
 import { DefaultLambdaRoleStack } from 'aws/stacks/api/iam-roles/default-lambda-role';
 import { MeRoutesStack } from 'aws/stacks/api/me';
 import { ProductsRoutesStack } from 'aws/stacks/api/products';
@@ -49,6 +50,7 @@ export default {
     app.stack(ApiStack);
     app.stack(ApiDocumentationRoutesStack);
     app.stack(ServerRoutesStack);
+    app.stack(FeatureFlagsStack);
     app.stack(MeRoutesStack);
     app.stack(UsersRoutesStack);
     app.stack(ProductsRoutesStack);
