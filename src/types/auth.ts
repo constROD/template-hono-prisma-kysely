@@ -1,5 +1,7 @@
 export type Session = {
-  id: string;
   email: string;
+  accountId: string;
+  sessionId: string;
   accessToken: string;
+  refreshToken: string;
 };

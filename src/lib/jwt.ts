@@ -22,7 +22,7 @@ export function generateAccessToken({ payload, options }: GenerateAccessTokenArg
       aud: options?.audience,
     },
     envConfig.JWT_ACCESS_TOKEN_SECRET,
-    { expiresIn: options?.expiresIn || '1d' }
+    { expiresIn: options?.expiresIn || '5m' }
   );
 }
 

@@ -4,10 +4,7 @@ import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const registerAuthSchema = {
-  body: z.object({
-    email: emailSchema,
-    password: passwordSchema,
-  }),
+  body: z.object({ email: emailSchema, password: passwordSchema }),
   response: z.string(),
 };
 

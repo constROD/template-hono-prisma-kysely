@@ -35,7 +35,7 @@ export const getMyProfileRouteHandler: AppRouteHandler<typeof getMyProfileRoute>
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
 
-  const myProfile = await getUserData({ dbClient, id: session.id });
+  const myProfile = await getUserData({ dbClient, id: session.accountId });
 
   return c.json(myProfile, { status: 200 });
 };

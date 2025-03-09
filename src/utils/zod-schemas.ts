@@ -1,7 +1,11 @@
-import { z } from 'zod';
+import { z } from '@hono/zod-openapi';
 import { isValidStringDecimalNumber } from './number';
 
-export const emailSchema = z.string().email('Please enter a valid email address.').toLowerCase();
+export const emailSchema = z
+  .string()
+  .min(8)
+  .email('Please enter a valid email address.')
+  .toLowerCase();
 
 const passwordValidationMessages = [
   'Password must be at least 8 characters long',

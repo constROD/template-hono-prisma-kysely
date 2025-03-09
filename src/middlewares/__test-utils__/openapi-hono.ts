@@ -33,4 +33,10 @@ export const mockHonoContext = {
 
 export const mockOpenAPIHono = mocks.OpenAPIHono as unknown as OpenAPIHono;
 export const mockHonoHandler = (c: typeof mockHonoContext) => capturedHandler(c);
-export const mockSession = { id: crypto.randomUUID(), email: 'user123@example.com' } as Session;
+export const mockSession = {
+  email: 'user123@example.com',
+  accountId: crypto.randomUUID(),
+  sessionId: crypto.randomUUID(),
+  accessToken: crypto.randomUUID(),
+  refreshToken: crypto.randomUUID(),
+} satisfies Session;

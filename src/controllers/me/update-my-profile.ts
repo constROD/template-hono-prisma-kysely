@@ -54,7 +54,7 @@ export const updateMyProfileRouteHandler: AppRouteHandler<
   const session = c.get('session') as Session;
   const body = c.req.valid('json');
 
-  const updatedMyProfile = await updateUserData({ dbClient, id: session.id, values: body });
+  const updatedMyProfile = await updateUserData({ dbClient, id: session.accountId, values: body });
 
   return c.json(updatedMyProfile, { status: 200 });
 };
