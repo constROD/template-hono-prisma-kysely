@@ -46,6 +46,12 @@ app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
 app.onError(errorHandlerMiddleware);
 app.use(logger());
 app.use(setUpDbClientMiddleware);
+// app.use(
+//   cors({
+//     origin: ['http://localhost:5173', 'http://localhost:3000'],
+//     credentials: true,
+//   })
+// );
 
 /* Routes */
 routes.forEach(route => {

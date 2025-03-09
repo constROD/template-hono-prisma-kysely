@@ -12,6 +12,7 @@ export const logoutAuthSchema = {
 
 export const logoutAuthRoute = createRoute({
   middleware: [authenticationMiddleware],
+  security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/auth/logout',
   tags: ['Auth'],
