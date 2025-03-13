@@ -73,3 +73,19 @@ export async function getEntityData({ id }: GetEntityDataArgs): Promise<Entity> 
   return await response.json();
 }
 ```
+
+### Example Fake Data Test Utils
+```typescript
+import { faker } from '@faker-js/faker';
+import { type Entity } from './schema';
+
+export function makeFakeEntity(overrides?: Partial<Entity>): Entity {
+  return {
+    id: faker.number.int(),
+    title: faker.lorem.sentence(),
+    body: faker.lorem.paragraph(),
+    userId: faker.number.int(),
+    ...overrides,
+  } satisfies Entity;
+}
+```
