@@ -20,8 +20,9 @@ export type CreateTestSessionsInDBArgs = {
 };
 
 export async function createTestSessionsInDB({ dbClient, values }: CreateTestSessionsInDBArgs) {
-  const fakeSessions =
-    values instanceof Array ? values.map(makeFakeSession) : makeFakeSession(values);
+  const fakeSessions = Array.isArray(values)
+    ? values.map(makeFakeSession)
+    : makeFakeSession(values);
   const createdSessions = await dbClient
     .insertInto('sessions')
     .values(fakeSessions)

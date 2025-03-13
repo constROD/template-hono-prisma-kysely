@@ -22,8 +22,9 @@ export type CreateTestProductsInDBArgs = {
 };
 
 export async function createTestProductsInDB({ dbClient, values }: CreateTestProductsInDBArgs) {
-  const fakeProducts =
-    values instanceof Array ? values.map(makeFakeProduct) : makeFakeProduct(values);
+  const fakeProducts = Array.isArray(values)
+    ? values.map(makeFakeProduct)
+    : makeFakeProduct(values);
   const createdProducts = await dbClient
     .insertInto('products')
     .values(fakeProducts)

@@ -20,8 +20,9 @@ export type CreateTestAccountsInDBArgs = {
 };
 
 export async function createTestAccountsInDB({ dbClient, values }: CreateTestAccountsInDBArgs) {
-  const fakeAccounts =
-    values instanceof Array ? values.map(makeFakeAccount) : makeFakeAccount(values);
+  const fakeAccounts = Array.isArray(values)
+    ? values.map(makeFakeAccount)
+    : makeFakeAccount(values);
   const createdAccounts = await dbClient
     .insertInto('accounts')
     .values(fakeAccounts)
