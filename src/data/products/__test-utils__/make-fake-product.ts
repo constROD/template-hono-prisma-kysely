@@ -1,18 +1,18 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type Product } from '@/db/schema';
-import { overrideValueOrUseDefault } from '@/utils/guard';
 import { faker } from '@faker-js/faker';
 
-export function makeFakeProduct(args?: Partial<Product>) {
+export function makeFakeProduct(overrides?: Partial<Product>) {
   return {
-    id: overrideValueOrUseDefault(args?.id, faker.string.uuid()),
-    created_at: overrideValueOrUseDefault(args?.created_at, faker.date.recent()),
-    updated_at: overrideValueOrUseDefault(args?.updated_at, faker.date.recent()),
-    deleted_at: overrideValueOrUseDefault(args?.deleted_at, null),
-    name: overrideValueOrUseDefault(args?.name, faker.commerce.productName()),
-    description: overrideValueOrUseDefault(args?.description, faker.commerce.productDescription()),
-    price: overrideValueOrUseDefault(args?.price, faker.number.int({ min: 1, max: 100 })),
-    user_id: overrideValueOrUseDefault(args?.user_id, faker.string.uuid()),
+    id: faker.string.uuid(),
+    created_at: faker.date.recent(),
+    updated_at: faker.date.recent(),
+    deleted_at: null,
+    name: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    price: faker.number.int({ min: 1, max: 100 }),
+    user_id: faker.string.uuid(),
+    ...overrides,
   } satisfies Product;
 }
 
