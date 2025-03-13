@@ -1,7 +1,7 @@
 import { getSessionData } from '@/data/session/get-session';
 import { revokeSessionData } from '@/data/session/revoke-session';
 import { updateSessionData } from '@/data/session/update-session';
-import { getUserData } from '@/data/user/get-user';
+import { getUserData } from '@/data/users/get-user';
 import { type DbClient } from '@/db/create-db-client';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '@/lib/jwt';
 import { UnauthorizedError } from '@/utils/errors';

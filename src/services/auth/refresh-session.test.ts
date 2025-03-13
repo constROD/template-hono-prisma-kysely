@@ -85,7 +85,7 @@ describe('refreshSessionAuthService', () => {
         accountId: mockUser.id,
         email: mockUser.email,
       },
-      options: { expiresIn: '1d', issuer: 'refresh', audience: 'frontend' },
+      options: { expiresIn: '5m', issuer: 'refresh', audience: 'frontend' },
     });
   });
 

@@ -1,4 +1,4 @@
-import { getAccountData } from '@/data/account/get-account';
+import { getAccountData } from '@/data/accounts/get-account';
 import { createSessionData } from '@/data/session/create-session';
 import { revokeSessionData } from '@/data/session/revoke-session';
 import { type DbClient } from '@/db/create-db-client';

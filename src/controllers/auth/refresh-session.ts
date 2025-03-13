@@ -1,5 +1,5 @@
 import { COOKIE_NAMES } from '@/constants/cookies';
-import { userSchemaOpenApi } from '@/data/user/schema';
+import { userSchemaOpenApi } from '@/data/users/schema';
 import { envConfig } from '@/env';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';

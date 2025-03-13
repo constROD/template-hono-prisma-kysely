@@ -2,7 +2,7 @@ import { type DbClient } from '@/db/create-db-client';
 import { type Product, type User } from '@/db/schema';
 import { BadRequestError } from '@/utils/errors';
 import { makeDefaultDataListReturn } from '../make-default-list-return';
-import { userSchemaFields } from '../user/schema';
+import { userSchemaFields } from '../users/schema';
 import { productSchemaFields } from './schema';
 
 export type SearchProductFilters = {

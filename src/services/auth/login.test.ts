@@ -68,7 +68,7 @@ describe('loginAuthService', () => {
         accountId: mockExistingAccount.id,
         email: mockExistingAccount.email,
       },
-      options: { expiresIn: '1d', issuer: 'login', audience: 'frontend' },
+      options: { expiresIn: '5m', issuer: 'login', audience: 'frontend' },
     });
   });
 

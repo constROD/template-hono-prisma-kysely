@@ -1,5 +1,5 @@
-import { productSchemaOpenApi } from './product/schema';
-import { userSchemaOpenApi } from './user/schema';
+import { productSchemaOpenApi } from './products/schema';
+import { userSchemaOpenApi } from './users/schema';
 
 export const schemas = {
   User: userSchemaOpenApi,
