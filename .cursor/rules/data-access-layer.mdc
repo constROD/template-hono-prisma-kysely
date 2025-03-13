@@ -1,6 +1,6 @@
 ---
 description: Guidelines for Data Access Layer
-globs: src/data/**/*.ts
+globs: **/data/**/*.ts, **/_data/**/*.ts
 alwaysApply: false
 ---
 # Guidelines for Data Access Layer
