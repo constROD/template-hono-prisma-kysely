@@ -66,7 +66,7 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@typescript-eslint/eslint-plugin": "^8.13.0",
     "@typescript-eslint/parser": "^8.13.0",
-    "@vitest/coverage-v8": "^2.1.4",
+    "@vitest/coverage-v8": "^2.1.9",
     "aws-cdk-lib": "2.171.1",
     "chalk": "^5.3.0",
     "concurrently": "^9.0.1",
@@ -84,7 +84,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vite-tsconfig-paths": "^5.1.1",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.9"
   },
   "packageManager": "pnpm@9.1.1"
 }
