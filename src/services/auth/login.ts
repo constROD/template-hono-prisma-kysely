@@ -2,8 +2,10 @@ import { getAccountData } from '@/data/accounts/get-account';
 import { createSessionData } from '@/data/session/create-session';
 import { revokeSessionData } from '@/data/session/revoke-session';
 import { type DbClient } from '@/db/create-db-client';
+import { envConfig } from '@/env';
 import { compareTextToHashedText } from '@/lib/bcrypt';
-import { generateAccessToken, generateRefreshToken } from '@/lib/jwt';
+import { generateJWT } from '@/lib/jwt';
+import { type AccessTokenJWTPayload, type RefreshTokenJWTPayload } from '@/types/auth';
 import { BadRequestError } from '@/utils/errors';
 
 export type LoginAuthServiceDependencies = {
@@ -11,8 +13,7 @@ export type LoginAuthServiceDependencies = {
   createSessionData: typeof createSessionData;
   revokeSessionData: typeof revokeSessionData;
   compareTextToHashedText: typeof compareTextToHashedText;
-  generateAccessToken: typeof generateAccessToken;
-  generateRefreshToken: typeof generateRefreshToken;
+  generateJWT: typeof generateJWT;
 };
 
 export type LoginAuthServiceArgs = {
@@ -29,8 +30,7 @@ export async function loginAuthService({
     createSessionData,
     revokeSessionData,
     compareTextToHashedText,
-    generateAccessToken,
-    generateRefreshToken,
+    generateJWT,
   },
 }: LoginAuthServiceArgs) {
   return await dbClient.transaction().execute(async dbClientTrx => {
@@ -54,9 +54,16 @@ export async function loginAuthService({
 
     await dependencies.revokeSessionData({ dbClient: dbClientTrx, accountId: existingAccount.id });
 
-    const newRefreshToken = dependencies.generateRefreshToken({
-      payload: { accountId: existingAccount.id },
-      options: { expiresIn: '30d' },
+    const newRefreshToken = dependencies.generateJWT<RefreshTokenJWTPayload>({
+      payload: {
+        email: existingAccount.email,
+        accountId: existingAccount.id,
+        sub: existingAccount.id,
+        iss: 'login',
+        aud: 'frontend',
+      },
+      secretOrPrivateKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
+      signOptions: { expiresIn: '30d' },
     });
 
     const createdSession = await dependencies.createSessionData({
@@ -64,13 +71,17 @@ export async function loginAuthService({
       values: { refresh_token: newRefreshToken, account_id: existingAccount.id },
     });
 
-    const newAccessToken = dependencies.generateAccessToken({
+    const newAccessToken = dependencies.generateJWT<AccessTokenJWTPayload>({
       payload: {
-        sessionId: createdSession.id,
-        accountId: existingAccount.id,
         email: existingAccount.email,
+        accountId: existingAccount.id,
+        sessionId: createdSession.id,
+        sub: existingAccount.id,
+        iss: 'login',
+        aud: 'frontend',
       },
-      options: { expiresIn: '5m', issuer: 'login', audience: 'frontend' },
+      secretOrPrivateKey: envConfig.JWT_ACCESS_TOKEN_SECRET,
+      signOptions: { expiresIn: '10s' },
     });
 
     return { accessToken: newAccessToken, refreshToken: newRefreshToken };

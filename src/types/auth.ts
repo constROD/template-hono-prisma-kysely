@@ -1,3 +1,5 @@
+import { type JWTPayload } from '@/lib/jwt';
+
 export type Session = {
   email: string;
   accountId: string;
@@ -5,3 +7,14 @@ export type Session = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type AccessTokenJWTPayload = JWTPayload<{
+  email: string;
+  accountId: string;
+  sessionId: string;
+}>;
+
+export type RefreshTokenJWTPayload = JWTPayload<{
+  email: string;
+  accountId: string;
+}>;

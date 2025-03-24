@@ -3,7 +3,9 @@ import { revokeSessionData } from '@/data/session/revoke-session';
 import { updateSessionData } from '@/data/session/update-session';
 import { getUserData } from '@/data/users/get-user';
 import { type DbClient } from '@/db/create-db-client';
-import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '@/lib/jwt';
+import { envConfig } from '@/env';
+import { decodeJWT, generateJWT, verifyJWT } from '@/lib/jwt';
+import { type AccessTokenJWTPayload, type RefreshTokenJWTPayload } from '@/types/auth';
 import { UnauthorizedError } from '@/utils/errors';
 
 export type RefreshSessionAuthServiceDependencies = {
@@ -11,9 +13,9 @@ export type RefreshSessionAuthServiceDependencies = {
   revokeSessionData: typeof revokeSessionData;
   updateSessionData: typeof updateSessionData;
   getUserData: typeof getUserData;
-  verifyRefreshToken: typeof verifyRefreshToken;
-  generateAccessToken: typeof generateAccessToken;
-  generateRefreshToken: typeof generateRefreshToken;
+  verifyJWT: typeof verifyJWT;
+  generateJWT: typeof generateJWT;
+  decodeJWT: typeof decodeJWT;
 };
 
 export type RefreshSessionAuthServiceArgs = {
@@ -30,17 +32,24 @@ export async function refreshSessionAuthService({
     revokeSessionData,
     updateSessionData,
     getUserData,
-    verifyRefreshToken,
-    generateAccessToken,
-    generateRefreshToken,
+    verifyJWT,
+    generateJWT,
+    decodeJWT,
   },
 }: RefreshSessionAuthServiceArgs) {
   return await dbClient.transaction().execute(async dbClientTrx => {
-    const refreshTokenPayload = dependencies.verifyRefreshToken(payload.refreshToken);
+    const refreshTokenPayload = dependencies.decodeJWT<RefreshTokenJWTPayload>({
+      token: payload.refreshToken,
+    });
 
     if (!refreshTokenPayload) {
-      throw new UnauthorizedError('Refresh token is expired.');
+      throw new UnauthorizedError('Refresh token is invalid.');
     }
+
+    dependencies.verifyJWT<RefreshTokenJWTPayload>({
+      token: payload.refreshToken,
+      secretOrPublicKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
+    });
 
     const currentSession = await dependencies.getSessionData({
       dbClient: dbClientTrx,
@@ -51,9 +60,16 @@ export async function refreshSessionAuthService({
       throw new UnauthorizedError('Refresh token is invalid.');
     }
 
-    const newRefreshToken = dependencies.generateRefreshToken({
-      payload: { accountId: currentSession.account_id },
-      options: { expiresIn: '30d' },
+    const newRefreshToken = dependencies.generateJWT<RefreshTokenJWTPayload>({
+      payload: {
+        email: refreshTokenPayload.email,
+        accountId: refreshTokenPayload.accountId,
+        sub: refreshTokenPayload.sub,
+        iss: 'refresh',
+        aud: 'frontend',
+      },
+      secretOrPrivateKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
+      signOptions: { expiresIn: '30d' },
     });
 
     const updatedSession = await dependencies.updateSessionData({
@@ -67,13 +83,17 @@ export async function refreshSessionAuthService({
       id: refreshTokenPayload.accountId,
     });
 
-    const newAccessToken = dependencies.generateAccessToken({
+    const newAccessToken = dependencies.generateJWT<AccessTokenJWTPayload>({
       payload: {
-        sessionId: updatedSession.id,
-        accountId: user.id,
         email: user.email,
+        accountId: user.id,
+        sessionId: updatedSession.id,
+        sub: refreshTokenPayload.sub,
+        iss: 'refresh',
+        aud: 'frontend',
       },
-      options: { expiresIn: '5m', issuer: 'refresh', audience: 'frontend' },
+      secretOrPrivateKey: envConfig.JWT_ACCESS_TOKEN_SECRET,
+      signOptions: { expiresIn: '10s' },
     });
 
     return {

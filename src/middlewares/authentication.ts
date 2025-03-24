@@ -1,9 +1,9 @@
 import { COOKIE_NAMES } from '@/constants/cookies';
 import { envConfig } from '@/env';
-import { verifyAccessToken } from '@/lib/jwt';
+import { decodeJWT, verifyJWT } from '@/lib/jwt';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';
-import { type Session } from '@/types/auth';
-import { UnauthorizedError } from '@/utils/errors';
+import { type AccessTokenJWTPayload, type Session } from '@/types/auth';
+import { makeError, UnauthorizedError } from '@/utils/errors';
 import { type Context, type Next } from 'hono';
 import { getSignedCookie, setSignedCookie } from 'hono/cookie';
 
@@ -62,23 +62,30 @@ export async function authenticationMiddleware(c: Context, next: Next) {
     });
   }
 
-  try {
-    const storedAccessTokenPayload = verifyAccessToken(storedAccessToken);
+  const storedAccessTokenPayload = decodeJWT<AccessTokenJWTPayload>({
+    token: storedAccessToken,
+  });
 
-    if (storedAccessTokenPayload) {
-      c.set('session', {
-        email: storedAccessTokenPayload.email,
-        accountId: storedAccessTokenPayload.accountId,
-        sessionId: storedAccessTokenPayload.sessionId,
-        accessToken: storedAccessToken,
-        refreshToken: storedRefreshToken,
-      } satisfies Session);
-    } else {
-      await refreshSession(storedRefreshToken);
-    }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    if (errorMessage.includes('jwt expired')) {
+  if (!storedAccessTokenPayload) {
+    throw new UnauthorizedError('Session tokens are invalid');
+  }
+
+  try {
+    verifyJWT<AccessTokenJWTPayload>({
+      token: storedAccessToken,
+      secretOrPublicKey: envConfig.JWT_ACCESS_TOKEN_SECRET,
+    });
+
+    c.set('session', {
+      email: storedAccessTokenPayload.email,
+      accountId: storedAccessTokenPayload.accountId,
+      sessionId: storedAccessTokenPayload.sessionId,
+      accessToken: storedAccessToken,
+      refreshToken: storedRefreshToken,
+    } satisfies Session);
+  } catch (err) {
+    const error = makeError(err as Error);
+    if (error.error.message === 'Token expired') {
       await refreshSession(storedRefreshToken);
     } else {
       throw new UnauthorizedError('Session tokens are invalid');

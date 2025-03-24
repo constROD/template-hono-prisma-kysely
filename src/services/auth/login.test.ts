@@ -8,8 +8,7 @@ const mockDependencies = {
   createSessionData: vi.fn(),
   revokeSessionData: vi.fn(),
   compareTextToHashedText: vi.fn(),
-  generateAccessToken: vi.fn(),
-  generateRefreshToken: vi.fn(),
+  generateJWT: vi.fn(),
 };
 
 const mockExistingAccount = {
@@ -37,9 +36,9 @@ describe('loginAuthService', () => {
 
     mockDependencies.getAccountData.mockResolvedValue(mockExistingAccount);
     mockDependencies.compareTextToHashedText.mockReturnValue(true);
-    mockDependencies.generateRefreshToken.mockReturnValue('refreshToken123');
+    mockDependencies.generateJWT.mockReturnValueOnce('refreshToken123');
     mockDependencies.createSessionData.mockResolvedValue(mockSession);
-    mockDependencies.generateAccessToken.mockReturnValue('accessToken123');
+    mockDependencies.generateJWT.mockReturnValueOnce('accessToken123');
 
     const result = await loginAuthService({
       dbClient: mockDbClient.dbClientTransaction,
@@ -57,18 +56,46 @@ describe('loginAuthService', () => {
       email: payload.email,
     });
 
+    expect(mockDependencies.compareTextToHashedText).toHaveBeenCalledWith({
+      text: payload.password,
+      hashedText: mockExistingAccount.password,
+    });
+
     expect(mockDependencies.revokeSessionData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClientTrx,
       accountId: mockExistingAccount.id,
     });
 
-    expect(mockDependencies.generateAccessToken).toHaveBeenCalledWith({
+    // Check first generateJWT call for refresh token
+    expect(mockDependencies.generateJWT).toHaveBeenNthCalledWith(1, {
       payload: {
-        sessionId: mockSession.id,
-        accountId: mockExistingAccount.id,
         email: mockExistingAccount.email,
+        accountId: mockExistingAccount.id,
+        sub: mockExistingAccount.id,
+        iss: 'login',
+        aud: 'frontend',
       },
-      options: { expiresIn: '5m', issuer: 'login', audience: 'frontend' },
+      secretOrPrivateKey: expect.any(String),
+      signOptions: { expiresIn: '30d' },
+    });
+
+    expect(mockDependencies.createSessionData).toHaveBeenCalledWith({
+      dbClient: mockDbClient.dbClientTrx,
+      values: { refresh_token: 'refreshToken123', account_id: mockExistingAccount.id },
+    });
+
+    // Check second generateJWT call for access token
+    expect(mockDependencies.generateJWT).toHaveBeenNthCalledWith(2, {
+      payload: {
+        email: mockExistingAccount.email,
+        accountId: mockExistingAccount.id,
+        sessionId: mockSession.id,
+        sub: mockExistingAccount.id,
+        iss: 'login',
+        aud: 'frontend',
+      },
+      secretOrPrivateKey: expect.any(String),
+      signOptions: { expiresIn: '5m' },
     });
   });
 
@@ -87,6 +114,16 @@ describe('loginAuthService', () => {
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new BadRequestError('Account does not exist.'));
+
+    expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
+      dbClient: mockDbClient.dbClientTrx,
+      email: payload.email,
+    });
+
+    expect(mockDependencies.compareTextToHashedText).not.toHaveBeenCalled();
+    expect(mockDependencies.revokeSessionData).not.toHaveBeenCalled();
+    expect(mockDependencies.generateJWT).not.toHaveBeenCalled();
+    expect(mockDependencies.createSessionData).not.toHaveBeenCalled();
   });
 
   it('should throw BadRequestError when password is incorrect', async () => {
@@ -105,5 +142,19 @@ describe('loginAuthService', () => {
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new BadRequestError('Invalid credentials.'));
+
+    expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
+      dbClient: mockDbClient.dbClientTrx,
+      email: payload.email,
+    });
+
+    expect(mockDependencies.compareTextToHashedText).toHaveBeenCalledWith({
+      text: payload.password,
+      hashedText: mockExistingAccount.password,
+    });
+
+    expect(mockDependencies.revokeSessionData).not.toHaveBeenCalled();
+    expect(mockDependencies.generateJWT).not.toHaveBeenCalled();
+    expect(mockDependencies.createSessionData).not.toHaveBeenCalled();
   });
 });
