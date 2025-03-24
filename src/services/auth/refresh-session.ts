@@ -87,7 +87,7 @@ export async function refreshSessionAuthService({
         email: user.email,
         accountId: user.id,
         sessionId: updatedSession.id,
-        sub: refreshTokenPayload.sub,
+        sub: user.id,
         iss: 'refresh',
         aud: 'frontend',
       },

@@ -108,7 +108,7 @@ describe('refreshSessionAuthService', () => {
         email: mockUser.email,
         accountId: mockUser.id,
         sessionId: mockSession.id,
-        sub: mockRefreshTokenPayload.sub,
+        sub: mockUser.id,
         iss: 'refresh',
         aud: 'frontend',
       },
