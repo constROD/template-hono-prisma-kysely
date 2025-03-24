@@ -1,4 +1,4 @@
-import { STAGES } from '@/constants/env';
+import { isInfraStage, STAGES } from '@/constants/env';
 import { envConfig } from '@/env';
 import { RemovalPolicy } from 'aws-cdk-lib';
 import { ApiStack } from 'aws/stacks/api/api';
@@ -21,7 +21,12 @@ export default {
   },
   stacks(app) {
     /* Default Settings */
-    if (app.stage !== STAGES.Prod && app.stage !== STAGES.ProdInfra) {
+    // const isCore = isCoreStage(app.stage);
+    // const isApiTest = isApiTestStage(app.stage);
+    const isInfra = isInfraStage(app.stage);
+
+    /* Default Settings */
+    if (app.stage !== STAGES.Prod) {
       app.setDefaultRemovalPolicy(RemovalPolicy.DESTROY);
     }
 
@@ -39,20 +44,20 @@ export default {
     };
     app.setDefaultFunctionProps(defaultFunctionProps);
 
-    /* Stateful Stacks */
-    // if (app.stage !== STAGES.DevInfra && app.stage !== STAGES.ProdInfra) {
-    //   app.stack(RDSStack);
-    //   app.stack(CognitoStack);
-    // }
-
-    /* Stateless Stacks */
-    app.stack(DefaultLambdaRoleStack);
-    app.stack(ApiStack);
-    app.stack(ApiDocumentationRoutesStack);
-    app.stack(ServerRoutesStack);
-    app.stack(FeatureFlagsStack);
-    app.stack(MeRoutesStack);
-    app.stack(UsersRoutesStack);
-    app.stack(ProductsRoutesStack);
+    if (isInfra) {
+      /* Stateful Stacks */
+      // app.stack(RDSStack);
+      // app.stack(CognitoStack);
+    } else {
+      /* Stateless Stacks */
+      app.stack(DefaultLambdaRoleStack);
+      app.stack(ApiStack);
+      app.stack(ApiDocumentationRoutesStack);
+      app.stack(ServerRoutesStack);
+      app.stack(FeatureFlagsStack);
+      app.stack(MeRoutesStack);
+      app.stack(UsersRoutesStack);
+      app.stack(ProductsRoutesStack);
+    }
   },
 } satisfies SSTConfig;
