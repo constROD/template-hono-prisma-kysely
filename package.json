@@ -22,7 +22,7 @@
     "remove": "sst remove",
     "db:start": "docker compose -f ./docker-compose-db.yaml up -d",
     "db:stop": "docker compose -f ./docker-compose-db.yaml down",
-    "db:dev": "tsx ./cli/db-dev-migrate.ts",
+    "db:migrate": "tsx ./cli/db-migrate.ts",
     "db:create": "prisma migrate dev --create-only",
     "db:generate": "prisma generate",
     "db:deploy": "prisma migrate deploy",
