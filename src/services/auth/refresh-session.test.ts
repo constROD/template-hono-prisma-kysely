@@ -83,7 +83,6 @@ describe('refreshSessionAuthService', () => {
 
     expect(mockDependencies.generateJWT).toHaveBeenNthCalledWith(1, {
       payload: {
-        email: mockRefreshTokenPayload.email,
         accountId: mockRefreshTokenPayload.accountId,
         sub: mockRefreshTokenPayload.sub,
         iss: 'refresh',

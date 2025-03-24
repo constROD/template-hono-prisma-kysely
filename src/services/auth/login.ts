@@ -56,7 +56,6 @@ export async function loginAuthService({
 
     const newRefreshToken = dependencies.generateJWT<RefreshTokenJWTPayload>({
       payload: {
-        email: existingAccount.email,
         accountId: existingAccount.id,
         sub: existingAccount.id,
         iss: 'login',
@@ -81,7 +80,7 @@ export async function loginAuthService({
         aud: 'frontend',
       },
       secretOrPrivateKey: envConfig.JWT_ACCESS_TOKEN_SECRET,
-      signOptions: { expiresIn: '10s' },
+      signOptions: { expiresIn: '5m' },
     });
 
     return { accessToken: newAccessToken, refreshToken: newRefreshToken };

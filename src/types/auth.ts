@@ -15,6 +15,5 @@ export type AccessTokenJWTPayload = JWTPayload<{
 }>;
 
 export type RefreshTokenJWTPayload = JWTPayload<{
-  email: string;
   accountId: string;
 }>;

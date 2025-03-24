@@ -69,7 +69,6 @@ describe('loginAuthService', () => {
     // Check first generateJWT call for refresh token
     expect(mockDependencies.generateJWT).toHaveBeenNthCalledWith(1, {
       payload: {
-        email: mockExistingAccount.email,
         accountId: mockExistingAccount.id,
         sub: mockExistingAccount.id,
         iss: 'login',
