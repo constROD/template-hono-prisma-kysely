@@ -113,4 +113,4 @@ export async function searchProductsData({
   });
 }
 
-export type SearchProductsDataResponse = Awaited<ReturnType<typeof searchProductsData>>;
+export type SearchProductsDataReturn = Awaited<ReturnType<typeof searchProductsData>>;

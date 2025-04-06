@@ -1,5 +1,6 @@
 import { deleteUserData } from '@/data/users/delete-user';
 import { userSchemaOpenApi } from '@/data/users/schema';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -17,7 +18,7 @@ export type DeleteUserParams = z.infer<typeof deleteUserSchema.params>;
 export type DeleteUserResponse = z.infer<typeof deleteUserSchema.response>;
 
 export const deleteUserRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{user_id}',

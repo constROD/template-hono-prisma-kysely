@@ -43,5 +43,3 @@ export async function getProductsData({
     page,
   });
 }
-
-export type GetProductsDataResponse = Awaited<ReturnType<typeof getProductsData>>;

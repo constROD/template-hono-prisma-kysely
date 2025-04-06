@@ -13,5 +13,3 @@ export async function getServerDateTimeData({ dbClient }: GetServerDateTimeDataA
   if (!serverData?.server_date) throw new Error('Unable to get server date.');
   return formatDateToISO(serverData?.server_date);
 }
-
-export type GetServerDateTimeDataResponse = Awaited<ReturnType<typeof getServerDateTimeData>>;

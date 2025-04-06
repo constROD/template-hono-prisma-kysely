@@ -15,5 +15,3 @@ export async function getUserData({ dbClient, id }: GetUserDataArgs) {
 
   return record;
 }
-
-export type GetUserDataResponse = Awaited<ReturnType<typeof getUserData>>;

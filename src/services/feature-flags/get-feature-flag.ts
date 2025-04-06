@@ -24,7 +24,7 @@ export async function getFeatureFlagService({
 }: GetFeatureFlagServiceArgs) {
   const userData = await dependencies.getUserData({
     dbClient,
-    id: payload.session.id,
+    id: payload.session.accountId,
   });
 
   const featureFlagData = await dependencies.getFeatureFlagData({

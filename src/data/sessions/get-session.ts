@@ -1,27 +1,29 @@
 import { type DbClient } from '@/db/create-db-client';
-import { BadRequestError } from '@/utils/errors';
+import { BadRequestError, NotFoundError } from '@/utils/errors';
 
 export type GetSessionDataArgs = {
   dbClient: DbClient;
   id?: string;
-  refreshToken?: string;
+  accountId?: string;
 };
 
-export async function getSessionData({ dbClient, id, refreshToken }: GetSessionDataArgs) {
-  if (!id && !refreshToken) {
-    throw new BadRequestError('Either id or refreshToken must be provided.');
+export async function getSessionData({ dbClient, id, accountId }: GetSessionDataArgs) {
+  if (!id && !accountId) {
+    throw new BadRequestError('Either id or accountId must be provided.');
   }
 
-  let baseQuery = dbClient.selectFrom('sessions');
+  const baseQuery = dbClient.selectFrom('sessions');
 
   if (id) {
-    baseQuery = baseQuery.where('id', '=', id);
+    baseQuery.where('id', '=', id);
   }
 
-  if (refreshToken) {
-    baseQuery = baseQuery.where('refresh_token', '=', refreshToken);
+  if (accountId) {
+    baseQuery.where('account_id', '=', accountId);
   }
 
-  const record = await baseQuery.selectAll().executeTakeFirst();
+  const record = await baseQuery
+    .selectAll()
+    .executeTakeFirstOrThrow(() => new NotFoundError('Session not found.'));
   return record;
 }

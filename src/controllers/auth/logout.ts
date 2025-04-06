@@ -1,14 +1,14 @@
+import { COOKIE_NAMES } from '@/constants/cookies';
 import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type Session } from '@/types/auth';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
+import { deleteCookie } from 'hono/cookie';
 
 export const logoutAuthSchema = {
   response: z.string(),
 };
-
-export type LogoutAuthResponse = z.infer<typeof logoutAuthSchema.response>;
 
 export const logoutAuthRoute = createRoute({
   middleware: [authenticationMiddleware],
@@ -16,8 +16,8 @@ export const logoutAuthRoute = createRoute({
   method: 'delete',
   path: '/auth/logout',
   tags: ['Auth'],
-  summary: 'Sign out',
-  description: 'Sign out current session',
+  summary: 'Logout user',
+  description: 'Logout user by invalidating cookies',
   responses: {
     200: {
       content: {
@@ -25,7 +25,7 @@ export const logoutAuthRoute = createRoute({
           schema: logoutAuthSchema.response,
         },
       },
-      description: 'Signed out successfully',
+      description: 'Logout successful',
     },
   },
 });
@@ -34,10 +34,19 @@ export const logoutAuthRouteHandler: AppRouteHandler<typeof logoutAuthRoute> = a
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
 
-  await revokeSessionData({
-    dbClient,
-    accountId: session.id,
+  deleteCookie(c, COOKIE_NAMES.accessToken, {
+    path: '/',
+    secure: true,
+    httpOnly: true,
   });
 
-  return c.json('Signed out successfully', { status: 200 });
+  deleteCookie(c, COOKIE_NAMES.refreshToken, {
+    path: '/',
+    secure: true,
+    httpOnly: true,
+  });
+
+  await revokeSessionData({ dbClient, accountId: session.accountId });
+
+  return c.json('Logged out successfully', { status: 200 });
 };

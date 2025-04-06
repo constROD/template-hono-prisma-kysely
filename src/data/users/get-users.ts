@@ -43,5 +43,3 @@ export async function getUsersData({
     page,
   });
 }
-
-export type GetUsersDataResponse = Awaited<ReturnType<typeof getUsersData>>;

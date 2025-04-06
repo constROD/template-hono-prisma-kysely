@@ -35,7 +35,7 @@ export async function changePasswordAuthService({
   await dbClient.transaction().execute(async dbClientTrx => {
     const existingAccount = await dependencies.getAccountData({
       dbClient: dbClientTrx,
-      id: payload.session.id,
+      id: payload.session.accountId,
     });
 
     if (!existingAccount) {

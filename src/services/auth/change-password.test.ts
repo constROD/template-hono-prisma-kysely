@@ -1,5 +1,5 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
-import { UserRoleType } from '@/db/types';
+import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
 import { BadRequestError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { changePasswordAuthService } from './change-password';
@@ -15,12 +15,6 @@ const mockExistingAccount = {
   id: '123',
   email: 'test@example.com',
   password: 'hashedPassword123',
-};
-
-const mockSession = {
-  id: '123',
-  role: UserRoleType.ADMIN,
-  email: 'test@example.com',
 };
 
 describe('changePasswordAuthService', () => {
@@ -48,7 +42,7 @@ describe('changePasswordAuthService', () => {
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClientTrx,
-      id: payload.session.id,
+      id: payload.session.accountId,
     });
 
     expect(mockDependencies.compareTextToHashedText).toHaveBeenCalledWith({

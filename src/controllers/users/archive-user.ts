@@ -1,8 +1,8 @@
+import { archiveUserData } from '@/data/users/archive-user';
 import { userSchemaOpenApi } from '@/data/users/schema';
-import { updateUserData } from '@/data/users/update-user';
+import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
-import { sql } from 'kysely';
 
 export const archiveUserSchema = {
   params: z.object({
@@ -18,7 +18,7 @@ export type ArchiveUserParams = z.infer<typeof archiveUserSchema.params>;
 export type ArchiveUserResponse = z.infer<typeof archiveUserSchema.response>;
 
 export const archiveUserRoute = createRoute({
-  middleware: [],
+  middleware: [authenticationMiddleware],
   security: [{ bearerAuth: [] }],
   method: 'delete',
   path: '/users/{user_id}/archive',
@@ -44,11 +44,7 @@ export const archiveUserRouteHandler: AppRouteHandler<typeof archiveUserRoute> =
   const dbClient = c.get('dbClient');
   const param = c.req.valid('param');
 
-  const archivedUser = await updateUserData({
-    dbClient,
-    id: param.user_id,
-    values: { deleted_at: sql`NOW()` as unknown as Date },
-  });
+  const archivedUser = await archiveUserData({ dbClient, id: param.user_id });
 
   return c.json(archivedUser, { status: 200 });
 };

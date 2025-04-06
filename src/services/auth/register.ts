@@ -67,5 +67,3 @@ export async function registerAuthService({
     });
   });
 }
-
-export type RegisterAuthServiceResponse = Awaited<ReturnType<typeof registerAuthService>>;

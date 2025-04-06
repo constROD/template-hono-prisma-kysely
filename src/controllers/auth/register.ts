@@ -4,10 +4,7 @@ import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const registerAuthSchema = {
-  body: z.object({
-    email: emailSchema,
-    password: passwordSchema,
-  }),
+  body: z.object({ email: emailSchema, password: passwordSchema }),
   response: z.string(),
 };
 
@@ -20,8 +17,8 @@ export const registerAuthRoute = createRoute({
   method: 'post',
   path: '/auth/register',
   tags: ['Auth'],
-  summary: 'Register new account',
-  description: 'Register a new account.',
+  summary: 'Register new user',
+  description: 'Register a new user.',
   request: {
     body: {
       content: {
