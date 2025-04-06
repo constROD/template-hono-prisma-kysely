@@ -34,3 +34,5 @@ export async function getFeatureFlagService({
 
   return featureFlagData;
 }
+
+export type GetFeatureFlagServiceResponse = Awaited<ReturnType<typeof getFeatureFlagService>>;

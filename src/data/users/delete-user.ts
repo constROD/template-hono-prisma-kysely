@@ -15,3 +15,5 @@ export async function deleteUserData({ dbClient, id }: DeleteUserDataArgs) {
 
   return deletedRecord;
 }
+
+export type DeleteUserDataResponse = Awaited<ReturnType<typeof deleteUserData>>;

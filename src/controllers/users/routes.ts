@@ -6,6 +6,7 @@ import { deleteUserRoute, deleteUserRouteHandler } from './delete-user';
 import { getUserRoute, getUserRouteHandler } from './get-user';
 import { getUsersRoute, getUsersRouteHandler } from './get-users';
 import { searchUsersRoute, searchUsersRouteHandler } from './search-users';
+import { unarchiveUserRoute, unarchiveUserRouteHandler } from './unarchive-user';
 import { updateUserRoute, updateUserRouteHandler } from './update-user';
 
 const usersRoutes = new OpenAPIHono<HonoEnv>()
@@ -15,6 +16,7 @@ const usersRoutes = new OpenAPIHono<HonoEnv>()
   .openapi(getUserRoute, getUserRouteHandler)
   .openapi(updateUserRoute, updateUserRouteHandler)
   .openapi(deleteUserRoute, deleteUserRouteHandler)
-  .openapi(archiveUserRoute, archiveUserRouteHandler);
+  .openapi(archiveUserRoute, archiveUserRouteHandler)
+  .openapi(unarchiveUserRoute, unarchiveUserRouteHandler);
 
 export default usersRoutes;

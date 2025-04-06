@@ -22,3 +22,5 @@ export async function updateFeatureFlagData({ dbClient, role, values }: UpdateFe
 
   return updatedRecord;
 }
+
+export type UpdateFeatureFlagDataResponse = Awaited<ReturnType<typeof updateFeatureFlagData>>;

@@ -1,5 +1,5 @@
 import { productSchema } from '@/data/products/schema';
-import { type SearchProductsDataReturn } from '@/data/products/search-products';
+import { type SearchProductsDataResponse } from '@/data/products/search-products';
 import { userSchema } from '@/data/users/schema';
 import { type z } from 'zod';
 
@@ -9,7 +9,7 @@ export const getProductsWithUserDTOSchema = productSchema.omit({ user_id: true }
 
 export type GetProductsWithUserDTO = z.infer<typeof getProductsWithUserDTOSchema>;
 
-export type GetProductsWithUserDTOArgs = SearchProductsDataReturn['records'][number];
+export type GetProductsWithUserDTOArgs = SearchProductsDataResponse['records'][number];
 
 export function getProductsWithUserDTO(record: GetProductsWithUserDTOArgs) {
   return {
