@@ -52,7 +52,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       email: payload.email,
     });
 
@@ -62,7 +62,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.revokeSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       accountId: mockExistingAccount.id,
     });
 
@@ -79,7 +79,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.createSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       values: { refresh_token: 'refreshToken123', account_id: mockExistingAccount.id },
     });
 
@@ -115,7 +115,7 @@ describe('loginAuthService', () => {
     ).rejects.toThrow(new BadRequestError('Account does not exist.'));
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       email: payload.email,
     });
 
@@ -143,7 +143,7 @@ describe('loginAuthService', () => {
     ).rejects.toThrow(new BadRequestError('Invalid credentials.'));
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       email: payload.email,
     });
 

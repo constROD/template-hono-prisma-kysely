@@ -42,14 +42,14 @@ describe('registerAuthService', () => {
     });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       email: payload.email,
     });
 
     expect(mockDependencies.hashText).toHaveBeenCalledWith({ text: payload.password });
 
     expect(mockDependencies.createAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       values: {
         email: payload.email,
         password: hashedPassword,
@@ -57,7 +57,7 @@ describe('registerAuthService', () => {
     });
 
     expect(mockDependencies.createUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       values: {
         id: createdAccount.id,
         email: createdAccount.email,
@@ -115,7 +115,7 @@ describe('registerAuthService', () => {
     });
 
     expect(mockDependencies.createUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       values: {
         id: createdAccount.id,
         email: createdAccount.email,

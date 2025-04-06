@@ -41,7 +41,7 @@ describe('changePasswordAuthService', () => {
     });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       id: payload.session.accountId,
     });
 
@@ -55,7 +55,7 @@ describe('changePasswordAuthService', () => {
     });
 
     expect(mockDependencies.updateAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClientTrx,
+      dbClient: mockDbClient.dbClient,
       id: mockExistingAccount.id,
       values: {
         password: 'newHashedPassword',
