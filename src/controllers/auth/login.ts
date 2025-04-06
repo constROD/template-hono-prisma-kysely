@@ -8,7 +8,10 @@ import { setSignedCookie } from 'hono/cookie';
 
 export const loginAuthSchema = {
   body: z.object({ email: emailSchema, password: passwordSchema }),
-  response: z.string(),
+  response: z.object({
+    access_token: z.string(),
+    refresh_token: z.string(),
+  }),
 };
 
 export type LoginAuthBody = z.infer<typeof loginAuthSchema.body>;
@@ -65,5 +68,10 @@ export const loginAuthRouteHandler: AppRouteHandler<typeof loginAuthRoute> = asy
     maxAge: 60 * 60 * 24 * 30, // 30 days (in seconds)
   });
 
-  return c.json('Logged in successfully', { status: 200 });
+  const response = {
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  };
+
+  return c.json(response, { status: 200 });
 };
