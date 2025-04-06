@@ -15,3 +15,5 @@ export async function getFeatureFlagData({ dbClient, role }: GetFeatureFlagDataA
     .executeTakeFirstOrThrow(() => new NotFoundError('Feature flag not found.'));
   return record;
 }
+
+export type GetFeatureFlagDataResponse = Awaited<ReturnType<typeof getFeatureFlagData>>;

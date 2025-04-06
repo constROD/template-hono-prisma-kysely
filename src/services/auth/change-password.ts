@@ -62,3 +62,7 @@ export async function changePasswordAuthService({
     });
   });
 }
+
+export type ChangePasswordAuthServiceResponse = Awaited<
+  ReturnType<typeof changePasswordAuthService>
+>;

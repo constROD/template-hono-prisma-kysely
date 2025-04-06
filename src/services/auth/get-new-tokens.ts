@@ -75,3 +75,5 @@ export async function verifySessionAuthService({
     return { accessToken: newAccessToken, refreshToken: newRefreshToken };
   });
 }
+
+export type GetNewTokensServiceResponse = Awaited<ReturnType<typeof verifySessionAuthService>>;

@@ -76,3 +76,5 @@ export async function loginAuthService({
     return { accessToken, refreshToken };
   });
 }
+
+export type LoginAuthServiceResponse = Awaited<ReturnType<typeof loginAuthService>>;

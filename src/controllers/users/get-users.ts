@@ -1,6 +1,5 @@
 import { getUsersData, type GetUsersDataArgs } from '@/data/users/get-users';
 import { userSchemaFields, userSchemaOpenApi } from '@/data/users/schema';
-import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
@@ -19,7 +18,7 @@ export type GetUsersQuery = z.infer<typeof getUsersSchema.query>;
 export type GetUsersResponse = z.infer<typeof getUsersSchema.response>;
 
 export const getUsersRoute = createRoute({
-  middleware: [authenticationMiddleware],
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users',

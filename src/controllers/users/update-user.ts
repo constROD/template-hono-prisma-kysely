@@ -1,6 +1,5 @@
 import { userSchema, userSchemaOpenApi } from '@/data/users/schema';
 import { updateUserData } from '@/data/users/update-user';
-import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -26,7 +25,7 @@ export type UpdateUserBody = z.infer<typeof updateUserSchema.body>;
 export type UpdateUserResponse = z.infer<typeof updateUserSchema.response>;
 
 export const updateUserRoute = createRoute({
-  middleware: [authenticationMiddleware],
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'put',
   path: '/users/{user_id}',

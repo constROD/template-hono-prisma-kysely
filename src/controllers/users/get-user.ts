@@ -1,6 +1,5 @@
 import { getUserData } from '@/data/users/get-user';
 import { userSchemaOpenApi } from '@/data/users/schema';
-import { authenticationMiddleware } from '@/middlewares/authentication';
 import { type AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -18,7 +17,7 @@ export type GetUserParams = z.infer<typeof getUserSchema.params>;
 export type GetUserResponse = z.infer<typeof getUserSchema.response>;
 
 export const getUserRoute = createRoute({
-  middleware: [authenticationMiddleware],
+  middleware: [],
   security: [{ bearerAuth: [] }],
   method: 'get',
   path: '/users/{user_id}',

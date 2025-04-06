@@ -59,3 +59,5 @@ export async function searchUsersData({
     page,
   });
 }
+
+export type SearchUsersDataResponse = Awaited<ReturnType<typeof searchUsersData>>;

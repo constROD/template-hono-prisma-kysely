@@ -1,6 +1,6 @@
 ---
 description: Guidelines for Service Layer
-globs: src/services/**/*.ts
+globs: **/services/**/*.ts, **/_services/**/*.ts
 alwaysApply: false
 ---
 # Guidelines for Service Layer
