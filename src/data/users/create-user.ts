@@ -14,3 +14,5 @@ export async function createUserData({ dbClient, values }: CreateUserDataArgs) {
     .executeTakeFirstOrThrow();
   return createdRecord;
 }
+
+export type CreateUserDataResponse = Awaited<ReturnType<typeof createUserData>>;
