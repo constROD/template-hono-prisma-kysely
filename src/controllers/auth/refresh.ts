@@ -44,7 +44,7 @@ export const refreshAuthRouteHandler: AppRouteHandler<typeof refreshAuthRoute> =
 
   const { user, accessToken, refreshToken } = await refreshSessionAuthService({
     dbClient,
-    payload: { refreshToken: session.refreshToken },
+    payload: { session, refreshToken: session.refreshToken },
   });
 
   await setSignedCookie(c, COOKIE_NAMES.accessToken, accessToken, envConfig.COOKIE_SECRET, {

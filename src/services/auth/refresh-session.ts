@@ -5,7 +5,11 @@ import { getUserData } from '@/data/users/get-user';
 import { type DbClient } from '@/db/create-db-client';
 import { envConfig } from '@/env';
 import { decodeJWT, generateJWT, verifyJWT } from '@/lib/jwt';
-import { type AccessTokenJWTPayload, type RefreshTokenJWTPayload } from '@/types/auth';
+import {
+  type AccessTokenJWTPayload,
+  type RefreshTokenJWTPayload,
+  type Session,
+} from '@/types/auth';
 import { UnauthorizedError } from '@/utils/errors';
 
 export type RefreshSessionAuthServiceDependencies = {
@@ -20,7 +24,7 @@ export type RefreshSessionAuthServiceDependencies = {
 
 export type RefreshSessionAuthServiceArgs = {
   dbClient: DbClient;
-  payload: { refreshToken: string };
+  payload: { session: Session; refreshToken: string };
   dependencies?: RefreshSessionAuthServiceDependencies;
 };
 
@@ -55,6 +59,10 @@ export async function refreshSessionAuthService({
       dbClient: dbClientTrx,
       accountId: refreshTokenPayload.accountId,
     });
+
+    if (refreshTokenPayload.accountId !== payload.session.accountId) {
+      throw new UnauthorizedError('Refresh token does not match session.');
+    }
 
     if (currentSession.refresh_token !== payload.refreshToken) {
       throw new UnauthorizedError('Refresh token is invalid.');

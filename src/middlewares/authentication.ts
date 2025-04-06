@@ -29,13 +29,19 @@ export async function authenticationMiddleware(c: Context, next: Next) {
     throw new UnauthorizedError('Session tokens are invalid');
   }
 
-  async function refreshSession(refreshToken: string) {
+  async function refreshSession({
+    session,
+    refreshToken,
+  }: {
+    session: Session;
+    refreshToken: string;
+  }) {
     const {
       user,
       sessionId,
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
-    } = await refreshSessionAuthService({ dbClient, payload: { refreshToken } });
+    } = await refreshSessionAuthService({ dbClient, payload: { session, refreshToken } });
 
     c.set('session', {
       email: user.email,
@@ -86,7 +92,16 @@ export async function authenticationMiddleware(c: Context, next: Next) {
   } catch (err) {
     const error = makeError(err as Error);
     if (error.error.message === 'Token expired') {
-      await refreshSession(storedRefreshToken);
+      await refreshSession({
+        session: {
+          email: storedAccessTokenPayload.email,
+          accountId: storedAccessTokenPayload.accountId,
+          sessionId: storedAccessTokenPayload.sessionId,
+          accessToken: storedAccessToken,
+          refreshToken: storedRefreshToken,
+        },
+        refreshToken: storedRefreshToken,
+      });
     } else {
       throw new UnauthorizedError('Session tokens are invalid');
     }

@@ -1,5 +1,6 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
 import { envConfig } from '@/env';
+import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
 import { UnauthorizedError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { refreshSessionAuthService } from './refresh-session';
@@ -16,20 +17,20 @@ const mockDependencies = {
 
 const mockRefreshTokenPayload = {
   email: 'test@example.com',
-  accountId: 'account123',
+  accountId: mockSession.accountId,
   sub: 'user123',
   iss: 'refresh',
   aud: 'frontend',
 };
 
-const mockSession = {
+const mockSessionData = {
   id: 'session123',
   refresh_token: 'refreshToken123',
-  account_id: 'account123',
+  account_id: mockSession.accountId,
 };
 
 const mockUser = {
-  id: 'account123',
+  id: mockSession.accountId,
   email: 'test@example.com',
 };
 
@@ -40,15 +41,16 @@ describe('refreshSessionAuthService', () => {
 
   it('should successfully refresh the session', async () => {
     const payload = {
+      session: mockSession,
       refreshToken: 'refreshToken123',
     };
 
     mockDependencies.decodeJWT.mockReturnValue(mockRefreshTokenPayload);
     mockDependencies.verifyJWT.mockReturnValue(true);
-    mockDependencies.getSessionData.mockResolvedValue(mockSession);
+    mockDependencies.getSessionData.mockResolvedValue(mockSessionData);
     mockDependencies.generateJWT.mockReturnValueOnce('newRefreshToken');
     mockDependencies.updateSessionData.mockResolvedValue({
-      ...mockSession,
+      ...mockSessionData,
       refresh_token: 'newRefreshToken',
     });
     mockDependencies.getUserData.mockResolvedValue(mockUser);
@@ -62,7 +64,7 @@ describe('refreshSessionAuthService', () => {
 
     expect(result).toEqual({
       user: mockUser,
-      sessionId: mockSession.id,
+      sessionId: mockSessionData.id,
       accessToken: 'newAccessToken',
       refreshToken: 'newRefreshToken',
     });
@@ -94,7 +96,7 @@ describe('refreshSessionAuthService', () => {
 
     expect(mockDependencies.updateSessionData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClient,
-      id: mockSession.id,
+      id: mockSessionData.id,
       values: { refresh_token: 'newRefreshToken' },
     });
 
@@ -107,7 +109,7 @@ describe('refreshSessionAuthService', () => {
       payload: {
         email: mockUser.email,
         accountId: mockUser.id,
-        sessionId: mockSession.id,
+        sessionId: mockSessionData.id,
         sub: mockUser.id,
         iss: 'refresh',
         aud: 'frontend',
@@ -119,6 +121,7 @@ describe('refreshSessionAuthService', () => {
 
   it('should throw UnauthorizedError when refresh token cannot be decoded', async () => {
     const payload = {
+      session: mockSession,
       refreshToken: 'invalidToken',
     };
 
@@ -139,6 +142,7 @@ describe('refreshSessionAuthService', () => {
 
   it('should throw UnauthorizedError when refresh token fails verification', async () => {
     const payload = {
+      session: mockSession,
       refreshToken: 'expiredRefreshToken',
     };
 
@@ -166,15 +170,44 @@ describe('refreshSessionAuthService', () => {
 
   it('should throw UnauthorizedError when refresh token does not match session', async () => {
     const payload = {
+      session: { ...mockSession, accountId: 'differentAccountId' },
       refreshToken: 'refreshToken123',
     };
 
     mockDependencies.decodeJWT.mockReturnValue(mockRefreshTokenPayload);
     mockDependencies.verifyJWT.mockReturnValue(true);
-    mockDependencies.getSessionData.mockResolvedValue({
-      ...mockSession,
-      refresh_token: 'differentRefreshToken',
+    mockDependencies.getSessionData.mockResolvedValue(mockSessionData);
+
+    await expect(
+      refreshSessionAuthService({
+        dbClient: mockDbClient.dbClientTransaction,
+        payload,
+        dependencies: mockDependencies,
+      })
+    ).rejects.toThrow(new UnauthorizedError('Refresh token does not match session.'));
+
+    expect(mockDependencies.decodeJWT).toHaveBeenCalledWith({
+      token: payload.refreshToken,
     });
+    expect(mockDependencies.verifyJWT).toHaveBeenCalledWith({
+      token: payload.refreshToken,
+      secretOrPublicKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
+    });
+    expect(mockDependencies.getSessionData).toHaveBeenCalledWith({
+      dbClient: mockDbClient.dbClient,
+      accountId: mockRefreshTokenPayload.accountId,
+    });
+  });
+
+  it('should throw UnauthorizedError when refresh token is invalid', async () => {
+    const payload = {
+      session: mockSession,
+      refreshToken: 'invalidToken',
+    };
+
+    mockDependencies.decodeJWT.mockReturnValue(mockRefreshTokenPayload);
+    mockDependencies.verifyJWT.mockReturnValue(true);
+    mockDependencies.getSessionData.mockResolvedValue(mockSessionData);
 
     await expect(
       refreshSessionAuthService({
