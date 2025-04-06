@@ -9,7 +9,6 @@ vi.mock('@/db/create-db-client', () => ({
 
 export const mockDbClient = {
   dbClient: mocks.createDbClient,
-  dbClientTrx: mocks.createDbClient,
   dbClientTransaction: {
     transaction: vi.fn().mockReturnValue({
       execute: vi.fn(callback => callback(mocks.createDbClient)),
