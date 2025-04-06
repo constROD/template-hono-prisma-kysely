@@ -12,19 +12,23 @@ import {
  * Utility type to override specific field types from database tables:
  * - DATE fields: converted to `Date | string` if not null else do `Date | string | null`
  * - JSON fields: specific type overrides
- * - DEFAULT fields: explicit type definition
+ * - w/ DEFAULT fields: any field with a default value
  * @example
  * type SampleTable = {
- *   id: Generated<string>;
- *   name: string;
- *   created_at: Generated<Timestamp>;
- *   updated_at: Generated<Timestamp>;
- *   deleted_at: Timestamp | null;
- *   status: Generated<UserStatusType>;
+ *   id: Generated<string>; // w/o DEFAULT
+ *   name: string; // w/o DEFAULT
+ *   created_at: Generated<Timestamp>; // w/ DEFAULT
+ *   updated_at: Generated<Timestamp>; // w/ DEFAULT
+ *   deleted_at: Timestamp | null; // w/o DEFAULT
+ *   status: Generated<UserStatusType>; // w/ DEFAULT
+ *   json: unknown; // w/o DEFAULT
+ *   is_active: Generated<boolean>; // w/ DEFAULT
  * };
  *
  * type OverrideSampleTable = Omit<OverrideCommonFields<SampleTable>, 'status'> & {
  *   status: UserStatusType;
+ *   json: SomeJsonType;
+ *   is_active: boolean;
  * };
  */
 type OverrideCommonFields<TTable> = Omit<
