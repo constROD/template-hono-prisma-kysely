@@ -3,10 +3,10 @@ description:
 globs: 
 alwaysApply: false
 ---
-# Guidelines for Data Access Layer via Database 
+# Guidelines for Data Access Layer via API 
 
 ## Purpose & Overview
-These rules define the standard patterns for implementing CRUD operations in the data access layer. The guidelines are based on the implementation of the 'users' module and should be followed for all database operations to maintain consistency across the codebase.
+These rules define the standard patterns for implementing CRUD operations in the data access layer. The guidelines are based on the implementation of the 'users' module and should be followed for all API operations to maintain consistency across the codebase.
 
 ## File Structure
 
@@ -44,15 +44,15 @@ src/features/[feature-name]/
 ## Naming Conventions
 
 ### Function Naming
-- `create[Entity]Data`: For creating records
-- `get[Entity]Data`: For retrieving a single record
-- `get[Entity]sData`: For retrieving multiple records
-- `update[Entity]Data`: For updating records
-- `delete[Entity]Data`: For deleting records
-- `search[Entity]sData`: For searching records with filters
+- `create[Entity]Data`: For creating resources via API
+- `get[Entity]Data`: For retrieving a single resource via API
+- `get[Entity]sData`: For retrieving multiple resources via API
+- `update[Entity]Data`: For updating resources via API
+- `delete[Entity]Data`: For deleting resources via API
+- `search[Entity]sData`: For searching resources with filters via API
 
 ### Type Naming
-- `[Entity]`: Main entity type from schema
+- `[Entity]`: Main entity type from API schema
 - `Create[Entity]`: Type for creating entity, typically omitting auto-generated fields
 - `Update[Entity]`: Type for updating entity, typically partial of the main entity
 - `[Operation][Entity]DataArgs`: Type for function arguments
@@ -66,8 +66,7 @@ Create test utilities in the `__test-utils__` directory to help with testing:
 
 ```typescript
 // __test-utils__/make-fake-entity.ts
-import { type DbClient } from '@/db/create-db-client';
-import { type Entity } from '@/db/schema';
+import { type Entity } from '@/data/schema';
 import { faker } from '@faker-js/faker';
 
 // Create a fake entity with realistic test data
@@ -88,12 +87,18 @@ export function makeFake[Entity] {
 // create-[entity].ts
 import { type Entity } from './schema';
 
-export type GetEntityDataArgs = {
-  id: string
+export type CreateEntityDataArgs = {
+  // Entity properties to be sent to API
 };
 
-export async function getEntityData({ id }: GetEntityDataArgs): Promise<Entity> {
-  const response = await fetch(`https://api.example.com/entities/${id}`);
+export async function createEntityData(args: CreateEntityDataArgs): Promise<Entity> {
+  const response = await fetch('https://api.example.com/entities', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  });
   
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
