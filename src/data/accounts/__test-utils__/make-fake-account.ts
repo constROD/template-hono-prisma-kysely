@@ -1,16 +1,16 @@
 import { type DbClient } from '@/db/create-db-client';
 import { type Account } from '@/db/schema';
-import { overrideValueOrUseDefault } from '@/utils/guard';
 import { faker } from '@faker-js/faker';
 
-export function makeFakeAccount(args?: Partial<Account>) {
+export function makeFakeAccount(overrides?: Partial<Account>) {
   return {
-    id: overrideValueOrUseDefault(args?.id, faker.string.uuid()),
-    created_at: overrideValueOrUseDefault(args?.created_at, faker.date.recent()),
-    updated_at: overrideValueOrUseDefault(args?.updated_at, faker.date.recent()),
-    deleted_at: overrideValueOrUseDefault(args?.deleted_at, null),
-    email: overrideValueOrUseDefault(args?.email, faker.internet.email().toLowerCase()),
-    password: overrideValueOrUseDefault(args?.password, faker.string.uuid()),
+    id: faker.string.uuid(),
+    created_at: faker.date.recent(),
+    updated_at: faker.date.recent(),
+    deleted_at: null,
+    email: faker.internet.email().toLowerCase(),
+    password: faker.string.uuid(),
+    ...overrides,
   } satisfies Account;
 }
 
@@ -20,8 +20,9 @@ export type CreateTestAccountsInDBArgs = {
 };
 
 export async function createTestAccountsInDB({ dbClient, values }: CreateTestAccountsInDBArgs) {
-  const fakeAccounts =
-    values instanceof Array ? values.map(makeFakeAccount) : makeFakeAccount(values);
+  const fakeAccounts = Array.isArray(values)
+    ? values.map(makeFakeAccount)
+    : makeFakeAccount(values);
   const createdAccounts = await dbClient
     .insertInto('accounts')
     .values(fakeAccounts)
