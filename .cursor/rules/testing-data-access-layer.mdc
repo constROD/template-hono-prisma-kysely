@@ -24,6 +24,7 @@ Database tests use transaction rollbacks to ensure test isolation and reset stat
 import { type DbClient } from '@/db/create-db-client';
 import { getUsersData } from './get-users';
 import { createTestUsersInDB, makeFakeUser } from './__test-utils__/make-fake-user';
+import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 
 // Essential test setup pattern for DB tests
 const setupTestData = async ({
