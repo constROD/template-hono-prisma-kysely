@@ -1,18 +1,27 @@
+import { type DbClient } from '@/db/create-db-client';
+import { type User } from '@/db/schema';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
-import { createTestUsersInDB } from './__test-utils__/make-fake-user';
+import { createTestUsersInDB, makeFakeUser } from './__test-utils__/make-fake-user';
 import { getUsersData } from './get-users';
 
-describe('Get Users', () => {
-  testWithDbClient('should get a users', async ({ dbClient }) => {
-    const count = 10;
+const setupTestData = async ({
+  dbClient,
+  users,
+}: {
+  dbClient: DbClient;
+  users: Partial<User>[];
+}) => {
+  await createTestUsersInDB({ dbClient, values: users });
+};
 
-    await createTestUsersInDB({
-      dbClient,
-      values: Array.from({ length: count }).map((_, idx) => ({
-        first_name: `John ${idx}`,
-      })),
-    });
+describe('Get Users', () => {
+  testWithDbClient('should get users with pagination', async ({ dbClient }) => {
+    const count = 10;
+    const mockUsers = Array.from({ length: count }).map((_, idx) =>
+      makeFakeUser({ first_name: `User${idx}` })
+    );
+    await setupTestData({ dbClient, users: mockUsers });
 
     const { records, total_records } = await getUsersData({ dbClient });
 
@@ -20,7 +29,7 @@ describe('Get Users', () => {
     expect(total_records).toBe(count);
   });
 
-  testWithDbClient('should return empty array when no user', async ({ dbClient }) => {
+  testWithDbClient('should return empty array when no users exist', async ({ dbClient }) => {
     const { records, total_records } = await getUsersData({ dbClient });
 
     expect(records.length).toBe(0);
@@ -29,13 +38,10 @@ describe('Get Users', () => {
 
   testWithDbClient('should return the correct pagination data', async ({ dbClient }) => {
     const count = 100;
-
-    await createTestUsersInDB({
-      dbClient,
-      values: Array.from({ length: count }).map((_, idx) => ({
-        first_name: `John ${idx}`,
-      })),
-    });
+    const mockUsers = Array.from({ length: count }).map((_, idx) =>
+      makeFakeUser({ first_name: `User${idx}` })
+    );
+    await setupTestData({ dbClient, users: mockUsers });
 
     const { records, total_records, total_pages, current_page, next_page, previous_page } =
       await getUsersData({ dbClient });

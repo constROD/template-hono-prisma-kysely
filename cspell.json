@@ -23,6 +23,7 @@
     "./pnpm-lock.yaml",
     "./docker-compose.yaml",
     "./prisma/schema.prisma",
-    "./.sst"
+    "./.sst",
+    "./.cursor"
   ]
 }

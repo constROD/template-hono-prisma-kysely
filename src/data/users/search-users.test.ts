@@ -1,69 +1,85 @@
+import { type DbClient } from '@/db/create-db-client';
+import { type User } from '@/db/schema';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
-import { createTestUsersInDB } from './__test-utils__/make-fake-user';
+import { createTestUsersInDB, makeFakeUser } from './__test-utils__/make-fake-user';
 import { searchUsersData } from './search-users';
 
-describe('Search Users', () => {
-  testWithDbClient('should get a users', async ({ dbClient }) => {
-    const count = 10;
+const setupTestData = async ({
+  dbClient,
+  users,
+}: {
+  dbClient: DbClient;
+  users: Partial<User>[];
+}) => {
+  await createTestUsersInDB({ dbClient, values: users });
+};
 
-    await createTestUsersInDB({
+const mockUser1 = makeFakeUser({ first_name: 'John', last_name: 'Doe', email: 'john@example.com' });
+const mockUser2 = makeFakeUser({
+  first_name: 'Jane',
+  last_name: 'Smith',
+  email: 'jane@example.com',
+});
+const mockUser3 = makeFakeUser({
+  first_name: 'Bob',
+  last_name: 'Johnson',
+  email: 'bob@example.com',
+});
+
+describe('Search Users', () => {
+  testWithDbClient('should search users with pagination', async ({ dbClient }) => {
+    await setupTestData({ dbClient, users: [mockUser1, mockUser2, mockUser3] });
+
+    const result = await searchUsersData({
       dbClient,
-      values: Array.from({ length: count }).map((_, idx) => ({
-        first_name: `John ${idx}`,
-      })),
+      limit: 10,
+      page: 1,
     });
 
-    const { records, total_records } = await searchUsersData({ dbClient });
-
-    expect(records.length).toBe(count);
-    expect(total_records).toBe(count);
+    expect(result.records).toHaveLength(3);
+    expect(result.total_records).toBe(3);
+    expect(result.current_page).toBe(1);
   });
 
-  testWithDbClient('should return empty array when no user', async ({ dbClient }) => {
-    const { records, total_records } = await searchUsersData({ dbClient });
+  testWithDbClient('should return empty array when no users exist', async ({ dbClient }) => {
+    const result = await searchUsersData({ dbClient });
 
-    expect(records.length).toBe(0);
-    expect(total_records).toBe(0);
+    expect(result.records).toHaveLength(0);
+    expect(result.total_records).toBe(0);
   });
 
   testWithDbClient('should return the correct pagination data', async ({ dbClient }) => {
-    const count = 100;
+    const mockUsers = Array.from({ length: 30 }).map((_, idx) =>
+      makeFakeUser({ first_name: `User${idx}`, last_name: `Test${idx}` })
+    );
 
-    await createTestUsersInDB({
+    await setupTestData({ dbClient, users: mockUsers });
+
+    const result = await searchUsersData({
       dbClient,
-      values: Array.from({ length: count }).map((_, idx) => ({
-        first_name: `John ${idx}`,
-      })),
+      limit: 25,
+      page: 1,
     });
 
-    const { records, total_records, total_pages, current_page, next_page, previous_page } =
-      await searchUsersData({ dbClient });
-
-    expect(records.length).toBe(25);
-    expect(total_records).toBe(count);
-    expect(total_pages).toBe(4);
-    expect(current_page).toBe(1);
-    expect(next_page).toBe(2);
-    expect(previous_page).toBe(null);
+    expect(result.records).toHaveLength(25);
+    expect(result.total_records).toBe(30);
+    expect(result.total_pages).toBe(2);
+    expect(result.current_page).toBe(1);
+    expect(result.next_page).toBe(2);
+    expect(result.previous_page).toBe(null);
   });
 
   testWithDbClient('should search users with specific search text', async ({ dbClient }) => {
-    const specificUser = await createTestUsersInDB({
+    await setupTestData({ dbClient, users: [mockUser1, mockUser2, mockUser3] });
+
+    const result = await searchUsersData({
       dbClient,
-      values: {
-        first_name: 'John',
-        last_name: 'Doe',
-      },
+      filters: { searchText: 'jane' },
     });
 
-    const { records, total_records } = await searchUsersData({
-      dbClient,
-      filters: { searchText: 'John' },
-    });
-
-    expect(records.length).toBe(1);
-    expect(total_records).toBe(1);
-    expect(records[0]?.id).toBe(specificUser[0]?.id);
+    expect(result.records).toHaveLength(1);
+    expect(result.total_records).toBe(1);
+    expect(result.records[0]?.first_name).toBe('Jane');
   });
 });
