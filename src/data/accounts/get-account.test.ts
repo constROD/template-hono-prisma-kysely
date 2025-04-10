@@ -1,32 +1,51 @@
+import { type DbClient } from '@/db/create-db-client';
+import { type Account } from '@/db/schema';
 import { BadRequestError } from '@/utils/errors';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
-import { createTestAccountsInDB } from './__test-utils__/make-fake-account';
+import { createTestAccountsInDB, makeFakeAccount } from './__test-utils__/make-fake-account';
 import { getAccountData } from './get-account';
+
+// Essential test setup pattern for DB tests
+const setupTestData = async ({
+  dbClient,
+  accounts,
+}: {
+  dbClient: DbClient;
+  accounts: Partial<Account>[];
+}) => {
+  await createTestAccountsInDB({ dbClient, values: accounts });
+};
 
 describe('Get Account', () => {
   testWithDbClient('should get an account', async ({ dbClient }) => {
-    const [testCreatedAccount] = await createTestAccountsInDB({ dbClient });
+    // Setup test data
+    const testAccount = makeFakeAccount();
+    await setupTestData({ dbClient, accounts: [testAccount] });
 
-    if (!testCreatedAccount) throw new Error('testCreatedAccount is undefined');
+    // Execute the function under test
+    const account = await getAccountData({ dbClient, id: testAccount.id });
 
-    const account = await getAccountData({ dbClient, id: testCreatedAccount.id });
-
-    expect(account?.id).toBe(testCreatedAccount.id);
+    // Assert results
+    expect(account?.id).toBe(testAccount.id);
   });
 
   testWithDbClient('should get an account by email', async ({ dbClient }) => {
-    const [testCreatedAccount] = await createTestAccountsInDB({ dbClient });
+    // Setup test data
+    const testAccount = makeFakeAccount();
+    await setupTestData({ dbClient, accounts: [testAccount] });
 
-    if (!testCreatedAccount) throw new Error('testCreatedAccount is undefined');
+    // Execute the function under test
+    const account = await getAccountData({ dbClient, email: testAccount.email });
 
-    const account = await getAccountData({ dbClient, email: testCreatedAccount.email });
-    expect(account?.id).toBe(testCreatedAccount.id);
+    // Assert results
+    expect(account?.id).toBe(testAccount.id);
   });
 
   testWithDbClient(
     'should throw BadRequestError if id and email are not provided.',
     async ({ dbClient }) => {
+      // Execute and assert
       expect(() => getAccountData({ dbClient })).rejects.toThrow(
         new BadRequestError('Either id or email must be provided.')
       );
