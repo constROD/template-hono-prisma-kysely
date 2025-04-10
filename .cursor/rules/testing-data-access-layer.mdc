@@ -22,36 +22,50 @@ Database tests use transaction rollbacks to ensure test isolation and reset stat
 #### Example Test Pattern for Data Access Layer via Database 
 ```typescript
 import { type DbClient } from '@/db/create-db-client';
-import { getUsersData } from './get-users';
-import { createTestUsersInDB, makeFakeUser } from './__test-utils__/make-fake-user';
+import { type User, type Product } from '@/db/schema';
+import { createProductData } from './create-product';
+import { createTestProductsInDB, makeProduct } from './__test-utils__/make-fake-product';
+import { createTestUsersInDB, makeFakeUser } from '../users/__test-utils__/make-fake-user';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 
 // Essential test setup pattern for DB tests
 const setupTestData = async ({
   dbClient,
-  users, // or other entities
+  users, 
+  products
+  // or other entities
 }: {
   dbClient: DbClient;
   users: Partial<User>[];
+  products: Partial<Product>[];
+  // or other entities
 }) => {
   await createTestUsersInDB({ dbClient, values: users });
+  await createTestProductsInDB({ dbClient, values: products });
+  // or other entities
 };
 
-describe('Get Users', () => {
-  testWithDbClient('should get users with pagination', async ({ dbClient }) => {
-    // Setup test data
-    const mockUsers = Array.from({ length: 10 }).map(makeFakeUser);
-    await setupTestData({ dbClient, users: mockUsers });
+const mockUser = makeFakeUser();
 
-    // Execute the function under test
-    const result = await getUsersData({ dbClient });
+describe('Create Product', () => {
+  testWithDbClient('should create a user', async ({ dbClient }) => {
+    const mockProduct = makeFakeProduct({ user_id: mockUser.id }) // w/ Foreign Keys
 
-    // Assert results
-    expect(result.records.length).toBe(10);
-    expect(result.total_records).toBe(10);
+    const createdProduct = await createProductData({ dbClient, values: mockProduct });
+
+    expect(createdProduct).toBeDefined();
+    expect(createdProduct?.id).toBeDefined();
+    expect(createdProduct?.price).toEqual(mockProduct.price);
+    expect(createdProduct?.user_id).toEqual(mockProduct.user_id);
+    expect(createdProduct?.created_at).toBeDefined();
+    expect(createdProduct?.updated_at).toBeDefined();
+
+    const currentProducts = await dbClient.selectFrom('products').selectAll().execute();
+
+    expect(currentProducts.length).toBe(1);
   });
-  
-  // More tests...
+
+  // ... more tests
 });
 ```
 
@@ -106,6 +120,9 @@ describe('Get User', () => {
   });
 });
 ```
+
+## Important Note
+- Don't forget to run the `pnpm test <file_or_folder_path>` after the creation of tests.
 
 ## Best Practices
 
