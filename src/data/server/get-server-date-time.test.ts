@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { getServerDateTimeData } from './get-server-date-time';
 
-describe('getServerDateTimeData', () => {
+describe('Server Date Time', () => {
   testWithDbClient('should return the valid server date time', async ({ dbClient }) => {
     const serverDateTimeData = await getServerDateTimeData({ dbClient });
 

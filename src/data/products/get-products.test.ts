@@ -1,21 +1,34 @@
+import { type DbClient } from '@/db/create-db-client';
+import { type Product, type User } from '@/db/schema';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import { createTestUsersInDB, makeFakeUser } from '../users/__test-utils__/make-fake-user';
-import { createTestProductsInDB } from './__test-utils__/make-fake-product';
+import { createTestProductsInDB, makeFakeProduct } from './__test-utils__/make-fake-product';
 import { getProductsData } from './get-products';
 
-const fakeUser = makeFakeUser();
+const setupTestData = async ({
+  dbClient,
+  users,
+  products,
+}: {
+  dbClient: DbClient;
+  users: Partial<User>[];
+  products: Partial<Product>[];
+}) => {
+  await createTestUsersInDB({ dbClient, values: users });
+  await createTestProductsInDB({ dbClient, values: products });
+};
+
+const mockUser = makeFakeUser();
 
 describe('Get Products', () => {
-  testWithDbClient('should get a products', async ({ dbClient }) => {
+  testWithDbClient('should get products with pagination', async ({ dbClient }) => {
     const count = 10;
-    const fakeProducts = Array.from({ length: count }).map((_, idx) => ({
-      name: `Product ${idx}`,
-      user_id: fakeUser.id,
-    }));
+    const mockProducts = Array.from({ length: count }).map((_, idx) =>
+      makeFakeProduct({ name: `Product${idx}`, user_id: mockUser.id })
+    );
 
-    await createTestUsersInDB({ dbClient, values: fakeUser });
-    await createTestProductsInDB({ dbClient, values: fakeProducts });
+    await setupTestData({ dbClient, users: [mockUser], products: mockProducts });
 
     const { records, total_records } = await getProductsData({ dbClient });
 
@@ -23,7 +36,7 @@ describe('Get Products', () => {
     expect(total_records).toBe(count);
   });
 
-  testWithDbClient('should return empty array when no product', async ({ dbClient }) => {
+  testWithDbClient('should return empty array when no products exist', async ({ dbClient }) => {
     const { records, total_records } = await getProductsData({ dbClient });
 
     expect(records.length).toBe(0);
@@ -32,13 +45,11 @@ describe('Get Products', () => {
 
   testWithDbClient('should return the correct pagination data', async ({ dbClient }) => {
     const count = 100;
-    const fakeProducts = Array.from({ length: count }).map((_, idx) => ({
-      name: `Product ${idx}`,
-      user_id: fakeUser.id,
-    }));
+    const mockProducts = Array.from({ length: count }).map((_, idx) =>
+      makeFakeProduct({ name: `Product${idx}`, user_id: mockUser.id })
+    );
 
-    await createTestUsersInDB({ dbClient, values: fakeUser });
-    await createTestProductsInDB({ dbClient, values: fakeProducts });
+    await setupTestData({ dbClient, users: [mockUser], products: mockProducts });
 
     const { records, total_records, total_pages, current_page, next_page, previous_page } =
       await getProductsData({ dbClient });
