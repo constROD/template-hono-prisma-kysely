@@ -21,6 +21,7 @@ Database tests use transaction rollbacks to ensure test isolation and reset stat
 
 #### Example Test Pattern for Data Access Layer via Database 
 ```typescript
+import { type DbClient } from '@/db/create-db-client';
 import { getUsersData } from './get-users';
 import { createTestUsersInDB, makeFakeUser } from './__test-utils__/make-fake-user';
 
