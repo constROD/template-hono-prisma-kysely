@@ -12,6 +12,7 @@
     "./package.json",
     "./pnpm-lock.yaml",
     "./docker-compose.yaml",
-    "./prisma/schema.prisma"
+    "./prisma/schema.prisma",
+    "./.cursor"
   ]
 }

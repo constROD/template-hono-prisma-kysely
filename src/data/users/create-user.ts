@@ -9,8 +9,10 @@ export type CreateUserDataArgs = {
 export async function createUserData({ dbClient, values }: CreateUserDataArgs) {
   const createdRecord = await dbClient
     .insertInto('users')
-    .values({ ...values, email: values.email.trim().toLowerCase() })
+    .values(values)
     .returningAll()
     .executeTakeFirstOrThrow();
   return createdRecord;
 }
+
+export type CreateUserDataResponse = Awaited<ReturnType<typeof createUserData>>;

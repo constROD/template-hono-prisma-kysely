@@ -1,7 +1,9 @@
+import { makeFakeUser } from '@/data/users/__test-utils__/make-fake-user';
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
 import { UserRoleType } from '@/db/types';
 import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
 import { NotFoundError } from '@/utils/errors';
+import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getFeatureFlagService } from './get-feature-flag';
 
@@ -10,16 +12,16 @@ const mockDependencies = {
   getFeatureFlagData: vi.fn(),
 };
 
-const mockUserData = {
+const mockUser = makeFakeUser({
   id: '123',
   email: 'test@example.com',
   role: UserRoleType.USER,
   first_name: 'Test',
   last_name: 'User',
-};
+});
 
-const mockFeatureFlagData = {
-  id: '456',
+const mockFeatureFlag = {
+  id: faker.string.uuid(),
   role: UserRoleType.USER,
   json: { feature1: true, feature2: false },
 };
@@ -34,8 +36,8 @@ describe('getFeatureFlagService', () => {
       session: mockSession,
     };
 
-    mockDependencies.getUserData.mockResolvedValue(mockUserData);
-    mockDependencies.getFeatureFlagData.mockResolvedValue(mockFeatureFlagData);
+    mockDependencies.getUserData.mockResolvedValue(mockUser);
+    mockDependencies.getFeatureFlagData.mockResolvedValue(mockFeatureFlag);
 
     const result = await getFeatureFlagService({
       dbClient: mockDbClient.dbClient,
@@ -50,10 +52,10 @@ describe('getFeatureFlagService', () => {
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClient,
-      role: mockUserData.role,
+      role: mockUser.role,
     });
 
-    expect(result).toEqual(mockFeatureFlagData);
+    expect(result).toEqual(mockFeatureFlag);
   });
 
   it('should throw NotFoundError when user is not found', async () => {
@@ -84,7 +86,7 @@ describe('getFeatureFlagService', () => {
       session: mockSession,
     };
 
-    mockDependencies.getUserData.mockResolvedValue(mockUserData);
+    mockDependencies.getUserData.mockResolvedValue(mockUser);
     mockDependencies.getFeatureFlagData.mockRejectedValue(
       new NotFoundError('Feature flag not found.')
     );
@@ -104,7 +106,7 @@ describe('getFeatureFlagService', () => {
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
       dbClient: mockDbClient.dbClient,
-      role: mockUserData.role,
+      role: mockUser.role,
     });
   });
 });

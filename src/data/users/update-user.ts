@@ -19,3 +19,5 @@ export async function updateUserData({ dbClient, id, values }: UpdateUserDataArg
 
   return updatedRecord;
 }
+
+export type UpdateUserDataResponse = Awaited<ReturnType<typeof updateUserData>>;

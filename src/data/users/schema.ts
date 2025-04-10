@@ -1,5 +1,6 @@
 import { type User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
+import { emailSchema } from '@/utils/zod-schemas';
 import { z } from '@hono/zod-openapi';
 
 export const userSchemaObject = {
@@ -13,7 +14,7 @@ export const userSchemaObject = {
   deleted_at: z.union([z.coerce.date(), z.string()]).nullable().openapi({
     example: null,
   }),
-  email: z.string().email().openapi({
+  email: emailSchema.openapi({
     example: 'bossROD@gmail.com',
   }),
   first_name: z.string().nullable().openapi({

@@ -2,7 +2,7 @@ import { type DbClient } from '@/db/create-db-client';
 import { type User } from '@/db/schema';
 import { makeDefaultDataListReturn } from '../make-default-list-return';
 
-export type SearchUserFilters = {
+export type SearchUsersFilters = {
   searchText?: string;
 };
 
@@ -13,7 +13,7 @@ export type SearchUsersDataArgs = {
   sortBy?: keyof User;
   orderBy?: 'asc' | 'desc';
   includeArchived?: boolean;
-  filters?: SearchUserFilters;
+  filters?: SearchUsersFilters;
 };
 
 export async function searchUsersData({
@@ -59,3 +59,5 @@ export async function searchUsersData({
     page,
   });
 }
+
+export type SearchUsersDataResponse = Awaited<ReturnType<typeof searchUsersData>>;
