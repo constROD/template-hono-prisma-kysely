@@ -9,7 +9,7 @@ import {
 import { type Context } from 'hono';
 import { StatusCodes } from 'http-status-codes';
 import { describe, expect, it } from 'vitest';
-import { mockHonoContext } from './__test-utils__/openapi-hono';
+import { mockHonoContext } from './__test-utils__/mock-openapi-hono';
 import { errorHandlerMiddleware } from './error-handler';
 
 describe('errorHandlerMiddleware', () => {
