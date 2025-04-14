@@ -28,7 +28,13 @@ export const mockHonoContext = {
   get: vi.fn(),
   set: vi.fn(),
   json: vi.fn(),
-  req: { valid: vi.fn() },
+  req: {
+    valid: vi.fn(),
+    param: vi.fn().mockReturnValue({}),
+    query: vi.fn().mockReturnValue({}),
+    header: vi.fn().mockReturnValue({}),
+    json: vi.fn().mockResolvedValue({}),
+  },
 };
 
 export const mockOpenAPIHono = mocks.OpenAPIHono as unknown as OpenAPIHono;
