@@ -1,5 +1,5 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
-import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
+import { mockSession } from '@/middlewares/__test-utils__/mock-openapi-hono';
 import { BadRequestError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { changePasswordAuthService } from './change-password';

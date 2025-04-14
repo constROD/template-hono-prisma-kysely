@@ -1,7 +1,7 @@
 import { makeFakeUser } from '@/data/users/__test-utils__/make-fake-user';
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
 import { UserRoleType } from '@/db/types';
-import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
+import { mockSession } from '@/middlewares/__test-utils__/mock-openapi-hono';
 import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it, vi } from 'vitest';

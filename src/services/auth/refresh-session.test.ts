@@ -1,6 +1,6 @@
 import { mockDbClient } from '@/db/__test-utils__/mock-db-client';
 import { envConfig } from '@/env';
-import { mockSession } from '@/middlewares/__test-utils__/openapi-hono';
+import { mockSession } from '@/middlewares/__test-utils__/mock-openapi-hono';
 import { UnauthorizedError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { refreshSessionAuthService } from './refresh-session';
