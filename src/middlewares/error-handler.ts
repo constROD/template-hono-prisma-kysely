@@ -7,12 +7,7 @@ export async function errorHandlerMiddleware(err: Error, c: Context<HonoEnv>) {
   const { error, statusCode } = makeError(err);
   pinoLogger.error(error.message, error);
   // const errorContextData = {
-  //   request: {
-  //     params: JSON.stringify(c.req.param(), null, 2),
-  //     query: JSON.stringify(c.req.query(), null, 2),
-  //     headers: JSON.stringify(c.req.header(), null, 2),
-  //     body: JSON.stringify(await c.req.json(), null, 2),
-  //   },
+  //   context: JSON.stringify(c, null, 2),
   //   statusCode: statusCode,
   //   error: error,
   // };
