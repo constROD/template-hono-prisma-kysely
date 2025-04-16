@@ -1,7 +1,8 @@
+import { type HonoEnv } from '@/types/hono';
 import { UnauthorizedError } from '@/utils/errors';
 import { type Context, type Next } from 'hono';
 
-export async function authenticationMiddleware(c: Context, next: Next) {
+export async function authenticationMiddleware(c: Context<HonoEnv>, next: Next) {
   const accessToken = c.req.header('Authorization')?.replace('Bearer ', '');
 
   if (!accessToken) throw new UnauthorizedError('Access token is required');
