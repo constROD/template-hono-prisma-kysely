@@ -92,7 +92,7 @@ model Entity {
 }
 ```
 
-The type override would look like:
+After creation of Prisma Schema model make sure to also update the `src/db/schema.ts` to make it reusable for zod schemas in the `Data Access Layer's Schema`:
 
 ```typescript
 // src/db/schema.ts
@@ -130,3 +130,7 @@ Follow this naming convention for exported types:
 
 export type User = OverrideUsers;
 ``` 
+
+## Important Note
+1. Create the Prisma Schema Model
+2. Add the newly added Prisma Schema Model in `src/db/schema.ts`
