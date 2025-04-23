@@ -15,10 +15,27 @@ Follow this pattern for overriding Prisma-generated types to ensure consistent h
 
 ```typescript
 /**
- * Utility type to override specific field types from Prisma-generated tables:
- * - DATE fields: converted to `Date | string` if not null else `Date | string | null`
- * - JSON fields: specific type overrides with proper typing
- * - DEFAULT fields: explicit type definition without Generated wrapper
+ * Utility type to override specific field types from database tables:
+ * - DATE fields: converted to `Date | string` if not null else do `Date | string | null`
+ * - JSON fields: specific type overrides
+ * - w/ DEFAULT fields: any field with a default value
+ * @example
+ * type SampleTable = {
+ *   id: Generated<string>; // w/o DEFAULT
+ *   name: string; // w/o DEFAULT
+ *   created_at: Generated<Timestamp>; // w/ DEFAULT
+ *   updated_at: Generated<Timestamp>; // w/ DEFAULT
+ *   deleted_at: Timestamp | null; // w/o DEFAULT
+ *   status: Generated<UserStatusType>; // w/ DEFAULT
+ *   json: unknown; // w/o DEFAULT
+ *   is_active: Generated<boolean>; // w/ DEFAULT
+ * };
+ *
+ * type OverrideSampleTable = Omit<OverrideCommonFields<SampleTable>, 'status'> & {
+ *   status: UserStatusType;
+ *   json: SomeJsonType;
+ *   is_active: boolean;
+ * };
  */
 type OverrideCommonFields<TTable> = Omit<
   TTable,
@@ -33,6 +50,7 @@ type OverrideCommonFields<TTable> = Omit<
 
 ### Field-Specific Overrides
 For fields requiring specific types beyond common fields:
+
 
 ```typescript
 type OverrideEntityName = Omit<OverrideCommonFields<entity_name>, 'specific_field'> & {
@@ -77,6 +95,7 @@ model Entity {
 The type override would look like:
 
 ```typescript
+// src/db/schema.ts
 import { type entity, type Status } from './types';
 
 type OverrideEntity = Omit<OverrideCommonFields<entity>, 'status' | 'metadata'> & {
