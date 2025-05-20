@@ -2,10 +2,10 @@ import { COOKIE_NAMES } from '@/constants/cookies';
 import { envConfig } from '@/env';
 import { decodeJWT, verifyJWT } from '@/lib/jwt';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';
-import { type AccessTokenJWTPayload, type Session } from '@/types/auth';
-import { type HonoEnv } from '@/types/hono';
+import type { AccessTokenJWTPayload, Session } from '@/types/auth';
+import type { HonoEnv } from '@/types/hono';
 import { makeError, UnauthorizedError } from '@/utils/errors';
-import { type Context, type Next } from 'hono';
+import type { Context, Next } from 'hono';
 import { getSignedCookie, setSignedCookie } from 'hono/cookie';
 
 export async function authenticationMiddleware(c: Context<HonoEnv>, next: Next) {

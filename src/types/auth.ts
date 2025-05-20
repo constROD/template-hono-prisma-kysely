@@ -1,4 +1,4 @@
-import { type JWTPayload } from '@/lib/jwt';
+import type { JWTPayload } from '@/lib/jwt';
 
 export type Session = {
   email: string;

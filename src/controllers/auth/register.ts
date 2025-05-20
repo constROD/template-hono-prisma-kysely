@@ -1,5 +1,5 @@
 import { registerAuthService } from '@/services/auth/register';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 

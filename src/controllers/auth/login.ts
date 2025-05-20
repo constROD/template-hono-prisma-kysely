@@ -1,7 +1,7 @@
 import { COOKIE_NAMES } from '@/constants/cookies';
 import { envConfig } from '@/env';
 import { loginAuthService } from '@/services/auth/login';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import { setSignedCookie } from 'hono/cookie';

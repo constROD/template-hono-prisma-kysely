@@ -3,8 +3,8 @@ import { userSchemaOpenApi } from '@/data/users/schema';
 import { envConfig } from '@/env';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 import { setSignedCookie } from 'hono/cookie';
 

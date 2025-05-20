@@ -1,7 +1,7 @@
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { NotFoundError } from '@/utils/errors';
 import { sql } from 'kysely';
-import { type UpdateSession } from './schema';
+import type { UpdateSession } from './schema';
 
 export type UpdateSessionDataArgs = {
   dbClient: DbClient;

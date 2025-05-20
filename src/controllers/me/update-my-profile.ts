@@ -1,8 +1,8 @@
 import { userSchema, userSchemaOpenApi } from '@/data/users/schema';
 import { updateUserData } from '@/data/users/update-user';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, type z } from '@hono/zod-openapi';
 
 export const updateMyProfileSchema = {

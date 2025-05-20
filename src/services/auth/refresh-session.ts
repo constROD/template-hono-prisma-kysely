@@ -2,13 +2,13 @@ import { getSessionData } from '@/data/sessions/get-session';
 import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { updateSessionData } from '@/data/sessions/update-session';
 import { getUserData } from '@/data/users/get-user';
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { envConfig } from '@/env';
 import { decodeJWT, generateJWT, verifyJWT } from '@/lib/jwt';
-import {
-  type AccessTokenJWTPayload,
-  type RefreshTokenJWTPayload,
-  type Session,
+import type {
+  AccessTokenJWTPayload,
+  RefreshTokenJWTPayload,
+  Session,
 } from '@/types/auth';
 import { UnauthorizedError } from '@/utils/errors';
 

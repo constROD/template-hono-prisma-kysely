@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type CreateAccount } from './schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { CreateAccount } from './schema';
 
 export type CreateAccountDataArgs = {
   dbClient: DbClient;

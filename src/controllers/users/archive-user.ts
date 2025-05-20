@@ -1,7 +1,7 @@
 import { userSchemaOpenApi } from '@/data/users/schema';
 import { updateUserData } from '@/data/users/update-user';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 import { sql } from 'kysely';
 

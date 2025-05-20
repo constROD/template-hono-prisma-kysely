@@ -1,4 +1,4 @@
-import { type HonoEnv } from '@/types/hono';
+import type { HonoEnv } from '@/types/hono';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { getFeatureFlagRoute, getFeatureFlagRouteHandler } from './get-feature-flag';
 

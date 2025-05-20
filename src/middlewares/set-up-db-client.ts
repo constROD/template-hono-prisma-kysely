@@ -1,6 +1,6 @@
 import { createDbClient } from '@/db/create-db-client';
-import { type HonoEnv } from '@/types/hono';
-import { type Context, type Next } from 'hono';
+import type { HonoEnv } from '@/types/hono';
+import type { Context, Next } from 'hono';
 
 const dbClient = createDbClient();
 

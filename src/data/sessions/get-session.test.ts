@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type Account, type Session } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { Account, Session } from '@/db/schema';
 import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { describe, expect } from 'vitest';

@@ -1,5 +1,5 @@
 import { getServerDateTimeData } from '@/data/server/get-server-date-time';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const getServerDateTimeSchema = {

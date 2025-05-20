@@ -1,4 +1,4 @@
-import { type Account } from '@/db/schema';
+import type { Account } from '@/db/schema';
 import { z } from '@hono/zod-openapi';
 
 export const accountSchemaObject = {

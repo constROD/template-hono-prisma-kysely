@@ -1,7 +1,7 @@
 import { createUserData } from '@/data/users/create-user';
 import { userSchema, userSchemaOpenApi } from '@/data/users/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { NotFoundError } from '@/utils/errors';
 import { createRoute, type z } from '@hono/zod-openapi';
 

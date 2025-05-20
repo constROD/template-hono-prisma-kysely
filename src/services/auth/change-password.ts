@@ -1,8 +1,8 @@
 import { getAccountData } from '@/data/accounts/get-account';
 import { updateAccountData } from '@/data/accounts/update-account';
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { compareTextToHashedText, hashText } from '@/lib/bcrypt';
-import { type Session } from '@/types/auth';
+import type { Session } from '@/types/auth';
 import { BadRequestError } from '@/utils/errors';
 
 export type ChangePasswordAuthServiceDependencies = {

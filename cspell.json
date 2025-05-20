@@ -1,7 +1,17 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["datetime", "Hono", "ilike", "Kysely", "Millis", "openapi", "PGADMIN", "pino"],
+  "words": [
+    "datetime",
+    "Hono",
+    "ilike",
+    "Kysely",
+    "Millis",
+    "openapi",
+    "PGADMIN",
+    "pino",
+    "unarchived"
+  ],
   "ignorePaths": [
     "./node_modules",
     "./dist",

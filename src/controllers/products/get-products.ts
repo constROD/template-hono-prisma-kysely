@@ -1,7 +1,7 @@
 import { getProductsData, type GetProductsDataArgs } from '@/data/products/get-products';
 import { productSchemaFields, productSchemaOpenApi } from '@/data/products/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 

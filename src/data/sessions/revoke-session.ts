@@ -1,4 +1,4 @@
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 
 export type RevokeSessionDataArgs = {
   dbClient: DbClient;

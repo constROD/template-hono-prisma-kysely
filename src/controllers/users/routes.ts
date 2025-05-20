@@ -1,4 +1,4 @@
-import { type HonoEnv } from '@/types/hono';
+import type { HonoEnv } from '@/types/hono';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { archiveUserRoute, archiveUserRouteHandler } from './archive-user';
 import { createUserRoute, createUserRouteHandler } from './create-user';

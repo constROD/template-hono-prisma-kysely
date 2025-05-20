@@ -1,4 +1,4 @@
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({ createDbClient: {} as DbClient }));

@@ -1,8 +1,8 @@
 import { COOKIE_NAMES } from '@/constants/cookies';
 import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 import { deleteCookie } from 'hono/cookie';
 

@@ -1,4 +1,4 @@
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { BadRequestError } from '@/utils/errors';
 
 export type GetAccountDataArgs = {

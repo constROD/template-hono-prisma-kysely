@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type Account } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { Account } from '@/db/schema';
 import { describe, expect } from 'vitest';
 import { testWithDbClient } from '../__test-utils__/test-with-db-client';
 import {

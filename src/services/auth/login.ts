@@ -1,11 +1,11 @@
 import { getAccountData } from '@/data/accounts/get-account';
 import { createSessionData } from '@/data/sessions/create-session';
 import { revokeSessionData } from '@/data/sessions/revoke-session';
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { envConfig } from '@/env';
 import { compareTextToHashedText } from '@/lib/bcrypt';
 import { generateJWT } from '@/lib/jwt';
-import { type AccessTokenJWTPayload, type RefreshTokenJWTPayload } from '@/types/auth';
+import type { AccessTokenJWTPayload, RefreshTokenJWTPayload } from '@/types/auth';
 import { BadRequestError } from '@/utils/errors';
 
 export type LoginAuthServiceDependencies = {

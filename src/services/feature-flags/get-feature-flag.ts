@@ -1,7 +1,7 @@
 import { getFeatureFlagData } from '@/data/feature-flags/get-feature-flag';
 import { getUserData } from '@/data/users/get-user';
-import { type DbClient } from '@/db/create-db-client';
-import { type Session } from '@/types/auth';
+import type { DbClient } from '@/db/create-db-client';
+import type { Session } from '@/types/auth';
 
 export type GetFeatureFlagServiceDependencies = {
   getUserData: typeof getUserData;

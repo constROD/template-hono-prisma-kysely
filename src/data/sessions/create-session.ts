@@ -1,6 +1,6 @@
-import { type DbClient } from '@/db/create-db-client';
+import type { DbClient } from '@/db/create-db-client';
 import { BadRequestError } from '@/utils/errors';
-import { type CreateSession } from './schema';
+import type { CreateSession } from './schema';
 
 export type CreateSessionDataArgs = {
   dbClient: DbClient;

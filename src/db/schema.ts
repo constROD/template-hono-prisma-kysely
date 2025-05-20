@@ -1,11 +1,11 @@
-import {
-  type accounts,
-  type DB,
-  type feature_flags,
-  type products,
-  type sessions,
-  type UserRoleType,
-  type users,
+import type {
+  accounts,
+  DB,
+  feature_flags,
+  products,
+  sessions,
+  UserRoleType,
+  users,
 } from './types';
 
 /**

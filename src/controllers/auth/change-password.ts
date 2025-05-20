@@ -1,7 +1,7 @@
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { changePasswordAuthService } from '@/services/auth/change-password';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
