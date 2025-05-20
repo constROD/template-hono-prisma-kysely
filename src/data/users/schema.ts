@@ -1,4 +1,4 @@
-import { type User } from '@/db/schema';
+import type { User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { emailSchema } from '@/utils/zod-schemas';
 import { z } from '@hono/zod-openapi';

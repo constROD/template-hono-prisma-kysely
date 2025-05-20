@@ -1,8 +1,8 @@
 import { getUserData } from '@/data/users/get-user';
 import { userSchemaOpenApi } from '@/data/users/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, type z } from '@hono/zod-openapi';
 
 export const getMyProfileSchema = {

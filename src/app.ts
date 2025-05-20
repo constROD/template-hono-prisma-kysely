@@ -9,7 +9,7 @@ import { schemas } from './data/schema';
 import { envConfig } from './env';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
-import { type HonoEnv } from './types/hono';
+import type { HonoEnv } from './types/hono';
 import { pinoLogger } from './utils/logger';
 
 const app = new OpenAPIHono<HonoEnv>();

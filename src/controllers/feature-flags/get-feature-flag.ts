@@ -1,8 +1,8 @@
 import { featureFlagSchemaOpenApi } from '@/data/feature-flags/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import { getFeatureFlagService } from '@/services/feature-flags/get-feature-flag';
-import { type Session } from '@/types/auth';
-import { type AppRouteHandler } from '@/types/hono';
+import type { Session } from '@/types/auth';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, type z } from '@hono/zod-openapi';
 
 export const getFeatureFlagSchema = {

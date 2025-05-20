@@ -1,7 +1,7 @@
 import { productSchema } from '@/data/products/schema';
-import { type SearchProductsDataResponse } from '@/data/products/search-products';
+import type { SearchProductsDataResponse } from '@/data/products/search-products';
 import { userSchema } from '@/data/users/schema';
-import { type z } from 'zod';
+import type { z } from 'zod';
 
 export const getProductsWithUserDTOSchema = productSchema.omit({ user_id: true }).extend({
   user: userSchema,

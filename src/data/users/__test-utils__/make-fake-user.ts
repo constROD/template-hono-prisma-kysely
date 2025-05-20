@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type User } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { User } from '@/db/schema';
 import { UserRoleType } from '@/db/types';
 import { faker } from '@faker-js/faker';
 

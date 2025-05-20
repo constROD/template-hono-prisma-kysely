@@ -1,8 +1,8 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type UserRoleType } from '@/db/types';
+import type { DbClient } from '@/db/create-db-client';
+import type { UserRoleType } from '@/db/types';
 import { BadRequestError, NotFoundError } from '@/utils/errors';
 import { sql } from 'kysely';
-import { type UpdateFeatureFlag } from './schema';
+import type { UpdateFeatureFlag } from './schema';
 
 export type UpdateFeatureFlagDataArgs = {
   dbClient: DbClient;

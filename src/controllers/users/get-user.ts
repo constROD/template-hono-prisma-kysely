@@ -1,6 +1,6 @@
 import { getUserData } from '@/data/users/get-user';
 import { userSchemaOpenApi } from '@/data/users/schema';
-import { type AppRouteHandler } from '@/types/hono';
+import type { AppRouteHandler } from '@/types/hono';
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const getUserSchema = {

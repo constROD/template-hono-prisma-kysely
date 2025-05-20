@@ -1,5 +1,5 @@
 import { createTestDbClient, type DbClient } from '@/db/create-db-client';
-import { type KyselySchema } from '@/db/schema';
+import type { KyselySchema } from '@/db/schema';
 import type { Transaction } from 'kysely';
 import { test } from 'vitest';
 

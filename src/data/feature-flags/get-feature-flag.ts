@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type UserRoleType } from '@/db/types';
+import type { DbClient } from '@/db/create-db-client';
+import type { UserRoleType } from '@/db/types';
 import { NotFoundError } from '@/utils/errors';
 
 export type GetFeatureFlagDataArgs = {

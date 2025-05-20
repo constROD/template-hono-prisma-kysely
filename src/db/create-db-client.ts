@@ -3,7 +3,7 @@ import { ForbiddenError } from '@/utils/errors';
 import { Kysely, PostgresDialect } from 'kysely';
 import pg from 'pg';
 
-import { type KyselySchema } from './schema';
+import type { KyselySchema } from './schema';
 
 export function createDbClient() {
   if (isTest())
