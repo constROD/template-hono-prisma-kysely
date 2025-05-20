@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type Product, type User } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { Product, User } from '@/db/schema';
 import { BadRequestError } from '@/utils/errors';
 import { makeDefaultDataListReturn } from '../make-default-list-return';
 import { userSchemaFields } from '../users/schema';

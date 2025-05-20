@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type User } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { User } from '@/db/schema';
 import { makeDefaultDataListReturn } from '../make-default-list-return';
 
 export type GetUsersDataArgs = {

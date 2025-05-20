@@ -6,7 +6,7 @@ import {
   Role,
   ServicePrincipal,
 } from 'aws-cdk-lib/aws-iam';
-import { type StackContext } from 'sst/constructs';
+import type { StackContext } from 'sst/constructs';
 
 export function DefaultLambdaRoleStack(context: StackContext) {
   const defaultPolicy = new PolicyStatement({

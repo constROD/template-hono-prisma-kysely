@@ -9,8 +9,9 @@
     "Kysely",
     "Millis",
     "openapi",
+    "PGADMIN",
     "pino",
-    "PGADMIN"
+    "unarchived"
   ],
   "ignorePaths": [
     "./node_modules",

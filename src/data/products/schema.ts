@@ -1,4 +1,4 @@
-import { type Product } from '@/db/schema';
+import type { Product } from '@/db/schema';
 import { z } from '@hono/zod-openapi';
 
 export const productSchemaObject = {

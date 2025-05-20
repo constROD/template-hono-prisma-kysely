@@ -1,4 +1,4 @@
-import { type DB, type UserRoleType, type feature_flags, type products, type users } from './types';
+import type { DB, UserRoleType, feature_flags, products, users } from './types';
 
 /**
  * Utility type to override specific field types from database tables:

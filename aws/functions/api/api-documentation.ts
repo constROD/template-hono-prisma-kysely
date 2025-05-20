@@ -1,7 +1,7 @@
 import { routes } from '@/controllers/routes';
 import { schemas } from '@/data/schema';
 import { envConfig } from '@/env';
-import { type HonoEnv } from '@/types/hono';
+import type { HonoEnv } from '@/types/hono';
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { apiReference } from '@scalar/hono-api-reference';

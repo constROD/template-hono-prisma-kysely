@@ -1,5 +1,5 @@
-import { type DbClient } from '@/db/create-db-client';
-import { type Product } from '@/db/schema';
+import type { DbClient } from '@/db/create-db-client';
+import type { Product } from '@/db/schema';
 import { faker } from '@faker-js/faker';
 
 export function makeFakeProduct(overrides?: Partial<Product>) {

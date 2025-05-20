@@ -1,5 +1,5 @@
-import { type Session } from '@/types/auth';
-import { type OpenAPIHono } from '@hono/zod-openapi';
+import type { Session } from '@/types/auth';
+import type { OpenAPIHono } from '@hono/zod-openapi';
 import { vi } from 'vitest';
 
 let capturedHandler: (c: typeof mockHonoContext) => Promise<unknown>;
