@@ -23,6 +23,9 @@
 - `camelCase` - for functions, zod schemas and etc.
 
 ## Miscellaneous Folders
+- `docs` - for any to-do plan workflows or documentation
+- `prompts` - for prompts format
+- `rules` - for standards or rules of the repo
 - `.husky` - for husky configuration
 - `volumes` - for docker container volume
 - `cli` - for cli automation scripts (e.g. seeders, migrations, etc.)
