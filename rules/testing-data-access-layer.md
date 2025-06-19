@@ -1,6 +1,6 @@
 ---
 description: 
-globs: 
+globs: **/data/**/*.test.ts,**/_data/**/*.test.ts
 alwaysApply: false
 ---
 # Guidelines for Testing the Data Access Layer

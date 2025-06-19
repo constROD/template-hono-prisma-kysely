@@ -6,7 +6,8 @@ This is an opinionated, robust template for backend development either for serve
 
 ## Rules
 
-Please read the repo's **Project Structure & Code Organization** here [README.project-structure.md](./README.project-structure.md)
+- Please read the repo's **Project Structure & Code Organization** here [README.project-structure.md](./README.project-structure.md)
+- For the coding standards, please read the rules in this folder [rules](./rules)
 
 ## Clone
 
