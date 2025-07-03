@@ -54,6 +54,7 @@
 ## Files
 - `src/app.ts` - main entry point
 - `src/env.ts` - for environment variables
+- `src/server.ts` - for standalone server
 
 ## Shared Modules Structure
 Shared modules follow this structure:

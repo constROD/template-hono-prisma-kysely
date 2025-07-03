@@ -9,10 +9,6 @@
     {
       "name": "Rodrick Alcantara",
       "url": "https://github.com/constROD"
-    },
-    {
-      "name": "Mark Gabrielle Recoco Cay",
-      "url": "https://github.com/MarkCay"
     }
   ],
   "description": "Template Hono Prisma Kysely",
@@ -20,7 +16,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch ./src/app.ts",
+    "dev": "tsx watch ./src/server.ts",
     "clean": "rm -rf ./dist",
     "build": "tsup",
     "start": "node ./dist/app.js",
