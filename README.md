@@ -31,10 +31,10 @@ For a setup integrated with Serverless Stack (SST) v2 - AWS Provider:
 npx degit constROD/template-hono-prisma-kysely#with-sst-v2
 ```
 
-### 3. With Cloudflare Wrangler (Cloudflare Provider)
+### 3. With Wrangler (Cloudflare Provider)
 
-Branch: [with-cloudflare](https://github.com/constROD/template-hono-prisma-kysely/tree/with-cloudflare)
-For a setup integrated with Wrangler for Cloudflare - Cloudflare Provider:
+Branch: [with-cloudflare](https://github.com/constROD/template-hono-prisma-kysely/tree/with-wrangler)
+For a setup integrated with Wrangler - Cloudflare Provider:
 
 ```bash
 npx degit constROD/template-hono-prisma-kysely#with-cloudflare
