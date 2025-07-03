@@ -1,4 +1,4 @@
-# Template Hono Prisma Kysely with Cloudflare by bossROD
+# Template Hono Prisma Kysely with Wrangler by bossROD
 
 ## Description
 
@@ -14,7 +14,7 @@ This is a robust template for backend development either for serverless or non-s
 Choose the approach that best fits your needs:
 
 ```bash
-npx degit constROD/template-hono-prisma-kysely#with-cloudflare
+npx degit constROD/template-hono-prisma-kysely#with-wrangler
 ```
 
 ## Prerequisites
