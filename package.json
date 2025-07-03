@@ -19,7 +19,7 @@
     "dev": "tsx watch ./src/server.ts",
     "clean": "rm -rf ./dist",
     "build": "tsup",
-    "start": "node ./dist/app.js",
+    "start": "node ./dist/server.js",
     "db:start": "docker compose -f ./docker-compose-db.yaml up -d",
     "db:stop": "docker compose -f ./docker-compose-db.yaml down",
     "db:migrate": "tsx ./cli/db-migrate.ts",
