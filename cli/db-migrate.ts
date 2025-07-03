@@ -5,13 +5,13 @@ import { parseArguments } from './utils/parse-arguments';
 
 const args = parseArguments(process.argv);
 
-const db = args.get('db') as 'core' | 'test' | undefined;
+const dbArg = args.get('db') as 'core' | 'test' | undefined;
 
 function run() {
-  const dbUrl = envConfig.DB_URL;
-  const testDbUrl = envConfig.TEST_DB_URL;
+  const dbUrl = envConfig.DB_MIGRATION_URL;
+  const testDbUrl = envConfig.TEST_DB_MIGRATION_URL;
 
-  if (!db) {
+  if (!dbArg) {
     cliLogger.info(`Running migration on CORE database with STAGE of ${envConfig.STAGE}...`);
     runApplyDbMigration({ databaseUrl: dbUrl });
 
@@ -19,12 +19,12 @@ function run() {
     runApplyDbMigration({ databaseUrl: testDbUrl });
   }
 
-  if (db === 'core') {
+  if (dbArg === 'core') {
     cliLogger.info(`Running migration on CORE database with STAGE of ${envConfig.STAGE}...`);
     runApplyDbMigration({ databaseUrl: dbUrl });
   }
 
-  if (db === 'test') {
+  if (dbArg === 'test') {
     cliLogger.info(`Running migration on TEST database with STAGE of ${envConfig.STAGE}...`);
     runApplyDbMigration({ databaseUrl: testDbUrl });
   }
