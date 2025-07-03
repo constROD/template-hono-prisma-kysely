@@ -13,6 +13,8 @@ const envSchema = z.object({
   STAGE: z.nativeEnum(STAGES).default(STAGES.Dev),
   DB_URL: z.string(),
   TEST_DB_URL: z.string(),
+  DB_MIGRATION_URL: z.string(),
+  TEST_DB_MIGRATION_URL: z.string(),
 });
 
 export const envConfig = envSchema.parse({
@@ -20,6 +22,8 @@ export const envConfig = envSchema.parse({
   STAGE: process.env.STAGE,
   DB_URL: process.env.DB_URL,
   TEST_DB_URL: process.env.TEST_DB_URL,
+  DB_MIGRATION_URL: process.env.DB_MIGRATION_URL,
+  TEST_DB_MIGRATION_URL: process.env.TEST_DB_MIGRATION_URL,
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
