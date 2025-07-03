@@ -28,6 +28,9 @@ alwaysApply: true
 - `camelCase` - for functions, zod schemas and etc.
 
 ## Miscellaneous Folders
+- `docs` - for any to-do plan workflows or documentation
+- `prompts` - for prompts format
+- `rules` - for standards or rules of the repo
 - `.husky` - for husky configuration
 - `volumes` - for docker container volume
 - `cli` - for cli automation scripts (e.g. seeders, migrations, etc.)
@@ -54,8 +57,9 @@ alwaysApply: true
 - `src/features` - main features folder **(Only if necessary)**
 
 ## Files
-- `src/app.ts` - main entry point
 - `src/env.ts` - for environment variables
+- `src/app.ts` - main entry point 
+- `src/server.ts` - for standalone server 
 
 ## Shared Modules Structure
 Shared modules follow this structure:
