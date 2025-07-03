@@ -8,7 +8,10 @@ export const getUserSchema = {
     user_id: z
       .string()
       .uuid()
-      .openapi({ param: { name: 'user_id', in: 'path' }, example: crypto.randomUUID() }),
+      .openapi({
+        param: { name: 'user_id', in: 'path' },
+        example: '123e4567-e89b-12d3-a456-426614174000',
+      }),
   }),
   response: userSchemaOpenApi,
 };
