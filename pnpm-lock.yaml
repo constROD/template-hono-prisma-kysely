@@ -72,9 +72,6 @@ importers:
       '@faker-js/faker':
         specifier: ^9.2.0
         version: 9.9.0
-      '@types/bcryptjs':
-        specifier: ^3.0.0
-        version: 3.0.0
       '@types/jsonwebtoken':
         specifier: ^9.0.8
         version: 9.0.10
@@ -145,8 +142,8 @@ importers:
         specifier: ^2.1.4
         version: 2.1.9(@types/node@20.19.4)
       wrangler:
-        specifier: ^4.22.0
-        version: 4.22.0(@cloudflare/workers-types@4.20250703.0)
+        specifier: ^4.23.0
+        version: 4.23.0(@cloudflare/workers-types@4.20250703.0)
 
 packages:
 
@@ -1365,10 +1362,6 @@ packages:
   '@scalar/types@0.0.40':
     resolution: {integrity: sha512-0J6o+yZzgZEvl3KhvLTAGiXXyrCeEPKvs9gUWQDf1Rb5NfFxF0lA10ougCQCwVJIguWNEzZfOUiSoAFzGy2EqQ==}
     engines: {node: '>=18'}
-
-  '@types/bcryptjs@3.0.0':
-    resolution: {integrity: sha512-WRZOuCuaz8UcZZE4R5HXTco2goQSI2XxjGY3hbM/xDvwmqFWd4ivooImsMx65OKM6CtNKbnZ5YL+YwAwK7c1dg==}
-    deprecated: This is a stub types definition. bcryptjs provides its own type definitions, so you do not need this installed.
 
   '@types/conventional-commits-parser@5.0.1':
     resolution: {integrity: sha512-7uz5EHdzz2TqoMfV7ee61Egf5y6NkcO4FB/1iCCQnbeiI1F3xzv3vK5dBCXUCLQgGYS+mUeigK1iKQzvED+QnQ==}
@@ -2750,8 +2743,8 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  miniflare@4.20250617.4:
-    resolution: {integrity: sha512-IAoApFKxOJlaaFkym5ETstVX3qWzVt3xyqCDj6vSSTgEH3zxZJ5417jZGg8iQfMHosKCcQH1doPPqqnOZm/yrw==}
+  miniflare@4.20250617.5:
+    resolution: {integrity: sha512-Qqn30jR6dCjXaKVizT6vH4KOb+GyLccoxLNOJEfu63yBPn8eoXa7PrdiSGTmjs2RY8/tr7eTO8Wu/Yr14k0xVA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -3778,8 +3771,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@4.22.0:
-    resolution: {integrity: sha512-m8qVO3YxhUTII+4U889G/f5UuLSvMkUkCNatupV2f/SJ+iqaWtP1QbuQII8bs2J/O4rqxsz46Wu2S50u7tKB5Q==}
+  wrangler@4.23.0:
+    resolution: {integrity: sha512-JSeDt3IwA4TEmg/V3tRblImPjdxynBt9PUVO/acQJ83XGlMMSwswDKL1FuwvbFzgX6+JXc3GMHeu7r8AQIxw9w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -4912,10 +4905,6 @@ snapshots:
       '@scalar/openapi-types': 0.1.9
       '@unhead/schema': 1.11.20
       zod: 3.25.71
-
-  '@types/bcryptjs@3.0.0':
-    dependencies:
-      bcryptjs: 3.0.2
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
@@ -6442,7 +6431,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  miniflare@4.20250617.4:
+  miniflare@4.20250617.5:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
@@ -7470,13 +7459,13 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20250617.0
       '@cloudflare/workerd-windows-64': 1.20250617.0
 
-  wrangler@4.22.0(@cloudflare/workers-types@4.20250703.0):
+  wrangler@4.23.0(@cloudflare/workers-types@4.20250703.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.3.3(unenv@2.0.0-rc.17)(workerd@1.20250617.0)
       blake3-wasm: 2.1.5
       esbuild: 0.25.4
-      miniflare: 4.20250617.4
+      miniflare: 4.20250617.5
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.17
       workerd: 1.20250617.0
