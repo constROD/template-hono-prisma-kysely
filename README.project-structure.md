@@ -57,7 +57,9 @@
 - `src/features` - main features folder. **(Only if necessary)**
 
 ## File(s)
-- `src/env.ts` - for environment variables.
+- `src/env.ts` - for environment variables
+- `src/app.ts` - main entry point **(optional)**
+- `src/server.ts` - for standalone server **(optional)**
 
 ## AWS Folder Structure
 AWS components follow this structure:
