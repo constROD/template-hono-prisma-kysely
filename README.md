@@ -13,7 +13,7 @@ This is an opinionated, robust template for backend development either for serve
 
 Choose the approach that best fits your needs:
 
-### 1. Standard Hono Server
+### 1. Standalone Hono Server
 
 Branch: [main](https://github.com/constROD/template-hono-prisma-kysely)
 For a basic setup using just the Hono server:
@@ -31,7 +31,16 @@ For a setup integrated with Serverless Stack (SST) v2 - AWS Provider:
 npx degit constROD/template-hono-prisma-kysely#with-sst-v2
 ```
 
-### 3. With JWT Auth
+### 3. With Cloudflare Wrangler (Cloudflare Provider)
+
+Branch: [with-cloudflare](https://github.com/constROD/template-hono-prisma-kysely/tree/with-cloudflare)
+For a setup integrated with Wrangler for Cloudflare - Cloudflare Provider:
+
+```bash
+npx degit constROD/template-hono-prisma-kysely#with-cloudflare
+```
+
+### 4. With JWT Auth
 
 Branch: [with-jwt-auth](https://github.com/constROD/template-hono-prisma-kysely/tree/with-jwt-auth)
 For a setup with JWT authentication:
