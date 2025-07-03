@@ -1,8 +1,8 @@
-# Template Hono Prisma Kysely by bossROD
+# Template Hono Prisma Kysely with Cloudflare by bossROD
 
 ## Description
 
-This is an opinionated, robust template for backend development either for serverless or non-serverless using **Node.js** or **SST (Serverless Stack)** with **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
+This is a robust template for backend development either for serverless or non-serverless using **Node.js** or **SST (Serverless Stack)** with **Hono**, **Prisma**, and **Kysely**. The project includes **ESLint**, **Prettier**, **Husky**, and **lint-staged** for code quality and consistency. It also features **Vitest** for testing, **Swagger** and **Scalar** for API documentation, and **Docker** for local database management. The template is set up with **TypeScript** for type safety and uses **pnpm** as the package manager.
 
 ## Rules
 
@@ -13,43 +13,9 @@ This is an opinionated, robust template for backend development either for serve
 
 Choose the approach that best fits your needs:
 
-### 1. Standalone Hono Server
-
-Branch: [main](https://github.com/constROD/template-hono-prisma-kysely)
-For a basic setup using just the Hono server:
-
-```bash
-npx degit constROD/template-hono-prisma-kysely
-```
-
-### 2. With SST v2 (AWS Provider)
-
-Branch: [with-sst-v2](https://github.com/constROD/template-hono-prisma-kysely/tree/with-sst-v2)
-For a setup integrated with Serverless Stack (SST) v2 - AWS Provider:
-
-```bash
-npx degit constROD/template-hono-prisma-kysely#with-sst-v2
-```
-
-### 3. With Cloudflare Wrangler (Cloudflare Provider)
-
-Branch: [with-cloudflare](https://github.com/constROD/template-hono-prisma-kysely/tree/with-cloudflare)
-For a setup integrated with Wrangler for Cloudflare - Cloudflare Provider:
-
 ```bash
 npx degit constROD/template-hono-prisma-kysely#with-cloudflare
 ```
-
-### 4. With JWT Auth
-
-Branch: [with-jwt-auth](https://github.com/constROD/template-hono-prisma-kysely/tree/with-jwt-auth)
-For a setup with JWT authentication:
-
-```bash
-npx degit constROD/template-hono-prisma-kysely#with-jwt-auth
-```
-
-Choose the command that corresponds to your preferred API layer approach.
 
 ## Prerequisites
 
@@ -86,12 +52,12 @@ pnpm dev
 
 **Production Mode:**
 
-- Build the project.
+- Update the secrets.
 ```bash
-pnpm build
+pnpm secrets:<dev | prod>
 ```
 
-- Start the build for production.
+- Deploy to cloudflare.
 ```bash
-pnpm start
+pnpm deploy:<dev | prod>
 ```

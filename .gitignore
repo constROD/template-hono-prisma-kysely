@@ -3,10 +3,12 @@ dist/
 coverage/
 volumes/
 .sst/
+.wrangler/
 
 *-lock.json
 *.lock
 
+.*.vars
 .env
 .env.*
 .env-*

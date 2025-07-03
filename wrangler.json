@@ -1,0 +1,22 @@
+{
+  "name": "template-hono-prisma-kysely-api",
+  "main": "src/workers.ts",
+  "compatibility_date": "2025-06-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "env": {
+    "dev": {
+      "name": "yourdomain-api-dev",
+      "route": {
+        "pattern": "dev-api.yourdomain.com/*",
+        "zone_name": "yourdomain.com"
+      }
+    },
+    "prod": {
+      "name": "yourdomain-api-prod",
+      "route": {
+        "pattern": "api.yourdomain.com/*",
+        "zone_name": "yourdomain.com"
+      }
+    }
+  }
+}

@@ -17,13 +17,14 @@ const envSchema = z.object({
   TEST_DB_MIGRATION_URL: z.string(),
 });
 
-export const envConfig = envSchema.parse({
-  APP_PORT: process.env.APP_PORT,
-  STAGE: process.env.STAGE,
-  DB_URL: process.env.DB_URL,
-  TEST_DB_URL: process.env.TEST_DB_URL,
-  DB_MIGRATION_URL: process.env.DB_MIGRATION_URL,
-  TEST_DB_MIGRATION_URL: process.env.TEST_DB_MIGRATION_URL,
-});
+export const getEnvConfig = () =>
+  envSchema.parse({
+    APP_PORT: process.env.APP_PORT,
+    STAGE: process.env.STAGE,
+    DB_URL: process.env.DB_URL,
+    TEST_DB_URL: process.env.TEST_DB_URL,
+    DB_MIGRATION_URL: process.env.DB_MIGRATION_URL,
+    TEST_DB_MIGRATION_URL: process.env.TEST_DB_MIGRATION_URL,
+  });
 
 export type EnvConfig = z.infer<typeof envSchema>;

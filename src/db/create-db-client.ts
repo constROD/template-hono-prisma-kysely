@@ -1,4 +1,4 @@
-import { envConfig, isTest } from '@/env';
+import { getEnvConfig, isTest } from '@/env';
 import { ForbiddenError } from '@/utils/errors';
 import { Kysely, PostgresDialect } from 'kysely';
 import pg from 'pg';
@@ -11,15 +11,10 @@ export function createDbClient() {
       'createDbClient cannot be used in test environment use createTestDbClient instead.'
     );
 
+  const env = getEnvConfig();
+
   const dbClient = new Kysely<KyselySchema>({
-    dialect: new PostgresDialect({
-      pool: new pg.Pool({
-        connectionString: envConfig.DB_URL,
-        max: 50, // Set maximum <number> of client(s) in the pool
-        connectionTimeoutMillis: 1000, // return an error after <number> second(s) if connection could not be established
-        idleTimeoutMillis: 0, // close idle clients after <number> second(s)
-      }),
-    }),
+    dialect: new PostgresDialect({ pool: new pg.Pool({ connectionString: env.DB_URL }) }),
   });
 
   return dbClient;
@@ -29,15 +24,10 @@ export function createDbClient() {
  * This is a helper function to create a database client for testing purposes only.
  */
 export function createTestDbClient() {
+  const env = getEnvConfig();
+
   const dbClient = new Kysely<KyselySchema>({
-    dialect: new PostgresDialect({
-      pool: new pg.Pool({
-        connectionString: envConfig.TEST_DB_URL,
-        max: 50, // Set maximum <number> of client(s) in the pool
-        connectionTimeoutMillis: 1000, // return an error after <number> second(s) if connection could not be established
-        idleTimeoutMillis: 0, // close idle clients after <number> second(s)
-      }),
-    }),
+    dialect: new PostgresDialect({ pool: new pg.Pool({ connectionString: env.TEST_DB_URL }) }),
   });
 
   return dbClient;

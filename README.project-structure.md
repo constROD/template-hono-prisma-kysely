@@ -8,12 +8,13 @@
 - TypeScript: ^5.x.x
 - Prisma: ^5.x.x
 - Kysely: ^0.27.x
-- Prisma Kysely: ^1.8.x
 - Zod: ^3.x.x
-- PostgreSQL: pg ^8.x.x
-- Testing:
-  - Vitest: ^2.x.x
-  - @vitest/coverage-v8: ^2.x.x
+- Swagger/OpenAPI: Using @hono/swagger-ui and @hono/zod-openapi
+- Node Server: @hono/node-server
+- Dayjs: ^1.x.x
+- Pino: ^9.x.x (for logging)
+- Docker: For containerization and PostgreSQL database
+- Wrangler: ^4.22.x
 
 ## Naming Conventions
 - `kebab-case` - for all folders/files
@@ -53,8 +54,9 @@
 
 ## Files
 - `src/env.ts` - for environment variables
-- `src/app.ts` - main entry point 
-- `src/server.ts` - for standalone server 
+- `src/workers.ts` - for cloudflare workers
+- `src/app.ts` - main entry point **(optional)**
+- `src/server.ts` - for standalone server **(optional)**
 
 ## Shared Modules Structure
 Shared modules follow this structure:
