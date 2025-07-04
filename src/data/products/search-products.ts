@@ -1,7 +1,7 @@
 import type { DbClient } from '@/db/create-db-client';
 import type { Product, User } from '@/db/schema';
 import { BadRequestError } from '@/utils/errors';
-import { makeDefaultDataListReturn } from '../make-default-list-return';
+import { transformToPaginatedResponse } from '../transform-to-paginated-response';
 import { userSchemaFields } from '../users/schema';
 import { productSchemaFields } from './schema';
 
@@ -99,7 +99,7 @@ export async function searchProductsData({
     .select(eb => eb.fn.count('products.id').as('total_records'))
     .executeTakeFirst();
 
-  return makeDefaultDataListReturn({
+  return transformToPaginatedResponse({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
     limit,

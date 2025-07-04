@@ -232,7 +232,7 @@ export async function get[Entity]sData({
     .select(eb => eb.fn.count('id').as('total_records'))
     .executeTakeFirst();
 
-  return makeDefaultDataListReturn({
+  return transformToPaginatedResponse({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
     limit,
@@ -341,7 +341,7 @@ export async function search[Entity]sData({
     .select(eb => eb.fn.count('id').as('total_records'))
     .executeTakeFirst();
 
-  return makeDefaultDataListReturn({
+  return transformToPaginatedResponse({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
     limit,
