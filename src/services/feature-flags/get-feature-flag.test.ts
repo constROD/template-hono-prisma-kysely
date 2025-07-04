@@ -7,12 +7,15 @@ import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getFeatureFlagService } from './get-feature-flag';
 
+const { dbClient } = mockDbClient;
+
 const mockDependencies = {
   getUserData: vi.fn(),
   getFeatureFlagData: vi.fn(),
 };
 
 const mockUser = makeFakeUser({
+  id: '123',
   email: 'test@example.com',
   role: UserRoleType.USER,
   first_name: 'Test',
@@ -39,18 +42,18 @@ describe('getFeatureFlagService', () => {
     mockDependencies.getFeatureFlagData.mockResolvedValue(mockFeatureFlag);
 
     const result = await getFeatureFlagService({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       payload,
       dependencies: mockDependencies,
     });
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       id: payload.session.id,
     });
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       role: mockUser.role,
     });
 
@@ -66,14 +69,14 @@ describe('getFeatureFlagService', () => {
 
     await expect(
       getFeatureFlagService({
-        dbClient: mockDbClient.dbClient,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new NotFoundError('User not found.'));
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       id: payload.session.id,
     });
 
@@ -92,19 +95,19 @@ describe('getFeatureFlagService', () => {
 
     await expect(
       getFeatureFlagService({
-        dbClient: mockDbClient.dbClient,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new NotFoundError('Feature flag not found.'));
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       id: payload.session.id,
     });
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       role: mockUser.role,
     });
   });

@@ -74,7 +74,7 @@ export async function getFeatureFlagService({
 }: GetFeatureFlagServiceArgs) {
   const userData = await dependencies.getUserData({
     dbClient,
-    id: payload.session.id,
+    id: payload.session.accountId,
   });
 
   const featureFlagData = await dependencies.getFeatureFlagData({
@@ -98,6 +98,8 @@ import { NotFoundError } from '@/utils/errors';
 import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getFeatureFlagService } from './get-feature-flag';
+
+const { dbClient, dbClientTransaction } = mockDbClient;
 
 const mockDependencies = {
   getUserData: vi.fn(),
@@ -131,18 +133,18 @@ describe('getFeatureFlagService', () => {
     mockDependencies.getFeatureFlagData.mockResolvedValue(mockFeatureFlag);
 
     const result = await getFeatureFlagService({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       payload,
       dependencies: mockDependencies,
     });
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
-      id: payload.session.id,
+      dbClient,
+      id: payload.session.accountId,
     });
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       role: mockUser.role,
     });
 
@@ -158,15 +160,15 @@ describe('getFeatureFlagService', () => {
 
     await expect(
       getFeatureFlagService({
-        dbClient: mockDbClient.dbClient,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new NotFoundError('User not found.'));
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
-      id: payload.session.id,
+      dbClient,
+      id: payload.session.accountId,
     });
 
     expect(mockDependencies.getFeatureFlagData).not.toHaveBeenCalled();
@@ -184,19 +186,19 @@ describe('getFeatureFlagService', () => {
 
     await expect(
       getFeatureFlagService({
-        dbClient: mockDbClient.dbClient,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new NotFoundError('Feature flag not found.'));
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
-      id: payload.session.id,
+      dbClient,
+      id: payload.session.accountId,
     });
 
     expect(mockDependencies.getFeatureFlagData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       role: mockUser.role,
     });
   });
