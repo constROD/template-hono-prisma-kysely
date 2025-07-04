@@ -1,6 +1,6 @@
 import type { DbClient } from '@/db/create-db-client';
 import type { Product } from '@/db/schema';
-import { makeDefaultDataListReturn } from '../make-default-list-return';
+import { transformToPaginatedResponse } from '../transform-to-paginated-response';
 
 export type GetProductsDataArgs = {
   dbClient: DbClient;
@@ -36,7 +36,7 @@ export async function getProductsData({
     .select(eb => eb.fn.count('id').as('total_records'))
     .executeTakeFirst();
 
-  return makeDefaultDataListReturn({
+  return transformToPaginatedResponse({
     records,
     totalRecords: Number(allRecords?.total_records) ?? 0,
     limit,

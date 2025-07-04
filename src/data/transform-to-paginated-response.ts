@@ -1,18 +1,18 @@
 import { BadRequestError } from '@/utils/errors';
 
-export type MakeDefaultDataListReturnArgs<TRecords> = {
+export type TransformToPaginatedResponseArgs<TRecords> = {
   records: TRecords[];
   totalRecords: number;
   limit: number;
   page: number;
 };
 
-export function makeDefaultDataListReturn<TRecords>({
+export function transformToPaginatedResponse<TRecords>({
   records,
   totalRecords,
   limit,
   page,
-}: MakeDefaultDataListReturnArgs<TRecords>) {
+}: TransformToPaginatedResponseArgs<TRecords>) {
   if (limit <= 0 || page <= 0) throw new BadRequestError('Limit and page must be greater than 0');
 
   const totalPages = Math.ceil(totalRecords / limit);

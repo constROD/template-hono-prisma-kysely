@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import {
-  makeDefaultDataListReturn,
-  type MakeDefaultDataListReturnArgs,
-} from './make-default-list-return';
+  transformToPaginatedResponse,
+  type TransformToPaginatedResponseArgs,
+} from './transform-to-paginated-response';
 
-describe('makeDefaultDataListReturn', () => {
+describe('transformToPaginatedResponse', () => {
   it('should return correct values for a single page of results', () => {
-    const input: MakeDefaultDataListReturnArgs<string> = {
+    const input: TransformToPaginatedResponseArgs<string> = {
       records: ['a', 'b', 'c'],
       totalRecords: 3,
       limit: 10,
       page: 1,
     };
 
-    const result = makeDefaultDataListReturn(input);
+    const result = transformToPaginatedResponse(input);
 
     expect(result).toEqual({
       records: ['a', 'b', 'c'],
@@ -26,14 +26,14 @@ describe('makeDefaultDataListReturn', () => {
   });
 
   it('should handle multiple pages correctly', () => {
-    const input: MakeDefaultDataListReturnArgs<number> = {
+    const input: TransformToPaginatedResponseArgs<number> = {
       records: [1, 2, 3, 4, 5],
       totalRecords: 15,
       limit: 5,
       page: 2,
     };
 
-    const result = makeDefaultDataListReturn(input);
+    const result = transformToPaginatedResponse(input);
 
     expect(result).toEqual({
       records: [1, 2, 3, 4, 5],
@@ -46,14 +46,14 @@ describe('makeDefaultDataListReturn', () => {
   });
 
   it('should handle the last page correctly', () => {
-    const input: MakeDefaultDataListReturnArgs<number> = {
+    const input: TransformToPaginatedResponseArgs<number> = {
       records: [11, 12],
       totalRecords: 12,
       limit: 5,
       page: 3,
     };
 
-    const result = makeDefaultDataListReturn(input);
+    const result = transformToPaginatedResponse(input);
 
     expect(result).toEqual({
       records: [11, 12],
@@ -66,14 +66,14 @@ describe('makeDefaultDataListReturn', () => {
   });
 
   it('should handle empty records', () => {
-    const input: MakeDefaultDataListReturnArgs<unknown> = {
+    const input: TransformToPaginatedResponseArgs<unknown> = {
       records: [],
       totalRecords: 0,
       limit: 10,
       page: 1,
     };
 
-    const result = makeDefaultDataListReturn(input);
+    const result = transformToPaginatedResponse(input);
 
     expect(result).toEqual({
       records: [],
@@ -86,24 +86,28 @@ describe('makeDefaultDataListReturn', () => {
   });
 
   it('should throw an error if limit is less than 1', () => {
-    const input: MakeDefaultDataListReturnArgs<number> = {
+    const input: TransformToPaginatedResponseArgs<number> = {
       records: [],
       totalRecords: 0,
       limit: 0,
       page: 1,
     };
 
-    expect(() => makeDefaultDataListReturn(input)).toThrow('Limit and page must be greater than 0');
+    expect(() => transformToPaginatedResponse(input)).toThrow(
+      'Limit and page must be greater than 0'
+    );
   });
 
   it('should throw an error if page is less than 1', () => {
-    const input: MakeDefaultDataListReturnArgs<number> = {
+    const input: TransformToPaginatedResponseArgs<number> = {
       records: [],
       totalRecords: 0,
       limit: 10,
       page: 0,
     };
 
-    expect(() => makeDefaultDataListReturn(input)).toThrow('Limit and page must be greater than 0');
+    expect(() => transformToPaginatedResponse(input)).toThrow(
+      'Limit and page must be greater than 0'
+    );
   });
 });
