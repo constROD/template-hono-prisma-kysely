@@ -17,6 +17,8 @@ const mockExistingAccount = {
   password: 'hashedPassword123',
 };
 
+const { dbClient } = mockDbClient;
+
 describe('changePasswordAuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -35,7 +37,7 @@ describe('changePasswordAuthService', () => {
     mockDependencies.updateAccountData.mockResolvedValue({ ...mockExistingAccount });
 
     await changePasswordAuthService({
-      dbClient: mockDbClient.dbClientTransaction,
+      dbClient,
       payload,
       dependencies: mockDependencies,
     });
@@ -74,7 +76,7 @@ describe('changePasswordAuthService', () => {
 
     await expect(
       changePasswordAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
@@ -96,7 +98,7 @@ describe('changePasswordAuthService', () => {
 
     await expect(
       changePasswordAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })

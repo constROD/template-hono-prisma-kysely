@@ -32,34 +32,32 @@ export async function changePasswordAuthService({
     compareTextToHashedText,
   },
 }: ChangePasswordAuthServiceArgs) {
-  await dbClient.transaction().execute(async dbClientTrx => {
-    const existingAccount = await dependencies.getAccountData({
-      dbClient: dbClientTrx,
-      id: payload.session.accountId,
-    });
+  const existingAccount = await dependencies.getAccountData({
+    dbClient,
+    id: payload.session.accountId,
+  });
 
-    if (!existingAccount) {
-      throw new BadRequestError('Account not found.');
-    }
+  if (!existingAccount) {
+    throw new BadRequestError('Account not found.');
+  }
 
-    const isCurrentPasswordValid = dependencies.compareTextToHashedText({
-      text: payload.currentPassword,
-      hashedText: existingAccount.password,
-    });
+  const isCurrentPasswordValid = dependencies.compareTextToHashedText({
+    text: payload.currentPassword,
+    hashedText: existingAccount.password,
+  });
 
-    if (!isCurrentPasswordValid) {
-      throw new BadRequestError('Current password is incorrect.');
-    }
+  if (!isCurrentPasswordValid) {
+    throw new BadRequestError('Current password is incorrect.');
+  }
 
-    const hashedNewPassword = dependencies.hashText({ text: payload.newPassword });
+  const hashedNewPassword = dependencies.hashText({ text: payload.newPassword });
 
-    await dependencies.updateAccountData({
-      dbClient: dbClientTrx,
-      id: existingAccount.id,
-      values: {
-        password: hashedNewPassword,
-      },
-    });
+  await dependencies.updateAccountData({
+    dbClient,
+    id: existingAccount.id,
+    values: {
+      password: hashedNewPassword,
+    },
   });
 }
 

@@ -4,6 +4,8 @@ import { BadRequestError } from '@/utils/errors';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { registerAuthService } from './register';
 
+const { dbClient, dbClientTransaction } = mockDbClient;
+
 const mockDependencies = {
   getAccountData: vi.fn(),
   createAccountData: vi.fn(),
@@ -36,20 +38,20 @@ describe('registerAuthService', () => {
     mockDependencies.createUserData.mockResolvedValue({});
 
     await registerAuthService({
-      dbClient: mockDbClient.dbClientTransaction,
+      dbClient: dbClientTransaction,
       payload,
       dependencies: mockDependencies,
     });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       email: payload.email,
     });
 
     expect(mockDependencies.hashText).toHaveBeenCalledWith({ text: payload.password });
 
     expect(mockDependencies.createAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       values: {
         email: payload.email,
         password: hashedPassword,
@@ -57,7 +59,7 @@ describe('registerAuthService', () => {
     });
 
     expect(mockDependencies.createUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       values: {
         id: createdAccount.id,
         email: createdAccount.email,
@@ -81,7 +83,7 @@ describe('registerAuthService', () => {
 
     await expect(
       registerAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient: dbClientTransaction,
         payload,
         dependencies: mockDependencies,
       })
@@ -109,13 +111,13 @@ describe('registerAuthService', () => {
     mockDependencies.createUserData.mockResolvedValue({});
 
     await registerAuthService({
-      dbClient: mockDbClient.dbClientTransaction,
+      dbClient: dbClientTransaction,
       payload,
       dependencies: mockDependencies,
     });
 
     expect(mockDependencies.createUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       values: {
         id: createdAccount.id,
         email: createdAccount.email,

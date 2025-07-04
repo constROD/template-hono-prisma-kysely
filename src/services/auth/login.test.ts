@@ -23,6 +23,8 @@ const mockSession = {
   account_id: '123',
 };
 
+const { dbClient, dbClientTransaction } = mockDbClient;
+
 describe('loginAuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -41,7 +43,7 @@ describe('loginAuthService', () => {
     mockDependencies.generateJWT.mockReturnValueOnce('accessToken123');
 
     const result = await loginAuthService({
-      dbClient: mockDbClient.dbClientTransaction,
+      dbClient: dbClientTransaction,
       payload,
       dependencies: mockDependencies,
     });
@@ -52,7 +54,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       email: payload.email,
     });
 
@@ -62,7 +64,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.revokeSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       accountId: mockExistingAccount.id,
     });
 
@@ -79,7 +81,7 @@ describe('loginAuthService', () => {
     });
 
     expect(mockDependencies.createSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       values: { refresh_token: 'refreshToken123', account_id: mockExistingAccount.id },
     });
 
@@ -108,14 +110,14 @@ describe('loginAuthService', () => {
 
     await expect(
       loginAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient: dbClientTransaction,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new BadRequestError('Account does not exist.'));
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       email: payload.email,
     });
 
@@ -136,14 +138,14 @@ describe('loginAuthService', () => {
 
     await expect(
       loginAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient: dbClientTransaction,
         payload,
         dependencies: mockDependencies,
       })
     ).rejects.toThrow(new BadRequestError('Invalid credentials.'));
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       email: payload.email,
     });
 

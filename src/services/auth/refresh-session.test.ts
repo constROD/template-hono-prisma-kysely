@@ -34,6 +34,8 @@ const mockUser = {
   email: 'test@example.com',
 };
 
+const { dbClient } = mockDbClient;
+
 describe('refreshSessionAuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -57,7 +59,7 @@ describe('refreshSessionAuthService', () => {
     mockDependencies.generateJWT.mockReturnValueOnce('newAccessToken');
 
     const result = await refreshSessionAuthService({
-      dbClient: mockDbClient.dbClientTransaction,
+      dbClient,
       payload,
       dependencies: mockDependencies,
     });
@@ -79,7 +81,7 @@ describe('refreshSessionAuthService', () => {
     });
 
     expect(mockDependencies.getSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       accountId: mockRefreshTokenPayload.accountId,
     });
 
@@ -95,13 +97,13 @@ describe('refreshSessionAuthService', () => {
     });
 
     expect(mockDependencies.updateSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       id: mockSessionData.id,
       values: { refresh_token: 'newRefreshToken' },
     });
 
     expect(mockDependencies.getUserData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       id: mockRefreshTokenPayload.accountId,
     });
 
@@ -129,7 +131,7 @@ describe('refreshSessionAuthService', () => {
 
     await expect(
       refreshSessionAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
@@ -153,7 +155,7 @@ describe('refreshSessionAuthService', () => {
 
     await expect(
       refreshSessionAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
@@ -180,7 +182,7 @@ describe('refreshSessionAuthService', () => {
 
     await expect(
       refreshSessionAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
@@ -194,7 +196,7 @@ describe('refreshSessionAuthService', () => {
       secretOrPublicKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
     });
     expect(mockDependencies.getSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       accountId: mockRefreshTokenPayload.accountId,
     });
   });
@@ -211,7 +213,7 @@ describe('refreshSessionAuthService', () => {
 
     await expect(
       refreshSessionAuthService({
-        dbClient: mockDbClient.dbClientTransaction,
+        dbClient,
         payload,
         dependencies: mockDependencies,
       })
@@ -225,7 +227,7 @@ describe('refreshSessionAuthService', () => {
       secretOrPublicKey: envConfig.JWT_REFRESH_TOKEN_SECRET,
     });
     expect(mockDependencies.getSessionData).toHaveBeenCalledWith({
-      dbClient: mockDbClient.dbClient,
+      dbClient,
       accountId: mockRefreshTokenPayload.accountId,
     });
   });
