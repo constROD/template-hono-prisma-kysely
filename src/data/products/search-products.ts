@@ -60,14 +60,8 @@ export async function searchProductsData({
   }
 
   let recordQuery = baseQuery
+    .selectAll('products')
     .select([
-      'products.id',
-      'products.created_at',
-      'products.updated_at',
-      'products.deleted_at',
-      'products.name',
-      'products.description',
-      'products.price',
       /* users */
       'users.id as user_id',
       'users.created_at as user_created_at',
