@@ -4,13 +4,15 @@ import { describe, expect, it, vi } from 'vitest';
 import { mockHonoContext } from './__test-utils__/mock-openapi-hono';
 import { setUpDbClientMiddleware } from './set-up-db-client';
 
+const { dbClient } = mockDbClient;
+
 describe('setUpDbClientMiddleware', () => {
   it('should set up the dbClient in the context and call next', async () => {
     const mockNext = vi.fn();
 
     await setUpDbClientMiddleware(mockHonoContext as unknown as Context, mockNext);
 
-    expect(mockHonoContext.set).toHaveBeenCalledWith('dbClient', mockDbClient.dbClient);
+    expect(mockHonoContext.set).toHaveBeenCalledWith('dbClient', dbClient);
     expect(mockNext).toHaveBeenCalled();
   });
 });
