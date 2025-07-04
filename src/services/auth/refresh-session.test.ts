@@ -7,7 +7,6 @@ import { refreshSessionAuthService } from './refresh-session';
 
 const mockDependencies = {
   getSessionData: vi.fn(),
-  revokeSessionData: vi.fn(),
   updateSessionData: vi.fn(),
   getUserData: vi.fn(),
   verifyJWT: vi.fn(),

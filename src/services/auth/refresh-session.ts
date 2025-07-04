@@ -1,5 +1,4 @@
 import { getSessionData } from '@/data/sessions/get-session';
-import { revokeSessionData } from '@/data/sessions/revoke-session';
 import { updateSessionData } from '@/data/sessions/update-session';
 import { getUserData } from '@/data/users/get-user';
 import type { DbClient } from '@/db/create-db-client';
@@ -10,7 +9,6 @@ import { UnauthorizedError } from '@/utils/errors';
 
 export type RefreshSessionAuthServiceDependencies = {
   getSessionData: typeof getSessionData;
-  revokeSessionData: typeof revokeSessionData;
   updateSessionData: typeof updateSessionData;
   getUserData: typeof getUserData;
   verifyJWT: typeof verifyJWT;
@@ -29,7 +27,6 @@ export async function refreshSessionAuthService({
   payload,
   dependencies = {
     getSessionData,
-    revokeSessionData,
     updateSessionData,
     getUserData,
     verifyJWT,
