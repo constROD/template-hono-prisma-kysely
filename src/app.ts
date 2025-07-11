@@ -7,22 +7,22 @@ import { version } from '../package.json';
 import { STAGES } from './constants/env';
 import { routes } from './controllers/routes';
 import { schemas } from './data/schema';
-import { getEnvConfig } from './env';
 import { errorHandlerMiddleware } from './middlewares/error-handler';
 import { setUpDbClientMiddleware } from './middlewares/set-up-db-client';
 import type { HonoEnv } from './types/hono';
+import { ForbiddenError } from './utils/errors';
 
 const app = new OpenAPIHono<HonoEnv>();
 
-const env = getEnvConfig();
+/* API Docs */
+app.get('/openapi.json', c => {
+  if (c.env.STAGE === STAGES.Prod) throw new ForbiddenError('Not allowed');
 
-if (env.STAGE !== STAGES.Prod) {
-  /* API Docs */
-  app.doc('/openapi.json', {
+  const doc = app.getOpenAPIDocument({
     openapi: '3.0.0',
     info: {
       version,
-      title: `${env.STAGE.toUpperCase()} API`,
+      title: `${c.env.STAGE.toUpperCase()} API`,
       description: 'API Documentation',
     },
     externalDocs: {
@@ -30,38 +30,51 @@ if (env.STAGE !== STAGES.Prod) {
       url: '/reference',
     },
   });
-  app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
-    type: 'http',
-    scheme: 'bearer',
-    bearerFormat: 'JWT',
-  });
 
-  /* Register Schemas */
-  Object.entries(schemas).forEach(([key, value]) => {
-    app.openAPIRegistry.register(key, value);
-  });
-
-  /* API Docs */
-  app.get('/swagger', swaggerUI({ url: '/openapi.json' }));
-  app.get('/reference', apiReference({ spec: { url: '/openapi.json' } }));
-}
-
-const ALLOWED_ORIGINS = ['https://yourdomain.com', 'https://www.yourdomain.com'];
-
-if (env.STAGE !== STAGES.Prod) {
-  ALLOWED_ORIGINS.push('http://localhost:3000');
-  ALLOWED_ORIGINS.push('http://localhost:5173');
-}
+  return c.json(doc);
+});
+app.get(
+  '/swagger',
+  (c, next) => {
+    if (c.env.STAGE === STAGES.Prod) throw new ForbiddenError('Not allowed');
+    return next();
+  },
+  swaggerUI({ url: '/openapi.json' })
+);
+app.get(
+  '/reference',
+  (c, next) => {
+    if (c.env.STAGE === STAGES.Prod) throw new ForbiddenError('Not allowed');
+    return next();
+  },
+  apiReference({ spec: { url: '/openapi.json' } })
+);
+app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
+  type: 'http',
+  scheme: 'bearer',
+  bearerFormat: 'JWT',
+});
+Object.entries(schemas).forEach(([key, value]) => {
+  app.openAPIRegistry.register(key, value);
+});
 
 /* Global Middlewares */
 app.onError(errorHandlerMiddleware);
-app.use(
-  cors({
+app.use('*', (c, next) => {
+  const ALLOWED_ORIGINS = ['https://yourdomain.com', 'https://www.yourdomain.com'];
+
+  if (c.env.STAGE !== STAGES.Prod) {
+    ALLOWED_ORIGINS.push('http://localhost:3000');
+    ALLOWED_ORIGINS.push('http://localhost:5173');
+  }
+
+  const corsMiddlewareHandler = cors({
     origin: ALLOWED_ORIGINS,
     credentials: true,
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  })
-);
+  });
+  return corsMiddlewareHandler(c, next);
+});
 app.use(logger());
 app.use(setUpDbClientMiddleware);
 
