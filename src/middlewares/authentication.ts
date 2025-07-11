@@ -92,7 +92,7 @@ export async function authenticationMiddleware(c: Context<HonoEnv>, next: Next) 
     } satisfies Session);
   } catch (err) {
     const error = makeError(err as Error);
-    if (error.error.message === 'Token expired') {
+    if (error.error.message.toLowerCase().includes('token expired')) {
       await refreshSession({
         session: {
           email: storedAccessTokenPayload.email,
