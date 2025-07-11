@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "clean": "rm -rf ./dist ./.wrangler",
-    "secrets:dev": "wrangler secret bulk ./.env.dev",
+    "secrets:dev": "wrangler secret bulk ./.env.dev --env=dev",
     "secrets:prod": "wrangler secret bulk ./.env.prod --env=prod",
     "deploy:dev": "wrangler deploy --env=dev",
     "deploy:prod": "wrangler deploy --env=prod",
