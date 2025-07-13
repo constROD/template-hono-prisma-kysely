@@ -6,7 +6,7 @@ import { userSchemaFields } from '../users/schema';
 import { productSchemaFields } from './schema';
 
 export type SearchProductFilters = {
-  searchText?: string;
+  q?: string;
   userId?: string;
   startDate?: Date | string;
   endDate?: Date | string;
@@ -39,11 +39,11 @@ export async function searchProductsData({
     baseQuery = baseQuery.where('products.deleted_at', 'is', null);
   }
 
-  if (filters?.searchText) {
+  if (filters?.q) {
     baseQuery = baseQuery.where(eb =>
       eb.or([
-        eb('products.name', 'ilike', `%${filters.searchText}%`),
-        eb('products.description', 'ilike', `%${filters.searchText}%`),
+        eb('products.name', 'ilike', `%${filters.q}%`),
+        eb('products.description', 'ilike', `%${filters.q}%`),
       ])
     );
   }
