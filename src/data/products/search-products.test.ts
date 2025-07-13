@@ -47,7 +47,7 @@ describe('Search Products', () => {
 
     const { records, total_records } = await searchProductsData({
       dbClient,
-      filters: { searchText: 'iphone' },
+      filters: { q: 'iphone' },
     });
 
     expect(records.length).toBe(1);

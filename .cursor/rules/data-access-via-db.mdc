@@ -240,7 +240,7 @@ export type Delete[Entity]DataResponse = Awaited<ReturnType<typeof delete[Entity
 ```typescript
 // search-[entity]s.ts
 export type Search[Entity]sFilters = {
-  searchText?: string;
+  q?: string;
   // Additional filters specific to entity
 };
 
@@ -270,10 +270,10 @@ export async function search[Entity]sData({
   }
 
   // Add filter conditions
-  if (filters?.searchText) {
+  if (filters?.q) {
     baseQuery = baseQuery.where(eb =>
       eb.or([
-        eb('email', 'ilike', `%${filters.searchText}%`),
+        eb('email', 'ilike', `%${filters.q}%`),
         // Additional fields to search
       ])
     );

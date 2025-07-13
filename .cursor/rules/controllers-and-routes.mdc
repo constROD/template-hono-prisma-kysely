@@ -331,7 +331,7 @@ export const unarchive[Resource]RouteHandler: AppRouteHandler<typeof unarchive[R
 // search-[resource]s.ts
 export const search[Resource]sSchema = {
   query: z.object({
-    search_text: z.string().optional(),
+    q: z.string().optional(),
     limit: z.string().optional(),
     page: z.string().optional(),
     sort_by: z.string().optional(),
