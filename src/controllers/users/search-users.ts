@@ -54,7 +54,7 @@ export const searchUsersRouteHandler: AppRouteHandler<typeof searchUsersRoute> =
     limit: query?.limit,
     page: query?.page,
     includeArchived: query?.include_archived === 'true',
-    filters: { searchText: query?.search },
+    filters: { q: query?.search },
   });
 
   return c.json(data, { status: 200 });

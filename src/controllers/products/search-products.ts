@@ -64,7 +64,7 @@ export const searchProductsRouteHandler: AppRouteHandler<typeof searchProductsRo
     page: query?.page,
     includeArchived: query?.include_archived === 'true',
     filters: {
-      searchText: query?.search,
+      q: query?.search,
       userId: query?.user_id,
       startDate: query?.start_date,
       endDate: query?.end_date,
