@@ -75,7 +75,7 @@ describe('Search Users', () => {
 
     const result = await searchUsersData({
       dbClient,
-      filters: { searchText: 'jane' },
+      filters: { q: 'jane' },
     });
 
     expect(result.records).toHaveLength(1);

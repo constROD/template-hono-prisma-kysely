@@ -3,7 +3,7 @@ import type { User } from '@/db/schema';
 import { transformToPaginatedResponse } from '../transform-to-paginated-response';
 
 export type SearchUsersFilters = {
-  searchText?: string;
+  q?: string;
 };
 
 export type SearchUsersDataArgs = {
@@ -31,12 +31,12 @@ export async function searchUsersData({
     baseQuery = baseQuery.where('deleted_at', 'is', null);
   }
 
-  if (filters?.searchText) {
+  if (filters?.q) {
     baseQuery = baseQuery.where(eb =>
       eb.or([
-        eb('first_name', 'ilike', `%${filters.searchText}%`),
-        eb('last_name', 'ilike', `%${filters.searchText}%`),
-        eb('email', 'ilike', `%${filters.searchText}%`),
+        eb('first_name', 'ilike', `%${filters.q}%`),
+        eb('last_name', 'ilike', `%${filters.q}%`),
+        eb('email', 'ilike', `%${filters.q}%`),
       ])
     );
   }
