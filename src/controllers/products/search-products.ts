@@ -13,7 +13,7 @@ export const searchProductsSchema = {
   query: listQuerySchema.extend({
     sort_by: productSchemaFields.optional(),
     sort_by_user_field: userSchemaFields.optional(),
-    search: z.string().optional(),
+    q: z.string().optional(),
     user_id: z.string().optional(),
     start_date: z.string().optional(),
     end_date: z.string().optional(),
@@ -63,7 +63,7 @@ export const searchProductsRouteHandler: AppRouteHandler<typeof searchProductsRo
     page: query?.page,
     includeArchived: query?.include_archived === 'true',
     filters: {
-      q: query?.search,
+      q: query?.q,
       userId: query?.user_id,
       startDate: query?.start_date,
       endDate: query?.end_date,

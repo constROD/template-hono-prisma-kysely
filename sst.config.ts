@@ -9,8 +9,8 @@ import { MeRoutesStack } from 'aws/stacks/api/me';
 import { ProductsRoutesStack } from 'aws/stacks/api/products';
 import { ServerRoutesStack } from 'aws/stacks/api/server';
 import { UsersRoutesStack } from 'aws/stacks/api/users';
-import { SSTConfig } from 'sst';
-import { FunctionProps, NodeJSProps } from 'sst/constructs';
+import type { SSTConfig } from 'sst';
+import type { FunctionProps, NodeJSProps } from 'sst/constructs';
 
 export default {
   config(_input) {
