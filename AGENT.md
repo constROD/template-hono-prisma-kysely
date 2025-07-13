@@ -17,8 +17,8 @@ This is a Hono + Prisma + Kysely backend project with TypeScript and PostgreSQL.
 
 ### 2. Rules and Patterns
 **ALWAYS** check the `rules/` folder for specific implementation patterns before:
-- Creating controllers → See `rules/controller-and-routes.md`
-- Implementing data access → See `rules/data-access-via-api.md` & `rules/data-access-via-api.md`
+- Creating controllers → See `rules/controllers-and-routes.md`
+- Implementing data access → See `rules/data-access-via-db.md` or `rules/data-access-via-api.md`
 - Creating service layers → See `rules/service-layer.md`
 - Writing tests → See `rules/testing-data-access-layer.md`
 - Implementing any feature that might have established patterns
