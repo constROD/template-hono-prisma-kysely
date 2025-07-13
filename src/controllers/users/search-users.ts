@@ -8,7 +8,7 @@ import { createRoute, z } from '@hono/zod-openapi';
 
 export const searchUsersSchema = {
   query: listQuerySchema.extend({
-    search: z.string().optional(),
+    q: z.string().optional(),
     sort_by: userSchemaFields.optional(),
   }),
   response: paginationSchema.extend({
@@ -54,7 +54,7 @@ export const searchUsersRouteHandler: AppRouteHandler<typeof searchUsersRoute> =
     limit: query?.limit,
     page: query?.page,
     includeArchived: query?.include_archived === 'true',
-    filters: { q: query?.search },
+    filters: { q: query?.q },
   });
 
   return c.json(data, { status: 200 });
