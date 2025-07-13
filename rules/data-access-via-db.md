@@ -19,7 +19,6 @@ src/data/[entity-name]/
 ├── schema.ts               # Entity schema definitions
 ├── create-[entity].ts      # Create operation
 ├── get-[entity].ts         # Get single entity
-├── get-[entity]s.ts        # Get multiple entities
 ├── update-[entity].ts      # Update operation
 ├── delete-[entity].ts      # Delete operation
 ├── search-[entity]s.ts     # Search with filters
@@ -36,7 +35,6 @@ src/features/[feature-name]/
     ├── schema.ts           # Feature's schemas
     ├── create-[entity].ts  # Create operation
     ├── get-[entity].ts     # Get single entity
-    ├── get-[entity]s.ts    # Get multiple entities
     ├── update-[entity].ts  # Update operation
     ├── delete-[entity].ts  # Delete operation
     ├── search-[entity]s.ts # Search with filters
@@ -48,7 +46,6 @@ src/features/[feature-name]/
 ### Function Naming
 - `create[Entity]Data`: For creating records
 - `get[Entity]Data`: For retrieving a single record
-- `get[Entity]sData`: For retrieving multiple records
 - `update[Entity]Data`: For updating records
 - `delete[Entity]Data`: For deleting records
 - `search[Entity]sData`: For searching records with filters
@@ -193,54 +190,6 @@ export async function get[Entity]Data({ dbClient, id }: Get[Entity]DataArgs) {
 }
 
 export type Get[Entity]DataResponse = Awaited<ReturnType<typeof get[Entity]Data>>;
-```
-
-### Get Multiple Operation
-```typescript
-// get-[entity]s.ts
-export type Get[Entity]sDataArgs = {
-  dbClient: DbClient;
-  limit?: number;
-  page?: number;
-  sortBy?: keyof [Entity];
-  orderBy?: 'asc' | 'desc';
-  includeArchived?: boolean;
-};
-
-export async function get[Entity]sData({
-  dbClient,
-  limit = 25,
-  page = 1,
-  sortBy = 'created_at',
-  orderBy = 'desc',
-  includeArchived = false,
-}: Get[Entity]sDataArgs) {
-  let baseQuery = dbClient.selectFrom('[entity_table]');
-
-  if (!includeArchived) {
-    baseQuery = baseQuery.where('deleted_at', 'is', null);
-  }
-
-  const records = await baseQuery
-    .selectAll()
-    .limit(limit)
-    .offset((page - 1) * limit)
-    .orderBy(sortBy, orderBy)
-    .execute();
-
-  const allRecords = await baseQuery
-    .select(eb => eb.fn.count('id').as('total_records'))
-    .executeTakeFirst();
-
-  return transformToPaginatedResponse({
-    records,
-    totalRecords: Number(allRecords?.total_records) ?? 0,
-    limit,
-    page,
-  });
-}
-
-export type Get[Entity]sDataResponse = Awaited<ReturnType<typeof get[Entity]sData>>;
 ```
 
 ### Update Operation
