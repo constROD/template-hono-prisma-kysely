@@ -2,6 +2,7 @@ import { getProductsData, type GetProductsDataArgs } from '@/data/products/get-p
 import { productSchemaFields, productSchemaOpenApi } from '@/data/products/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import type { AppRouteHandler } from '@/types/hono';
+import { parseStringBoolean } from '@/utils/query';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 
@@ -51,7 +52,7 @@ export const getProductsRouteHandler: AppRouteHandler<typeof getProductsRoute> =
     orderBy: query?.order_by,
     limit: query?.limit,
     page: query?.page,
-    includeArchived: query?.include_archived === 'true',
+    includeArchived: parseStringBoolean(query?.include_archived),
   });
 
   return c.json(data, { status: 200 });

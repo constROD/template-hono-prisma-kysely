@@ -3,6 +3,7 @@ import { searchProductsData, type SearchProductsDataArgs } from '@/data/products
 import { userSchemaFields } from '@/data/users/schema';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import type { AppRouteHandler } from '@/types/hono';
+import { parseStringBoolean } from '@/utils/query';
 import { listQuerySchema, paginationSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import {
@@ -62,7 +63,7 @@ export const searchProductsRouteHandler: AppRouteHandler<typeof searchProductsRo
     orderBy: query?.order_by,
     limit: query?.limit,
     page: query?.page,
-    includeArchived: query?.include_archived === 'true',
+    includeArchived: parseStringBoolean(query?.include_archived),
     filters: {
       q: query?.q,
       userId: query?.user_id,
