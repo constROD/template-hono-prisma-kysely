@@ -60,7 +60,6 @@ export async function authenticationMiddleware(c: Context<HonoEnv>, next: Next) 
       envConfig.COOKIE_SECRET,
       getAccessTokenCookieOptions(envConfig.STAGE)
     );
-
     await setSignedCookie(
       c,
       COOKIE_NAMES.refreshToken,
