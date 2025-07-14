@@ -4,6 +4,7 @@ import { decodeJWT, verifyJWT } from '@/lib/jwt';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';
 import type { AccessTokenJWTPayload, Session } from '@/types/auth';
 import type { HonoEnv } from '@/types/hono';
+import { getAccessTokenCookieOptions, getRefreshTokenCookieOptions } from '@/utils/cookie-options';
 import { makeError, UnauthorizedError } from '@/utils/errors';
 import type { Context, Next } from 'hono';
 import { getSignedCookie, setSignedCookie } from 'hono/cookie';
@@ -52,21 +53,21 @@ export async function authenticationMiddleware(c: Context<HonoEnv>, next: Next) 
       refreshToken: newRefreshToken,
     } satisfies Session);
 
-    await setSignedCookie(c, COOKIE_NAMES.accessToken, newAccessToken, envConfig.COOKIE_SECRET, {
-      httpOnly: true, // Prevents JavaScript access
-      secure: true, // Only sent over HTTPS
-      sameSite: 'Strict', // Prevents cross-site request forgery
-      path: '/', // Available across the entire site
-      maxAge: 60 * 60 * 24 * 1, // 1 day (in seconds)
-    });
+    await setSignedCookie(
+      c,
+      COOKIE_NAMES.accessToken,
+      newAccessToken,
+      envConfig.COOKIE_SECRET,
+      getAccessTokenCookieOptions(envConfig.STAGE)
+    );
 
-    await setSignedCookie(c, COOKIE_NAMES.refreshToken, newRefreshToken, envConfig.COOKIE_SECRET, {
-      httpOnly: true, // Prevents JavaScript access
-      secure: true, // Only sent over HTTPS
-      sameSite: 'Strict', // Prevents cross-site request forgery
-      path: '/', // Available across the entire site
-      maxAge: 60 * 60 * 24 * 30, // 30 days (in seconds)
-    });
+    await setSignedCookie(
+      c,
+      COOKIE_NAMES.refreshToken,
+      newRefreshToken,
+      envConfig.COOKIE_SECRET,
+      getRefreshTokenCookieOptions(envConfig.STAGE)
+    );
   }
 
   const storedAccessTokenPayload = decodeJWT<AccessTokenJWTPayload>({

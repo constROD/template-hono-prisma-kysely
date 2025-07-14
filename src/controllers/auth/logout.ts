@@ -1,8 +1,10 @@
 import { COOKIE_NAMES } from '@/constants/cookies';
 import { revokeSessionData } from '@/data/sessions/revoke-session';
+import { envConfig } from '@/env';
 import { authenticationMiddleware } from '@/middlewares/authentication';
 import type { Session } from '@/types/auth';
 import type { AppRouteHandler } from '@/types/hono';
+import { getDeleteCookieOptions } from '@/utils/cookie-options';
 import { createRoute, z } from '@hono/zod-openapi';
 import { deleteCookie } from 'hono/cookie';
 
@@ -34,17 +36,8 @@ export const logoutAuthRouteHandler: AppRouteHandler<typeof logoutAuthRoute> = a
   const dbClient = c.get('dbClient');
   const session = c.get('session') as Session;
 
-  deleteCookie(c, COOKIE_NAMES.accessToken, {
-    path: '/',
-    secure: true,
-    httpOnly: true,
-  });
-
-  deleteCookie(c, COOKIE_NAMES.refreshToken, {
-    path: '/',
-    secure: true,
-    httpOnly: true,
-  });
+  deleteCookie(c, COOKIE_NAMES.accessToken, getDeleteCookieOptions(envConfig.STAGE));
+  deleteCookie(c, COOKIE_NAMES.refreshToken, getDeleteCookieOptions(envConfig.STAGE));
 
   await revokeSessionData({ dbClient, accountId: session.accountId });
 

@@ -1,7 +1,12 @@
+import { COOKIE_NAMES } from '@/constants/cookies';
+import { envConfig } from '@/env';
+import { loginAuthService } from '@/services/auth/login';
 import { registerAuthService } from '@/services/auth/register';
 import type { AppRouteHandler } from '@/types/hono';
+import { getAccessTokenCookieOptions, getRefreshTokenCookieOptions } from '@/utils/cookie-options';
 import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
+import { setSignedCookie } from 'hono/cookie';
 
 export const registerAuthSchema = {
   body: z.object({ email: emailSchema, password: passwordSchema }),
@@ -45,6 +50,23 @@ export const registerAuthRouteHandler: AppRouteHandler<typeof registerAuthRoute>
   const body = c.req.valid('json');
 
   await registerAuthService({ dbClient, payload: body });
+
+  const { accessToken, refreshToken } = await loginAuthService({ dbClient, payload: body });
+
+  await setSignedCookie(
+    c,
+    COOKIE_NAMES.accessToken,
+    accessToken,
+    envConfig.COOKIE_SECRET,
+    getAccessTokenCookieOptions(envConfig.STAGE)
+  );
+  await setSignedCookie(
+    c,
+    COOKIE_NAMES.refreshToken,
+    refreshToken,
+    envConfig.COOKIE_SECRET,
+    getRefreshTokenCookieOptions(envConfig.STAGE)
+  );
 
   return c.json('Account registered successfully', { status: 201 });
 };

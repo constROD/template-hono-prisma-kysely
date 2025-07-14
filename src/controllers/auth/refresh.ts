@@ -5,6 +5,7 @@ import { authenticationMiddleware } from '@/middlewares/authentication';
 import { refreshSessionAuthService } from '@/services/auth/refresh-session';
 import type { Session } from '@/types/auth';
 import type { AppRouteHandler } from '@/types/hono';
+import { getAccessTokenCookieOptions, getRefreshTokenCookieOptions } from '@/utils/cookie-options';
 import { createRoute, z } from '@hono/zod-openapi';
 import { setSignedCookie } from 'hono/cookie';
 
@@ -47,21 +48,20 @@ export const refreshAuthRouteHandler: AppRouteHandler<typeof refreshAuthRoute> =
     payload: { session, refreshToken: session.refreshToken },
   });
 
-  await setSignedCookie(c, COOKIE_NAMES.accessToken, accessToken, envConfig.COOKIE_SECRET, {
-    httpOnly: true, // Prevents JavaScript access
-    secure: true, // Only sent over HTTPS
-    sameSite: 'Strict', // Prevents cross-site request forgery
-    path: '/', // Available across the entire site
-    maxAge: 60 * 60 * 24 * 1, // 1 day (in seconds)
-  });
-
-  await setSignedCookie(c, COOKIE_NAMES.refreshToken, refreshToken, envConfig.COOKIE_SECRET, {
-    httpOnly: true, // Prevents JavaScript access
-    secure: true, // Only sent over HTTPS
-    sameSite: 'Strict', // Prevents cross-site request forgery
-    path: '/', // Available across the entire site
-    maxAge: 60 * 60 * 24 * 30, // 30 days (in seconds)
-  });
+  await setSignedCookie(
+    c,
+    COOKIE_NAMES.accessToken,
+    accessToken,
+    envConfig.COOKIE_SECRET,
+    getAccessTokenCookieOptions(envConfig.STAGE)
+  );
+  await setSignedCookie(
+    c,
+    COOKIE_NAMES.refreshToken,
+    refreshToken,
+    envConfig.COOKIE_SECRET,
+    getRefreshTokenCookieOptions(envConfig.STAGE)
+  );
 
   const response = {
     user,
