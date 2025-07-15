@@ -52,6 +52,10 @@ export async function registerAuthService({
       values: {
         email: payload.email,
         password: hashedPassword,
+        reset_code: null,
+        reset_code_expires: null,
+        reset_attempts: 0,
+        reset_blocked_until: null,
       },
     });
 

@@ -1,12 +1,4 @@
-import type {
-  accounts,
-  DB,
-  feature_flags,
-  products,
-  sessions,
-  UserRoleType,
-  users,
-} from './types';
+import type { accounts, DB, feature_flags, products, sessions, UserRoleType, users } from './types';
 
 /**
  * Utility type to override specific field types from database tables:
@@ -63,8 +55,17 @@ export type OverrideFeatureFlags = Omit<OverrideCommonFields<feature_flags>, 'js
   json: Array<FeatureFlagScope>;
 };
 
+type OverrideAccounts = Omit<
+  OverrideCommonFields<accounts>,
+  'reset_attempts' | 'reset_code_expires' | 'reset_blocked_until'
+> & {
+  reset_attempts: number;
+  reset_code_expires: Date | string | null;
+  reset_blocked_until: Date | string | null;
+};
+
 export type User = OverrideUsers;
-export type Account = OverrideCommonFields<accounts>;
+export type Account = OverrideAccounts;
 export type Session = OverrideCommonFields<sessions>;
 export type FeatureFlag = OverrideFeatureFlags;
 export type Product = OverrideCommonFields<products>;

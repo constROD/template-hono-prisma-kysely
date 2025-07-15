@@ -45,6 +45,12 @@ model accounts {
   email      String    @unique
   password   String
 
+  // Password Reset Fields
+  reset_code          String?   @db.VarChar(6)
+  reset_code_expires  DateTime? @db.Timestamptz(6)
+  reset_attempts      Int       @default(0)
+  reset_blocked_until DateTime? @db.Timestamptz(6)
+
   // Relations
   sessions sessions[]
 

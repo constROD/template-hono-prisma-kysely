@@ -10,6 +10,10 @@ export function makeFakeAccount(overrides?: Partial<Account>) {
     deleted_at: null,
     email: faker.internet.email().toLowerCase(),
     password: faker.string.uuid(),
+    reset_code: null,
+    reset_code_expires: null,
+    reset_attempts: 0,
+    reset_blocked_until: null,
     ...overrides,
   } satisfies Account;
 }

@@ -17,6 +17,10 @@ export type accounts = {
     deleted_at: Timestamp | null;
     email: string;
     password: string;
+    reset_code: string | null;
+    reset_code_expires: Timestamp | null;
+    reset_attempts: Generated<number>;
+    reset_blocked_until: Timestamp | null;
 };
 export type feature_flags = {
     id: Generated<string>;

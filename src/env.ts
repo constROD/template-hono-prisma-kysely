@@ -17,6 +17,7 @@ const envSchema = z.object({
   TEST_DB_MIGRATION_URL: z.string(),
   JWT_ACCESS_TOKEN_SECRET: z.string(),
   JWT_REFRESH_TOKEN_SECRET: z.string(),
+  JWT_PASSWORD_TOKEN_SECRET: z.string(),
   COOKIE_SECRET: z.string(),
 });
 
@@ -29,6 +30,7 @@ export const envConfig = envSchema.parse({
   TEST_DB_MIGRATION_URL: process.env.TEST_DB_MIGRATION_URL,
   JWT_ACCESS_TOKEN_SECRET: process.env.JWT_ACCESS_TOKEN_SECRET,
   JWT_REFRESH_TOKEN_SECRET: process.env.JWT_REFRESH_TOKEN_SECRET,
+  JWT_PASSWORD_TOKEN_SECRET: process.env.JWT_PASSWORD_TOKEN_SECRET,
   COOKIE_SECRET: process.env.COOKIE_SECRET,
 });
 
