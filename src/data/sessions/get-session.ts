@@ -12,14 +12,14 @@ export async function getSessionData({ dbClient, id, accountId }: GetSessionData
     throw new BadRequestError('Either id or accountId must be provided.');
   }
 
-  const baseQuery = dbClient.selectFrom('sessions');
+  let baseQuery = dbClient.selectFrom('sessions');
 
   if (id) {
-    baseQuery.where('id', '=', id);
+    baseQuery = baseQuery.where('id', '=', id);
   }
 
   if (accountId) {
-    baseQuery.where('account_id', '=', accountId);
+    baseQuery = baseQuery.where('account_id', '=', accountId);
   }
 
   const record = await baseQuery
