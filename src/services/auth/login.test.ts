@@ -142,7 +142,7 @@ describe('loginAuthService', () => {
         payload,
         dependencies: mockDependencies,
       })
-    ).rejects.toThrow(new BadRequestError('Invalid credentials.'));
+    ).rejects.toThrow(new BadRequestError('Invalid credentials'));
 
     expect(mockDependencies.getAccountData).toHaveBeenCalledWith({
       dbClient,

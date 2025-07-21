@@ -3,12 +3,14 @@ import { envConfig } from '@/env';
 import { loginAuthService } from '@/services/auth/login';
 import type { AppRouteHandler } from '@/types/hono';
 import { getAccessTokenCookieOptions, getRefreshTokenCookieOptions } from '@/utils/cookie-options';
-import { emailSchema, passwordSchema } from '@/utils/zod-schemas';
 import { createRoute, z } from '@hono/zod-openapi';
 import { setSignedCookie } from 'hono/cookie';
 
 export const loginAuthSchema = {
-  body: z.object({ email: emailSchema, password: passwordSchema }),
+  body: z.object({
+    email: z.string().min(8, 'Invalid credentials').email('Invalid credentials'),
+    password: z.string().min(8, 'Invalid credentials'),
+  }),
   response: z.object({
     access_token: z.string(),
     refresh_token: z.string(),

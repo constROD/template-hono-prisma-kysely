@@ -49,7 +49,7 @@ export async function loginAuthService({
     });
 
     if (!isPasswordCorrect) {
-      throw new BadRequestError('Invalid credentials.');
+      throw new BadRequestError('Invalid credentials');
     }
 
     await dependencies.revokeSessionData({ dbClient: dbClientTrx, accountId: existingAccount.id });
