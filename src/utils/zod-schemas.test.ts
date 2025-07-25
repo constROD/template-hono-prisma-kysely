@@ -9,25 +9,33 @@ import {
 
 describe('emailSchema', () => {
   it.each([
-    { email: 'TesT@gMail.Com', valid: true },
-    { email: '  TesT@gMail.Com  ', valid: false },
-    { email: 'TesT@gMail.Com  ', valid: false },
-    { email: '', valid: false },
-    { email: null, valid: false },
-    { email: undefined, valid: false },
-  ])(
-    'should validate correct email and transform to lowercase: email($email) | valid($valid)',
-    ({ email, valid }) => {
-      const results = emailSchema.safeParse(email);
+    { email: 'test@gmail.com', valid: true, reason: 'Gmail address without dots' },
+    { email: 'test@example.com', valid: true, reason: 'Non-Gmail address' },
+    { email: 'TesT@example.Com', valid: true, reason: 'Valid email with mixed case' },
+    { email: '  TesT@example.Com  ', valid: true, reason: 'Valid email with spaces' },
+    { email: 'test+123@gmail.com', valid: false, reason: 'Plus addressing' },
+    { email: 'test+tag@example.com', valid: false, reason: 'Plus addressing on non-Gmail' },
+    { email: 'te.st@gmail.com', valid: true, reason: 'Gmail with dots' },
+    { email: 't.e.s.t@gmail.com', valid: true, reason: 'Gmail with multiple dots' },
+    { email: 'test@googlemail.com', valid: true, reason: 'Googlemail domain without dots' },
+    { email: 'test.name@googlemail.com', valid: true, reason: 'Googlemail with dots' },
+    { email: 'test.name@example.com', valid: true, reason: 'Non-Gmail with dots allowed' },
+    { email: '.test@example.com', valid: false, reason: 'Dot at start' },
+    { email: 'test.@example.com', valid: false, reason: 'Dot at end' },
+    { email: 'test..name@example.com', valid: false, reason: 'Consecutive dots' },
+    { email: '', valid: false, reason: 'Empty string' },
+    { email: null, valid: false, reason: 'Null value' },
+    { email: undefined, valid: false, reason: 'Undefined value' },
+  ])('should validate email: $reason - email($email) | valid($valid)', ({ email, valid }) => {
+    const results = emailSchema.safeParse(email);
 
-      if (results.success) {
-        expect(results.success).toBe(valid);
-        expect(results.data).toBe(email?.toLowerCase());
-      }
-
+    if (results.success) {
       expect(results.success).toBe(valid);
+      expect(results.data).toBe(email?.trim().toLowerCase());
     }
-  );
+
+    expect(results.success).toBe(valid);
+  });
 });
 
 describe('passwordSchema', () => {
@@ -85,6 +93,7 @@ describe('decimalNumberSchema', () => {
 describe('paginationSchema', () => {
   it('should validate pagination data', () => {
     const paginationData = {
+      total_records: 100,
       total_pages: 10,
       current_page: 1,
       next_page: 2,
@@ -99,6 +108,7 @@ describe('paginationSchema', () => {
 
   it('should return error for invalid pagination data', () => {
     const paginationData = {
+      total_records: 100,
       total_pages: true,
       current_page: 1,
       next_page: '123',

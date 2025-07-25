@@ -15,17 +15,21 @@ const app = new OpenAPIHono<HonoEnv>();
 
 if (envConfig.STAGE !== STAGES.Prod) {
   /* API Docs */
-  app.doc('/openapi.json', {
-    openapi: '3.0.0',
-    info: {
-      version,
-      title: `${envConfig.STAGE.toUpperCase()} API`,
-      description: 'API Documentation',
-    },
-    externalDocs: {
-      description: 'API Reference',
-      url: '/reference',
-    },
+  app.get('/openapi.json', c => {
+    const doc = app.getOpenAPIDocument({
+      openapi: '3.0.0',
+      info: {
+        version,
+        title: `${envConfig.STAGE.toUpperCase()} API`,
+        description: 'API Documentation',
+      },
+      externalDocs: {
+        description: 'API Reference',
+        url: '/reference',
+      },
+    });
+
+    return c.json(doc);
   });
   app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
     type: 'http',

@@ -1,7 +1,25 @@
 import { z } from 'zod';
 import { isValidStringDecimalNumber } from './number';
 
-export const emailSchema = z.string().email('Please enter a valid email address.').toLowerCase();
+export const emailSchema = z
+  .string()
+  .trim()
+  .email()
+  .toLowerCase()
+  .refine(email => {
+    // Reject plus signs if you still want to
+    if (email.includes('+')) return false;
+
+    const [local] = email.split('@');
+
+    // Leading/trailing dot?
+    if (local?.startsWith('.') || local?.endsWith('.')) return false;
+
+    // Consecutive dots?
+    if (local?.includes('..')) return false;
+
+    return true; // let any number of single dots pass
+  }, 'Email address contains invalid characters or patterns');
 
 const passwordValidationMessages = [
   'Password must be at least 8 characters long',
@@ -30,6 +48,7 @@ export const decimalNumberSchema = z
   });
 
 export const paginationSchema = z.object({
+  total_records: z.number(),
   total_pages: z.number(),
   current_page: z.number(),
   next_page: z.number().nullable(),

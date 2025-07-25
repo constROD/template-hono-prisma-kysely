@@ -21,7 +21,6 @@ export const searchProductsSchema = {
   }),
   response: paginationSchema.extend({
     records: z.array(getProductsWithUserDTOSchema),
-    total_records: z.number(),
   }),
 };
 

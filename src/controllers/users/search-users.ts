@@ -13,7 +13,6 @@ export const searchUsersSchema = {
   }),
   response: paginationSchema.extend({
     records: z.array(userSchemaOpenApi),
-    total_records: z.number(),
   }),
 };
 
