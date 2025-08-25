@@ -10,7 +10,7 @@ export default defineConfig({
       all: true,
       provider: 'v8',
       reporter: ['lcov', 'text-summary'],
-      exclude: ['**/__test-utils__/**'],
+      exclude: ['**/__test-utils__/**', '.sst/**'],
     },
   },
   resolve: { alias: { '@': '/src' } },
