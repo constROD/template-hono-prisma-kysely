@@ -35,11 +35,11 @@ export default {
       bundle: true,
       minify: false,
       sourcemap: true,
-      external: ['prisma'],
+      external: ['prisma', 'pg', 'pg-native'],
     };
     const defaultFunctionProps: FunctionProps = {
       runtime: 'nodejs20.x',
-      nodejs: { esbuild },
+      nodejs: { esbuild, install: ['pg'], format: 'esm' },
       environment: envConfig as unknown as Record<string, string>,
     };
     app.setDefaultFunctionProps(defaultFunctionProps);
