@@ -56,8 +56,6 @@
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.27.4",
     "pg": "^8.13.1",
-    "pino": "^9.5.0",
-    "pino-pretty": "^12.1.0",
     "prisma-kysely": "^1.8.0",
     "zod": "^3.23.8"
   },
