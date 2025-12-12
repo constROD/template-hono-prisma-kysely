@@ -1,9 +1,11 @@
 # Project Structure & Code Organization
 
 ## Package Manager
+
 - Use `pnpm` for all package installations and management
 
 ## Core Libraries and Versions
+
 - Hono: ^4.x.x
 - TypeScript: ^5.x.x
 - Prisma: ^5.x.x
@@ -12,10 +14,10 @@
 - Swagger/OpenAPI: Using @hono/swagger-ui and @hono/zod-openapi
 - Node Server: @hono/node-server
 - Dayjs: ^1.x.x
-- Pino: ^9.x.x (for logging)
 - Docker: For containerization and PostgreSQL database
 
 ## Naming Conventions
+
 - `kebab-case` - for all folders/files
 - `_kebab-case` - for feature domain's specific common modules
 - `PascalCase` - for classes and types
@@ -23,6 +25,7 @@
 - `camelCase` - for functions, zod schemas and etc.
 
 ## Miscellaneous Folders
+
 - `docs` - for any to-do plan workflows or documentation
 - `prompts` - for prompts format
 - `rules` - for standards or rules of the repo
@@ -32,6 +35,7 @@
 - `prisma` - for prisma schema and migrations
 
 ## Common Modules
+
 - `constants` - for constant values
 - `controllers` - for api routes and handlers
   - `controllers/*/dto` - for specific resource request/response DTOs
@@ -46,17 +50,20 @@
 - `services` - for business logic and orchestration of data access layer **(Only if necessary)**
 - `types` - for types
 - `utils` - for utilities
-  
+
 ## Domain Folders
+
 - `src` - main source code and shared common modules
 - `src/features` - main features folder **(Only if necessary)**
 
 ## Files
+
 - `src/env.ts` - for environment variables
-- `src/app.ts` - main entry point 
-- `src/server.ts` - for standalone server 
+- `src/app.ts` - main entry point
+- `src/server.ts` - for standalone server
 
 ## Shared Modules Structure
+
 Shared modules follow this structure:
 
 ```
@@ -78,6 +85,7 @@ src/
 ```
 
 ## Feature Domain Structure (Optional)
+
 When creating new feature files, follow this structure:
 
 ```
@@ -100,6 +108,7 @@ src/features/<feature-name>/
 ## Project Workflow Patterns
 
 - **Pattern 1:** For simple application.
+
   ```mermaid
   graph LR
     subgraph "Pattern 1"
@@ -116,6 +125,7 @@ src/features/<feature-name>/
   ```
 
 - **Pattern 2:** For complex application with strict business logic.
+
   ```mermaid
   graph LR
     subgraph "Pattern 2"
@@ -131,7 +141,9 @@ src/features/<feature-name>/
     classDef controllerStyle fill:#e8f5e9,stroke:#2e7d32
     classDef appStyle fill:#f3e5f5,stroke:#7b1fa2
   ```
+
 - **Pattern 3:** For either simple or complex applications. (**NOTE: This is a more flexible pattern compared to patterns 1 and 2, as sometimes you only need to call the Data Access Layer directly when there's no complex business logic involved, eliminating the need for a Service Layer.**)
+
   ```mermaid
   graph LR
       subgraph "Pattern 3"
