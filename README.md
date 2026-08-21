@@ -1,3 +1,5 @@
+
+
 # Template Hono Prisma Kysely by bossROD
 
 ## Description
@@ -83,6 +85,8 @@ pnpm db:stop
 ```bash
 pnpm dev
 ```
+
+The API documentation is available at `/swagger` and `/reference` in non-production environments.
 
 **Production Mode:**
 
